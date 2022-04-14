@@ -14,16 +14,34 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::middleware(['guest:web'])->group(function(){
+    Route::get('/', function () {
+        return view('auth.login');
+    });
+});
 
+Route::middleware(['auth:web'])->group(function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // /users
+    // /categories
+    // /companies
+    // /suppliers
+    // /customers
+    // /products
+    // /invoices
+    // /reports
+    // /debts
+    // /inventory
+    // /offers
+
+});
 
 Route::get('/{page}',[AdminController::class,'index']);
 
