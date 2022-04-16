@@ -17,16 +17,16 @@
 						</div>
 					</div>
 					<div class="main-header-right">
-						<ul class="nav">
-							<li class="">
-								<div class="dropdown  nav-itemd-none d-md-flex">
+						{{-- <ul class="nav">
+							<li class=""> --}}
+								{{-- <div class="dropdown  nav-itemd-none d-md-flex"> --}}
 									{{-- <a href="#" class="d-flex  nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false">
 										<span class="avatar country-Flag mr-0 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/us_flag.jpg')}}" alt="img"></span>
 										<div class="my-auto">
 											<strong class="mr-2 ml-2 my-auto">English</strong>
 										</div>
 									</a> --}}
-									<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
+									{{-- <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
 										<a href="#" class="dropdown-item d-flex ">
 											<span class="avatar  ml-3 align-self-center bg-transparent"><img src="{{URL::asset('assets/img/flags/french_flag.jpg')}}" alt="img"></span>
 											<div class="d-flex">
@@ -56,11 +56,11 @@
 											<div class="d-flex">
 												<span class="mt-2">spain</span>
 											</div>
-										</a>
-									</div>
-								</div>
-							</li>
-						</ul>
+										</a> --}}
+									{{-- </div>
+								</div> --}}
+							{{-- </li>
+						</ul> --}}
 						<div class="nav nav-item  navbar-nav-right ml-auto">
 							<div class="nav-link" id="bs-example-navbar-collapse-1">
 								<form class="navbar-form" role="search">
@@ -254,8 +254,7 @@
 										<div class="d-flex wd-100p">
 											<div class="main-img-user"><img alt="" src="{{URL::asset('assets/img/faces/6.jpg')}}" class=""></div>
 											<div class="mr-3 my-auto">
-												{{-- <h6>{{(auth::user()->name != null)?auth::user()->name :'nono'}}</h6> --}}
-												{{-- <span>{{auth::user()->name?auth::user()->name:'nono'}}</span> --}}
+												<h6>{{auth::user()->name}}</h6><span>{{auth::user()->email}}</span>
 											</div>
 										</div>
 									</div>
