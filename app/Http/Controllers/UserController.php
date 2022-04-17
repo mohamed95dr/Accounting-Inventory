@@ -9,8 +9,8 @@ class UserController extends Controller
 {
     public function users()
     {
-        return $users = User::get();
-        // return view('user.users', ['users' => $users]);
+        $users = User::get();
+        return view('users', ['users' => $users]);
     }
     public function userForm()
     {
