@@ -42,7 +42,7 @@ Route::middleware(['auth:web'])->group(function(){
     // /offers
 
 });
-
+Route::view('invoice','invoice');
 Route::get('/{page}',[AdminController::class,'index']);
 
 //test from omran
