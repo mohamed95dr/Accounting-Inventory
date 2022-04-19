@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\CategoriesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +45,8 @@ Route::middleware(['auth:web'])->group(function(){
     // /offers
 
 });
-Route::view('invoice','invoice');
+Route::resource('categories', CategoriesController::class);
+Route::resource('invoice', InvoicesController::class);
 Route::get('/{page}',[AdminController::class,'index']);
 
 //test from omran

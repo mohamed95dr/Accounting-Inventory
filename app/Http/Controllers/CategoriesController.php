@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\invoices;
+use App\Models\Categories;
 use Illuminate\Http\Request;
 
-class InvoicesController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class InvoicesController extends Controller
     public function index()
     {
         //
-        return view('invoice');
+        return view('categories');
     }
 
     /**
@@ -37,15 +37,16 @@ class InvoicesController extends Controller
     public function store(Request $request)
     {
         //
+        return $request;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\invoices  $invoices
+     * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function show(invoices $invoices)
+    public function show(Categories $categories)
     {
         //
     }
@@ -53,10 +54,10 @@ class InvoicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\invoices  $invoices
+     * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function edit(invoices $invoices)
+    public function edit(Categories $categories)
     {
         //
     }
@@ -65,10 +66,10 @@ class InvoicesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\invoices  $invoices
+     * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, invoices $invoices)
+    public function update(Request $request, Categories $categories)
     {
         //
     }
@@ -76,10 +77,10 @@ class InvoicesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\invoices  $invoices
+     * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function destroy(invoices $invoices)
+    public function destroy(Categories $categories)
     {
         //
     }
