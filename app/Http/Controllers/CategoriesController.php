@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
@@ -15,7 +16,8 @@ class CategoriesController extends Controller
     public function index()
     {
         //
-        return view('categories');
+        $categories=Categories::all();
+        return view('categories',compact('categories'));
     }
 
     /**
@@ -37,7 +39,25 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         //
-        return $request;
+        $validatedData = $request->validate([
+            'cateory_name' => 'required|unique:categories|max:255',
+        ],
+        [
+            'cateory_name.required' =>'يرجي ادخال اسم القسم',
+            'cateory_name.unique' =>'اسم القسم مسجل مسبقا',
+            'company_name.required' =>'يرجي ادخال اسم الشركة المصنعة',
+        ]);
+
+            Categories::create([
+                'cateory_name' => $request->cateory_name,
+                'company_name' =>$request->company_name,
+                'description' => $request->description,
+                'Created_by' => (Auth::user()->name),
+
+            ]);
+            session()->flash('Add', 'تم اضافة القسم بنجاح ');
+            return redirect('/categories');
+
     }
 
     /**
@@ -72,6 +92,29 @@ class CategoriesController extends Controller
     public function update(Request $request, Categories $categories)
     {
         //
+        $id = $request->id;
+
+        $this->validate($request, [
+
+            'cateory_name' => 'required|max:255|unique:categories,cateory_name,'.$id,
+            'description' => 'required',
+        ],[
+
+            'cateory_name.required' =>'يرجي ادخال اسم الصنف',
+            'cateory_name.unique' =>'اسم الصنف مسجل مسبقا',
+            'description.required' =>'يرجي ادخال البيان',
+
+        ]);
+
+        $categories = Categories::find($id);
+        $categories->update([
+            'cateory_name' => $request->cateory_name,
+            'company_name' => $request->company_name,
+            'description' => $request->description,
+        ]);
+
+        session()->flash('edit','تم تعديل الصنف بنجاج');
+        return redirect('/categories');
     }
 
     /**
@@ -80,8 +123,12 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categories $categories)
+    public function destroy(Request $request)
     {
         //
+        $id = $request->id;
+        Categories::find($id)->delete();
+        session()->flash('delete','تم حذف الصنف بنجاح');
+        return redirect('/categories');
     }
 }

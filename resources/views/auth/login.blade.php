@@ -1,7 +1,7 @@
 @extends('layouts.master2')
 
 @section('title')
-تسجيل الخول
+تسجيل الدخول
 @stop
 
 

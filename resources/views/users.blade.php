@@ -1,212 +1,339 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap Table with Add and Delete Row Feature</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<style>
-body {
-    color: #404E67;
-    background: #F5F7FA;
-    font-family: 'Open Sans', sans-serif;
-}
-.table-wrapper {
-    width: 700px;
-    margin: 30px auto;
-    background: #fff;
-    padding: 20px;	
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
-}
-.table-title {
-    padding-bottom: 10px;
-    margin: 0 0 10px;
-}
-.table-title h2 {
-    margin: 6px 0 0;
-    font-size: 22px;
-}
-.table-title .add-new {
-    float: right;
-    height: 30px;
-    font-weight: bold;
-    font-size: 12px;
-    text-shadow: none;
-    min-width: 100px;
-    border-radius: 50px;
-    line-height: 13px;
-}
-.table-title .add-new i {
-    margin-right: 4px;
-}
-table.table {
-    table-layout: fixed;
-}
-table.table tr th, table.table tr td {
-    border-color: #e9e9e9;
-}
-table.table th i {
-    font-size: 13px;
-    margin: 0 5px;
-    cursor: pointer;
-}
-table.table th:last-child {
-    width: 100px;
-}
-table.table td a {
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 5px;
-    min-width: 24px;
-}    
-table.table td a.add {
-    color: #27C46B;
-}
-table.table td a.edit {
-    color: #FFC107;
-}
-table.table td a.delete {
-    color: #E34724;
-}
-table.table td i {
-    font-size: 19px;
-}
-table.table td a.add i {
-    font-size: 24px;
-    margin-right: -1px;
-    position: relative;
-    top: 3px;
-}    
-table.table .form-control {
-    height: 32px;
-    line-height: 32px;
-    box-shadow: none;
-    border-radius: 2px;
-}
-table.table .form-control.error {
-    border-color: #f50000;
-}
-table.table td .add {
-    display: none;
-}
-</style>
-<script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-	var actions = $("table td:last-child").html();
-	// Append table with add row form on add new button click
-    $(".add-new").click(function(){
-		$(this).attr("disabled", "disabled");
-		var index = $("table tbody tr:last-child").index();
-        var row = '<tr>' +
-            '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-            '<td><input type="text" class="form-control" name="department" id="department"></td>' +
-            '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
-			'<td>' + actions + '</td>' +
-        '</tr>';
-    	$("table").append(row);		
-		$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-	// Add row on add button click
-	$(document).on("click", ".add", function(){
-		var empty = false;
-		var input = $(this).parents("tr").find('input[type="text"]');
-        input.each(function(){
-			if(!$(this).val()){
-				$(this).addClass("error");
-				empty = true;
-			} else{
-                $(this).removeClass("error");
-            }
-		});
-		$(this).parents("tr").find(".error").first().focus();
-		if(!empty){
-			input.each(function(){
-				$(this).parent("td").html($(this).val());
-			});			
-			$(this).parents("tr").find(".add, .edit").toggle();
-			$(".add-new").removeAttr("disabled");
-		}		
-    });
-	// Edit row on edit button click
-	$(document).on("click", ".edit", function(){		
-        $(this).parents("tr").find("td:not(:last-child)").each(function(){
-			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-		});		
-		$(this).parents("tr").find(".add, .edit").toggle();
-		$(".add-new").attr("disabled", "disabled");
-    });
-	// Delete row on delete button click
-	$(document).on("click", ".delete", function(){
-        $(this).parents("tr").remove();
-		$(".add-new").removeAttr("disabled");
-    });
-});
-</script>
-</head>
-<body>
-<div class="container-lg">
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div>
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </div>
-                </div>
+@extends('layouts.master')
+@section('css')
+@endsection
+@section('page-header')
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="my-auto">
+            <div class="d-flex">
+                <h4 class="content-title mb-0 my-auto">المستخدمين</h4>
             </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>email</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mohamed Drwish</td>
-                        <td>Administration</td>
-                        <td>0937479231</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Peter Parker</td>
-                        <td>Customer Service</td>
-                        <td>(313) 555-5735</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Fran Wilson</td>
-                        <td>Human Resources</td>
-                        <td>(503) 555-9931</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>      
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>     
-</body>
-</html>
+
+            <!-- breadcrumb -->
+        @endsection
+        @section('content')
+		@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+ 
+@if(session()->has('Add'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('Add') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+@if(session()->has('delete'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('delete') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+
+@if(session()->has('edit'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ session()->get('edit') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+            <!-- row -->
+            <div class="row">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card mg-b-20">
+                            <div class="card-header pb-0">
+                                <div class="d-flex justify-content-between">
+                                    <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
+                                        data-toggle="modal" href="#modaldemo8">إضافة مستخدم</a>
+
+                                </div>
+
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="table key-buttons text-md-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-bottom-0"> رقم المستخدم</th>
+                                                <th class="border-bottom-0"> اسم المستخدم</th>
+                                                <th class="border-bottom-0"> الإيميل</th>
+                                                <th class="border-bottom-0"> رقم الهاتف</th>
+                                                <th class="border-bottom-0"> العنوان </th>
+
+                                                <th class="border-bottom-0"> الراتب </th>
+                                                <th class="border-bottom-0"> المنصب </th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 0; ?>
+                                            @foreach ($users as $x)
+                                                <?php $i++; ?>
+                                                <tr>
+                                                    <td>{{ $i }}</td>
+                                                    <td> {{ $x->name }}</td>
+                                                    <td>{{ $x->email }}</td>
+                                                    <td>{{ $x->phone }}</td>
+                                                    <td>{{ $x->address }}</td>
+
+                                                    <td>{{ $x->salary }}</td>
+                                                    <td>{{ $x->Role }}</td>
+
+                                                    <td>
+                                                        <a class="modal-effect btn btn-sm btn-info"
+                                                            data-effect="effect-scale" data-id="{{ $x->id }}"
+                                                            data-name="{{ $x->name }}" data-email="{{ $x->email }}"
+                                                            data-address="{{ $x->address }}"
+                                                            data-salary="{{ $x->salary }}"
+                                                            data-Role="{{ $x->Role }}"
+                                                            data-phone="{{ $x->phone }}" data-toggle="modal"
+                                                            href="#exampleModal2" title="تعديل"><i
+                                                                class="las la-pen"></i></a>
+
+                                                        <a class="modal-effect btn btn-sm btn-danger"
+                                                            data-effect="effect-scale" data-id="{{ $x->id }}"
+                                                            data-name="{{ $x->name }}"
+                                                            data-email="{{ $x->email }}"
+                                                            data-address="{{ $x->address }}"
+                                                            data-salary="{{ $x->salary }}"
+                                                            data-Role="{{ $x->Role }}"
+                                                            data-phone="{{ $x->phone }}" data-toggle="modal"
+                                                            href="#modaldemo9" title="حذف"><i
+                                                                class="las la-trash"></i></a>
+
+                                                    </td>
+
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Basic modal -->
+
+                        <div class="modal" id="modaldemo8">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content modal-content-demo">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title">اضافة مستخدم</h6><button aria-label="Close"
+                                            class="close" data-dismiss="modal" type="button"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('users.store') }}" method="post">
+                                            {{ csrf_field() }}
+
+                                            <div class="form-group">
+                                                <label for="name">اسم المستخدم</label>
+                                                <input type="text" class="form-control" id="name" name="name">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"> الايميل </label>
+                                                <input type="text" class="form-control" id="email" name="email">
+                                            </div>
+											<div class="form-group">
+                                                <label for="exampleInputEmail1"> كلمة السر </label>
+                                                <input type="text" class="form-control" id="password" name="password">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">رقم الهاتف</label>
+                                                <input class="form-control" id="phone" name="phone" rows="3" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">العنوان </label>
+                                                <input class="form-control" id="address" name="address" rows="3" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">الراتب </label>
+                                                <input class="form-control" id="salary" name="salary" rows="3" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">المنصب </label>
+                                                <input class="form-control" id="Role" name="Role" rows="3" />
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">تاكيد</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">اغلاق</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Basic modal -->
+                        </div>
+
+
+
+                                        <!-- edit -->
+                                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                       <div class="modal-dialog" role="document">
+                                           <div class="modal-content">
+                                               <div class="modal-header">
+                                                   <h5 class="modal-title" id="exampleModalLabel">تعديل المستخدم</h5>
+                                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                       <span aria-hidden="true">&times;</span>
+                                                   </button>
+                                               </div>
+                                               <div class="modal-body">
+           
+                                                   <form action="users/update" method="post" autocomplete="off">
+                                                       {{method_field('patch')}}
+                                                       {{csrf_field()}}
+                                                       <div class="form-group">
+                                                           <input type="hidden" name="id" id="id" value="">
+                                                           <label for="recipient-name" class="col-form-label">اسم المستخدم:</label>
+                                                           <input class="form-control" name="name" id="name" type="text">
+                                                       </div>
+                                                       <div class="form-group">
+                                                        <input type="hidden" name="id" id="id" value="">
+                                                        <label for="recipient-name" class="col-form-label"> الايميل :</label>
+                                                        <input class="form-control" name="email" id="email" type="text">
+                                                    </div>
+                                                       <div class="form-group">
+                                                           <label for="message-text" class="col-form-label">الرقم:</label>
+                                                           <input class="form-control" id="phone" name="phone"/>
+                                                       </div>
+													   <div class="form-group">
+														<label for="message-text" class="col-form-label">العنوان:</label>
+														<input class="form-control" id="address" name="address"/>
+													</div>
+													<div class="form-group">
+														<label for="message-text" class="col-form-label">الراتب:</label>
+														<input class="form-control" id="salary" name="salary"/>
+													</div>
+													<div class="form-group">
+														<label for="message-text" class="col-form-label">المنصب:</label>
+														<input class="form-control" id="Role" name="Role"/>
+													</div>
+                                               </div>
+                                               <div class="modal-footer">
+                                                   <button type="submit" class="btn btn-primary">تاكيد</button>
+                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                                               </div>
+                                               </form>
+                                           </div>
+                                       </div>
+                                   </div>
+                
+                                   <!-- delete -->
+
+                    <div class="modal" id="modaldemo9">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content modal-content-demo">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">حذف المستخدم</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                                                                                   type="button"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <form action="users/destroy" method="post">
+                                    {{method_field('delete')}}
+                                    {{csrf_field()}}
+                                    <div class="modal-body">
+                                        <p>هل انت متاكد من عملية الحذف ؟</p><br>
+                                        <input type="hidden" name="id" id="id" value="">
+                                        <input class="form-control" name="name" id="name" type="text" readonly>
+                                        <input class="form-control" name="email" id="email" type="text" readonly>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                                        <button type="submit" class="btn btn-danger">تاكيد</button>
+                                    </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+
+                        <!-- row closed -->
+                    </div>
+                    <!-- Container closed -->
+                </div>
+                <!-- main-content closed -->
+            @endsection
+            @section('js')
+                <!-- Internal Data tables -->
+                <script src="{{ URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.dataTables.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/jquery.dataTables.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/jszip.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/pdfmake.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/vfs_fonts.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/buttons.html5.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/buttons.print.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/buttons.colVis.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
+                <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
+                <!--Internal  Datatable js -->
+                <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
+                <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
+                {{-- edit button --}}
+                <script>
+                    $('#exampleModal2').on('show.bs.modal', function(event) {
+                        var button = $(event.relatedTarget)
+                        // var id = button.data('id')
+                        var name = button.data('name')
+                        var email = button.data('email')
+                        var phone = button.data('phone')
+                        var address = button.data('address')
+                        var salary = button.data('salary')
+                        var Role = button.data('Role')
+
+                        var modal = $(this)
+                        // modal.find('.modal-body #id').val(id);
+                        modal.find('.modal-body #name').val(name);
+                        modal.find('.modal-body #email').val(email);
+                        modal.find('.modal-body #phone').val(phone);
+                        modal.find('.modal-body #address').val(address);
+                        modal.find('.modal-body #salary').val(salary);
+                        modal.find('.modal-body #Role').val(Role);
+
+
+                    })
+                </script>
+                {{-- delete button --}}
+                <script>
+                    $('#modaldemo9').on('show.bs.modal', function(event) {
+                        var button = $(event.relatedTarget)
+                        // var id = button.data('id')
+                        var name = button.data('name')
+                        var email = button.data('email')
+                        var phone = button.data('phone')
+                        var address = button.data('address')
+                        var salary = button.data('salary')
+                        var Role = button.data('Role')
+
+                        var modal = $(this)
+                        // modal.find('.modal-body #id').val(id);
+                        modal.find('.modal-body #name').val(name);
+                        modal.find('.modal-body #email').val(email);
+                        modal.find('.modal-body #phone').val(phone);
+                        modal.find('.modal-body #address').val(address);
+                        modal.find('.modal-body #salary').val(salary);
+                        modal.find('.modal-body #Role').val(Role);
+                    })
+                </script>
+            @endsection

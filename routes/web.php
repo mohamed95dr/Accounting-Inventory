@@ -2,19 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-<<<<<<< HEAD
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\CategoriesController;
-
-=======
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
->>>>>>> 5c79d8f23e0efcca9ab0223fa095e207b0324503
+
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UsersController;
+
+// use App\Http\Controllers\UserController;
+// use App\Http\Controllers\CategoryController;
+// use App\Http\Controllers\CompanyController;
+// use App\Http\Controllers\SupplierController;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +29,14 @@ use Illuminate\Support\Facades\Redirect;
 */
 
 
-
+// Route::get('/',function(){
+//     return view('auth.register');
+// });
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['guest:web'])->group(function () {
     Route::get('/', function () {
@@ -48,17 +52,9 @@ Route::middleware(['auth:web'])->group(function () {
     });
 
     //return all users
-    Route::get('/users', [UserController::class, 'users']);
-    //return form to new user 
-    Route::get('/new-user', [UserController::class, 'userForm']);
-    // save user
-    Route::post('/save-user', [UserController::class, 'store']);
-    // delete user
-    Route::get('/user/{id}', [UserController::class, 'delete']);
-    //return form to update user info
-    Route::get('/update-user/{id}', [UserController::class, 'updateForm']);
-    //save new user info
-    Route::get('/update-user/{id}', [UserController::class, 'saveUpdate']);
+    Route::resource('/users',UsersController::class);
+    ///
+
 
     // /categories
     //return all categories
@@ -109,7 +105,7 @@ Route::middleware(['auth:web'])->group(function () {
 
     // /customers
     Route::resource('customer','App\Http\Controllers\CustomerController');
-    // /products
+    //products
     Route::resource('product','App\Http\Controllers\ProductController');
     // /invoices
     Route::resource('invoic','App\Http\Controllers\InvoiceController');
@@ -123,13 +119,10 @@ Route::middleware(['auth:web'])->group(function () {
     Route::resource('offer','App\Http\Controllers\OfferController');
 
 });
-<<<<<<< HEAD
+Route::resource('products', ProductsController::class);
 Route::resource('categories', CategoriesController::class);
 Route::resource('invoice', InvoicesController::class);
-Route::get('/{page}',[AdminController::class,'index']);
-=======
-
 // Route::get('/{page}',[AdminController::class,'index']);
->>>>>>> 5c79d8f23e0efcca9ab0223fa095e207b0324503
+
 
 //test from omran

@@ -1,457 +1,401 @@
 @extends('layouts.master')
+@section('title')
+    المنتجات
+@endsection
 @section('css')
-<!-- Internal Nice-select css  -->
-<link href="{{URL::asset('assets/plugins/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet"/>
+    <!-- Internal Data table css -->
+    <link href="{{ URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endsection
 @section('page-header')
-				<!-- breadcrumb -->
-				<div class="breadcrumb-header justify-content-between">
-					<div class="my-auto">
-						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">Ecommerce</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Products</span>
-						</div>
-					</div>
-					<div class="d-flex my-xl-auto right-content">
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-danger btn-icon ml-2"><i class="mdi mdi-star"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button>
-						</div>
-						<div class="mb-3 mb-xl-0">
-							<div class="btn-group dropdown">
-								<button type="button" class="btn btn-primary">14 Aug 2019</button>
-								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
-									<a class="dropdown-item" href="#">2015</a>
-									<a class="dropdown-item" href="#">2016</a>
-									<a class="dropdown-item" href="#">2017</a>
-									<a class="dropdown-item" href="#">2018</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- breadcrumb -->
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="my-auto">
+            <div class="d-flex">
+                <h4 class="content-title mb-0 my-auto">المنتجات</h4>
+                {{-- <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span> --}}
+            </div>
+        </div>
+
+    </div>
+    <!-- breadcrumb -->
 @endsection
 @section('content')
-				<!-- row -->
-				<div class="row row-sm">
-					<div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
-						<div class="card">
-							<div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">Category</div>
-							<div class="card-body pb-0">
-								<div class="form-group">
-									<label class="form-label">Mens</label>
-									<select name="beast" id="select-beast" class="form-control  nice-select  custom-select">
-										<option value="0">--Select--</option>
-										<option value="1">Foot wear</option>
-										<option value="2">Top wear</option>
-										<option value="3">Bootom wear</option>
-										<option value="4">Men's Groming</option>
-										<option value="5">Accessories</option>
-									</select>
-								</div>
-								<div class="form-group mt-2">
-									<label class="form-label">Women</label>
-									<select name="beast" id="select-beast1" class="form-control  nice-select  custom-select">
-										<option value="0">--Select--</option>
-										<option value="1">Western wear</option>
-										<option value="2">Foot wear</option>
-										<option value="3">Top wear</option>
-										<option value="4">Bootom wear</option>
-										<option value="5">Beuty Groming</option>
-										<option value="6">Accessories</option>
-										<option value="7">jewellery</option>
-									</select>
-								</div>
-								<div class="form-group mt-2">
-									<label class="form-label">Baby & Kids</label>
-									<select name="beast" id="select-beast2" class="form-control  nice-select  custom-select">
-										<option value="0">--Select--</option>
-										<option value="1">Boys clothing</option>
-										<option value="2">girls Clothing</option>
-										<option value="3">Toys</option>
-										<option value="4">Baby Care</option>
-										<option value="5">Kids footwear</option>
-									</select>
-								</div>
-								<div class="form-group mt-2">
-									<label class="form-label">Electronics</label>
-									<select name="beast" id="select-beast3" class="form-control  nice-select  custom-select">
-										<option value="0">--Select--</option>
-										<option value="1">Mobiles</option>
-										<option value="2">Laptops</option>
-										<option value="3">Gaming & Accessories</option>
-										<option value="4">Health care Appliances</option>
-									</select>
-								</div>
-								<div class="form-group mt-2">
-									<label class="form-label">Sport,Books & More </label>
-									<select name="beast" id="select-beast4" class="form-control  nice-select  custom-select">
-										<option value="0">--Select--</option>
-										<option value="1">Stationery</option>
-										<option value="2">Books</option>
-										<option value="3">Gaming</option>
-										<option value="4">Music</option>
-										<option value="5">Exercise & fitness</option>
-									</select>
-								</div>
-							</div>
-							<div class="card-header border-bottom border-top pt-3 pb-3 mb-0 font-weight-bold text-uppercase">Filter</div>
-							<div class="card-body">
-								<form role="form product-form">
-									<div class="form-group">
-										<label>Brand</label>
-										<select class="form-control nice-select">
-											<option>Wallmart</option>
-											<option>Catseye</option>
-											<option>Moonsoon</option>
-											<option>Textmart</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<label>Type</label>
-										<select class="form-control nice-select">
-											<option>Small</option>
-											<option>Medium</option>
-											<option>Large</option>
-											<option>Extra Large</option>
-										</select>
-									</div>
-								</form>
-							</div>
-							<div class="card-header border-bottom border-top pt-3 pb-3 mb-0 font-weight-bold text-uppercase">Rating</div>
-							<div class="py-2 px-3">
-								<label class="p-1 mt-2 d-flex align-items-center">
-									<span class="check-box mb-0">
-										<span class="ckbox"><input checked="" type="checkbox"><span></span></span>
-									</span>
-									<span class="ml-3 tx-16 my-auto">
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-									</span>
-								</label>
-								<label class="p-1 mt-2 d-flex align-items-center">
-									<span class="check-box mb-0">
-										<span class="ckbox"><input checked="" type="checkbox"><span></span></span>
-									</span>
-									<span class="ml-3 tx-16 my-auto">
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-									</span>
-								</label>
-								<label class="p-1 mt-2 d-flex align-items-center">
-									<span class="check-box mb-0">
-										<span class="ckbox"><input checked="" type="checkbox"><span></span></span>
-									</span>
-									<span class="ml-3 tx-16 my-auto">
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-									</span>
-								</label>
-								<label class="p-1 mt-2 d-flex align-items-center">
-									<span class="checkbox mb-0">
-										<span class="check-box">
-											<span class="ckbox"><input type="checkbox"><span></span></span>
-										</span>
-									</span>
-									<span class="ml-3 tx-16 my-auto">
-										<i class="ion ion-md-star  text-warning"></i>
-										<i class="ion ion-md-star  text-warning"></i>
-									</span>
-								</label>
-								<label class="p-1 mt-2 d-flex align-items-center">
-									<span class="checkbox mb-0">
-										<span class="check-box">
-											<span class="ckbox"><input type="checkbox"><span></span></span>
-										</span>
-									</span>
-									<span class="ml-3 tx-16 my-auto">
-										<i class="ion ion-md-star  text-warning"></i>
-									</span>
-								</label>
-								<button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">Filter</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-9 col-lg-9 col-md-12">
-						<div class="card">
-							<div class="card-body p-2">
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Search ...">
-									<span class="input-group-append">
-										<button class="btn btn-primary" type="button">Search</button>
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="row row-sm">
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<div class="badge bg-pink">New</div>
-												<i class="mdi mdi-heart-outline ml-auto wishlist"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/01.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">FLOWER POT</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$26 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$59</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<i class="mdi mdi-heart text-danger ml-auto wishlist"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/02.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">Chair</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$35 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$79</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<div class="badge bg-success">New</div>
-												<i class="mdi mdi-heart-outline ml-auto wishlist"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/03.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">Hiking Boots</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$25 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$59</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<div class="badge bg-success">New</div>
-												<i class="mdi mdi-heart-outline ml-auto wishlist"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/06.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">college  bag</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$35 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$69</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<i class="mdi mdi-heart ml-auto wishlist text-danger"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/04.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart"></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">Headphones</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$46 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$89</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<i class="mdi mdi-heart-outline ml-auto wishlist"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/05.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">Camera lens</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$159 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$299</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<div class="badge bg-purple">New</div>
-												<i class="mdi mdi-heart ml-auto wishlist text-danger"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/09.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">Camera</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$129 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$189</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<i class="mdi mdi-heart-outline ml-auto wishlist"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/11.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">Handbag</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$19 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$39</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-								<div class="card">
-									<div class="card-body">
-										<div class="pro-img-box">
-											<div class="d-flex product-sale">
-												<div class="badge bg-info">New</div>
-												<i class="mdi mdi-heart ml-auto wishlist text-danger"></i>
-											</div>
-											<img class="w-100" src="{{URL::asset('assets/img/ecommerce/07.jpg')}}" alt="product-image">
-											<a href="#" class="adtocart"> <i class="las la-shopping-cart "></i>
-											</a>
-										</div>
-										<div class="text-center pt-3">
-											<h3 class="h6 mb-2 mt-4 font-weight-bold text-uppercase">Laptop</h3>
-											<span class="tx-15 ml-auto">
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star text-warning"></i>
-												<i class="ion ion-md-star-half text-warning"></i>
-												<i class="ion ion-md-star-outline text-warning"></i>
-											</span>
-											<h4 class="h5 mb-0 mt-2 text-center font-weight-bold text-danger">$89 <span class="text-secondary font-weight-normal tx-13 ml-1 prev-price">$120</span></h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<ul class="pagination product-pagination mr-auto float-left">
-								<li class="page-item page-prev disabled">
-									<a class="page-link" href="#" tabindex="-1">Prev</a>
-								</li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item page-next">
-									<a class="page-link" href="#">Next</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- row closed -->
-			</div>
-			<!-- Container closed -->
-		</div>
-		<!-- main-content closed -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session()->has('Add'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Add') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session()->has('delete'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('delete') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session()->has('edit'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('edit') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    <!-- row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mg-b-20">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
+                            data-toggle="modal" href="#modaldemo8">إضافة منتج</a>
+
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example" class="table key-buttons text-md-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-bottom-0"> رقم المنتج</th>
+                                    <th class="border-bottom-0"> اسم المنتج</th>
+                                    <th class="border-bottom-0">اسم الصنف</th>
+                                    <th class="border-bottom-0"> سعر الشراء</th>
+                                    <th class="border-bottom-0"> سعر الجملة</th>
+                                    <th class="border-bottom-0"> سعر المفرق</th>
+                                    <th class="border-bottom-0"> الكمية</th>
+                                    <th class="border-bottom-0"> تاريخ التوريد </th>
+                                    <th class="border-bottom-0"> تاريخ الانتهاء </th>
+                                    <th class="border-bottom-0"> الوصف </th>
+                                    {{-- <th class="border-bottom-0"> العمليات </th> --}}
+
+
+                                    {{-- <th class="border-bottom-0"> الوصف</th> --}}
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 0; ?>
+                                @foreach ($products as $x)
+                                    <?php $i++; ?>
+                                    {{--  --}}
+                                    <tr>
+
+                                        <td>{{ $i }}</td>
+                                        <td> {{ $x->product_name }}</td>
+                                        <td>{{ $x->categories->cateory_name }}</td>
+                                        <td>{{ $x->Purchasing_price }}</td>
+                                        <td>{{ $x->Wholesale_price }}</td>
+                                        <td>{{ $x->retail_price }}</td>
+                                        <td>{{ $x->Quantity }}</td>
+                                        <td>{{ $x->date_of_supply }}</td>
+                                        <td>{{ $x->Expiry_date }}</td>
+                                        <td>{{ $x->description }}</td>
+                                        <td>
+                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                                data-id="{{ $x->id }}" data-product_name="{{ $x->product_name }}"
+                                                data-cateory_name="{{ $x->cateory_name }}"
+                                                data-Purchasing_price="{{ $x->Purchasing_price }}"
+                                                data-Wholesale_price="{{ $x->Wholesale_price }}"
+                                                data-retail_price="{{ $x->retail_price }}"
+                                                data-Quantity="{{ $x->Quantity }}"
+                                                data-date_of_supply="{{ $x->date_of_supply }}"
+                                                data-Expiry_date="{{ $x->Expiry_date }}"
+                                                data-description="{{ $x->description }}" data-toggle="modal"
+                                                href="#exampleModal2" title="تعديل"><i class="las la-pen"></i></a>
+
+                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                data-id="{{ $x->id }}" data-product_name="{{ $x->product_name }}"
+                                                data-cateory_name="{{ $x->cateory_name }}"
+                                                data-Purchasing_price="{{ $x->Purchasing_price }}"
+                                                data-Wholesale_price="{{ $x->Wholesale_price }}"
+                                                data-retail_price="{{ $x->retail_price }}"
+                                                data-Quantity="{{ $x->Quantity }}"
+                                                data-date_of_supply="{{ $x->date_of_supply }}"
+                                                data-Expiry_date="{{ $x->Expiry_date }}" data-toggle="modal"
+                                                href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+
+                                        </td>
+
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Basic modal -->
+
+            <div class="modal" id="modaldemo8">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content modal-content-demo">
+                        <div class="modal-header">
+                            <h6 class="modal-title">اضافة منتج</h6><button aria-label="Close" class="close"
+                                data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('products.store') }}" method="post">
+                                {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">اسم المنتج</label>
+                                    <input type="text" class="form-control" id="product_name" name="product_name">
+                                </div>
+
+                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">الصنف</label>
+                                <select name="category_id" id="category_id" class="form-control" required>
+                                    <option value="" selected disabled> --حدد الصنف--</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->cateory_name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">سعر الشراء </label>
+                                    <input type="text" class="form-control" id="Purchasing_price" name="Purchasing_price">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">سعر المبيع الجملة </label>
+                                    <input type="text" class="form-control" id="Wholesale_price" name="Wholesale_price">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">سعر المبيع مفرق </label>
+                                    <input type="text" class="form-control" id="retail_price" name="retail_price">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> الكمية </label>
+                                    <input type="text" class="form-control" id="Quantity" name="Quantity">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> تاريخ التوريد </label>
+                                    <input type="text" class="form-control" id="date_of_supply" name="date_of_supply">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> تاريخ الانتهاء </label>
+                                    <input type="text" class="form-control" id="Expiry_date" name="Expiry_date">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">ملاحظات</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">تاكيد</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Basic modal -->
+            </div>
+            <!-- edit -->
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">تعديل المنتج</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form action="products/update" method="post" autocomplete="off">
+                                {{ method_field('patch') }}
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label">اسم المنتج:</label>
+                                    <input class="form-control" name="product_name" id="product_name" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label">اسم الصنف:</label>
+                                    <input class="form-control" name="category_name" id="category_name" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label">سعر الشراء :</label>
+                                    <input class="form-control" name="Purchasing_price" id="Purchasing_price" type="text">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label">سعر مبيع الجملة :</label>
+                                    <input class="form-control" name="Wholesale_price" id="Wholesale_price" type="text">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label">سعر مبيع المفرق :</label>
+                                    <input class="form-control" name="retail_price" id="retail_price" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label"> الكمية :</label>
+                                    <input class="form-control" name="Quantity" id="Quantity" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label"> تاريخ التوريد :</label>
+                                    <input class="form-control" name="date_of_supply" id="date_of_supply" type="text">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label"> تاريخ الانتهاء :</label>
+                                    <input class="form-control" name="Expiry_date" id="Expiry_date" type="text">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">ملاحظات:</label>
+                                    <textarea class="form-control" id="description" name="description"></textarea>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">تاكيد</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- delete -->
+
+            <div class="modal" id="modaldemo9">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content modal-content-demo">
+                        <div class="modal-header">
+                            <h6 class="modal-title">حذف المنتج</h6><button aria-label="Close" class="close"
+                                data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <form action="categories/destroy" method="post">
+                            {{ method_field('delete') }}
+                            {{ csrf_field() }}
+                            <div class="modal-body">
+                                <p>هل انت متاكد من عملية الحذف ؟</p><br>
+                                <input type="hidden" name="id" id="id" value="">
+                                <input class="form-control" name="product_name" id="product_name" type="text" readonly>
+                                <input class="form-control" name="category_name" id="category_name" type="text" readonly>
+                                <input class="form-control" name="Purchasing_price" id="Purchasing_price" type="text"
+                                    readonly>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                                <button type="submit" class="btn btn-danger">تاكيد</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <!-- row closed -->
+        </div>
+        <!-- Container closed -->
+    </div>
+    <!-- main-content closed -->
 @endsection
 @section('js')
-<!-- Internal Nice-select js-->
-<script src="{{URL::asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/jquery-nice-select/js/nice-select.js')}}"></script>
+    <!-- Internal Data tables -->
+    <script src="{{ URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/jszip.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/pdfmake.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/vfs_fonts.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/buttons.print.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
+    <!--Internal  Datatable js -->
+    <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
+    {{-- edit button --}}
+    <script>
+        $('#exampleModal2').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var product_name = button.data('product_name')
+            var cateory_name = button.data('category_id')
+            var Purchasing_price = button.data('Purchasing_price')
+            var Wholesale_price = button.data('Wholesale_price')
+            var retail_price = button.data('retail_price')
+            var Quantity = button.data('Quantity')
+            var date_of_supply = button.data('date_of_supply')
+            var Expiry_date = button.data('Expiry_date')
+            var description = button.data('description')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #product_name').val(product_name);
+            modal.find('.modal-body #cateory_name').val(cateory_name);
+            modal.find('.modal-body #Purchasing_price').val(Purchasing_price);
+            modal.find('.modal-body #Wholesale_price').val(Wholesale_price);
+            modal.find('.modal-body #retail_price').val(retail_price);
+            modal.find('.modal-body #Quantity').val(Quantity);
+            modal.find('.modal-body #date_of_supply').val(date_of_supply);
+            modal.find('.modal-body #Expiry_date').val(Expiry_date);
+            modal.find('.modal-body #description').val(description);
+        })
+    </script>
+    {{-- delete button --}}
+    <script>
+        $('#modaldemo9').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var product_name = button.data('product_name')
+            var category_name = button.data('category_name')
+            var Purchasing_price = button.data('Purchasing_price')
+            var Wholesale_price = button.data('Wholesale_price')
+            var retail_price = button.data('retail_price')
+            var Quantity = button.data('Quantity')
+            var date_of_supply = button.data('date_of_supply')
+            var Expiry_date = button.data('Expiry_date')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #cateory_name').val(product_name);
+            modal.find('.modal-body #company_name').val(category_name);
+            modal.find('.modal-body #Purchasing_price').val(Purchasing_price);
+            modal.find('.modal-body #Wholesale_price').val(Wholesale_price);
+            modal.find('.modal-body #retail_price').val(retail_price);
+            modal.find('.modal-body #Quantity').val(Quantity);
+            modal.find('.modal-body #date_of_supply').val(date_of_supply);
+            modal.find('.modal-body #Expiry_date').val(Expiry_date);
+        })
+    </script>
 @endsection
