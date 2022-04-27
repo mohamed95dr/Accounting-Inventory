@@ -58,17 +58,7 @@ Route::middleware(['auth:web'])->group(function () {
 
     // /categories
     //return all categories
-    Route::get('/categories', [CategoryController::class, 'users']);
-    //return form to new category 
-    Route::get('/new-category', [CategoryController::class, 'categoryForm']);
-    // save Category
-    Route::post('/save-category', [CategoryController::class, 'store']);
-    // delete Category
-    Route::get('/category/{id}', [CategoryController::class, 'delete']);
-    //return form to update Category info
-    Route::get('/update-category/{id}', [CategoryController::class, 'updateForm']);
-    //save new Category info
-    Route::get('/update-category/{id}', [CategoryController::class, 'update']);
+Route::resource('categories', CategoriesController::class);
 
 
     // /companies
@@ -100,29 +90,19 @@ Route::middleware(['auth:web'])->group(function () {
     //save new supplier info
     Route::get('/update-supplier/{id}', [SupplierController::class, 'update']);
 
-
-
-
-    // /customers
-    Route::resource('customer','App\Http\Controllers\CustomerController');
-    //products
-    Route::resource('product','App\Http\Controllers\ProductController');
-    // /invoices
-    Route::resource('invoic','App\Http\Controllers\InvoiceController');
-    // /reports
-    Route::resource('report','App\Http\Controllers\ReportController');
-    // /debts
-    Route::resource('debt','App\Http\Controllers\DebtController');
-    // /inventory
-    Route::resource('inventory','App\Http\Controllers\InventoryController');
-    // /offers
-    Route::resource('offer','App\Http\Controllers\OfferController');
-
-});
+//products
 Route::resource('products', ProductsController::class);
-Route::resource('categories', CategoriesController::class);
+
+//invoices
 Route::resource('invoice', InvoicesController::class);
+
+    // // /customers
+
+ Route::resource('costomers','App\Http\Controllers\CostomersController');
+
+
+  });
+
 // Route::get('/{page}',[AdminController::class,'index']);
 
 
-//test from omran

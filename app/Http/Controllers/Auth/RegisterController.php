@@ -64,10 +64,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // $userRole=User::all();
+        // if($data['Role']==$userRole->Role['admin'])
+        //     return 'enter agin role';
+        // }
+        // else{
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'Role' => $data['Role']
         ]);
+    // }
     }
 }
