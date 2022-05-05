@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\invoices;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,10 @@ class InvoicesController extends Controller
     public function create()
     {
         //
-    }
+        $categories=Categories::all();
+        return view('add_invoice',compact('categories'));
 
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -37,6 +40,7 @@ class InvoicesController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**

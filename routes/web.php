@@ -12,7 +12,7 @@ use App\Http\Controllers\UsersController;
 
 // use App\Http\Controllers\UserController;
 // use App\Http\Controllers\CategoryController;
-// use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompaniesController;
 // use App\Http\Controllers\SupplierController;
 // use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Redirect;
@@ -63,32 +63,11 @@ Route::resource('categories', CategoriesController::class);
 
     // /companies
     //return all companies
-    Route::get('/companies', [CompanyController::class, 'companies']);
-    //return form to new company 
-    Route::get('/new-company', [CompanyController::class, 'companyForm']);
-    // save Category
-    Route::post('/save-company', [CompanyController::class, 'store']);
-    // delete Category
-    Route::get('/company/{id}', [CompanyController::class, 'delete']);
-    //return form to update Category info
-    Route::get('/update-company/{id}', [CategoryController::class, 'updateForm']);
-    //save new Category info
-    Route::get('/update-company/{id}', [CategoryController::class, 'update']);
-
+    Route::resource('companies', CompaniesController::class);
 
     // /suppliers
     //return all suppliers
-    Route::get('/suppliers', [SupplierController::class, 'suppliers']);
-    //return form to new Supplier 
-    Route::get('/new-supplier', [SupplierController::class, 'companyForm']);
-    // save supplier
-    Route::post('/save-supplier', [SupplierController::class, 'store']);
-    // delete supplier
-    Route::get('/supplier/{id}', [SupplierController::class, 'delete']);
-    //return form to update supplier info
-    Route::get('/update-supplier/{id}', [SupplierController::class, 'updateForm']);
-    //save new supplier info
-    Route::get('/update-supplier/{id}', [SupplierController::class, 'update']);
+    Route::resource('/suppliers', SupplierController::class);
 
 //products
 Route::resource('products', ProductsController::class);
@@ -96,6 +75,7 @@ Route::resource('products', ProductsController::class);
 //invoices
 Route::resource('invoice', InvoicesController::class);
 
+Route::get('add_invoice',[InvoicesController::class,'create']);
     // // /customers
 
  Route::resource('costomers','App\Http\Controllers\CostomersController');
