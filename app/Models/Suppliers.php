@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class companies extends Model
+class Suppliers extends Model
 {
     use HasFactory;
     protected $guarded=[];
-    public function suppliers()
+    public function companies()
     {
-        return $this->hasMany(Suppliers::class);
+        return $this->belongsTo(companies::class,'company_id');
     }
 }

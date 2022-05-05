@@ -13,7 +13,7 @@ use App\Http\Controllers\UsersController;
 // use App\Http\Controllers\UserController;
 // use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompaniesController;
-// use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SuppliersController;
 // use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Redirect;
 
@@ -67,7 +67,7 @@ Route::resource('categories', CategoriesController::class);
 
     // /suppliers
     //return all suppliers
-    Route::resource('/suppliers', SupplierController::class);
+    Route::resource('/suppliers', SuppliersController::class);
 
 //products
 Route::resource('products', ProductsController::class);

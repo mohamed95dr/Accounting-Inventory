@@ -52,7 +52,6 @@ class ProductsController extends Controller
             'cateory_name.required' =>'يرجي ادخال اسم  الصنف',
         ]);
         
-        // return $category_id = Categories::select('id')->where('cateory_name',$request->cateory_name)->first();
 
             products::create([
                 // 'product_name' => $request->product_name,
