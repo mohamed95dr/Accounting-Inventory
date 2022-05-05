@@ -182,12 +182,14 @@
                                     المورد:</label>
                                 <input class="form-control" name="name" id="name" type="text">
                             </div>
-                            <div class="form-group">
-                                <input type="hidden" name="id" id="id" value="">
-                                <label for="recipient-name" class="col-form-label">اسم الشركة 
-                                    :</label>
-                                <input class="form-control" name="company_name" id="company_name" type="text">
-                            </div>
+                            
+                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">الشركة</label>
+                            <select name="company_id" id="company_id" class="form-control" required>
+                                <option value="" selected disabled> --حدد الشركة--</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                                @endforeach
+                            </select>
 
                             <div class="form-group">
                                 <input type="hidden" name="id" id="id" value="">

@@ -92,6 +92,30 @@ class SuppliersController extends Controller
     public function update(Request $request, Suppliers $suppliers)
     {
         //
+        $id = $request->id;
+
+        $this->validate($request, [
+
+            'name' => 'required|max:255|unique:suppliers,name,'.$id,
+            'company_name' => 'required|max:255|suppliers,company_name,'.$id,
+            'phone' => 'required',
+        ],[
+
+            'name.required' =>'يرجي ادخال اسم المورد',
+            'company_name.required' =>'اسم الشركة مسجل مسبقا',
+            'phone.required' =>'يرجي ادخال رقم الهاتف',
+
+        ]);
+
+        $suppliers = Suppliers::find($id);
+        $suppliers->update([
+            'name' => $request->name,
+            'company_id' => $request->company_id,
+            'phone' => $request->phone,
+        ]);
+
+        session()->flash('edit','تم تعديل بيانات المورد بنجاج');
+        return redirect('/suppliers');
     }
 
     /**
@@ -100,8 +124,13 @@ class SuppliersController extends Controller
      * @param  \App\Models\Suppliers  $suppliers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Suppliers $suppliers)
+    public function destroy(Request $request)
     {
         //
+        $id=$request->id;
+        Suppliers::find($id)->delete();
+        session()->flash('delete','تم حذف المورد بنجاح');
+        return redirect('/suppliers');
+
     }
 }
