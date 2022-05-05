@@ -84,5 +84,5 @@ Route::get('add_invoice',[InvoicesController::class,'create']);
   });
 
 // Route::get('/{page}',[AdminController::class,'index']);
-
+//test omran 2
 
