@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class invoices extends Model
+class receiptDebt extends Model
 {
     use HasFactory;
-    p
 }

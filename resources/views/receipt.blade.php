@@ -16,7 +16,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمة
+                <h4 class="content-title mb-0 my-auto">فواتير الشراء</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمة
                     الفواتير </span>
             </div>
 
@@ -51,30 +51,24 @@
                                 <tr>
                                     <th class="border-bottom-0">رقم الفاتورة</th>
                                     <th class="border-bottom-0">تاريخ الفاتورة</th>
-                                    <th class="border-bottom-0">المنتجات </th>
-                                    <th class="border-bottom-0">تاريخ الاستحقاق</th>
-                                    <th class="border-bottom-0"> الخصم</th>
-                                    <th class="border-bottom-0">اجمالي السعر</th>
-                                    <th class="border-bottom-0"> الحالة</th>
-                                    <th class="border-bottom-0"> الملاحظات</th>
-                                    <th class="border-bottom-0"> العمليات</th>
-                                    <th class="border-bottom-0"> العمليات</th>
+                                    <th class="border-bottom-0">اسم المورد </th>
 
 
                                 </tr>
                             </thead>
                             <tbody>
+
                                 <tr>
                                     <td>Tiger Nixon</td>
                                     <td>System Architect</td>
-                                    <td>Edinburgh</td>
                                     <td>2011/04/25</td>
-                                    <td>61</td>
-                                    <td>$320,800</td>
-                                    <td>pain</td>
-                                    <td>pain</td>
-                                    <td>pain</td>
-                                    <td>pain</td>
+									<td>
+										<div class="d-flex justify-content-button">
+
+													<a href="{{ url('view_invoice/') }}" class="btn btn-sm btn-info pull-right">عرض </a>
+					
+										</div>
+									</td>
                                 </tr>
 
                             </tbody>

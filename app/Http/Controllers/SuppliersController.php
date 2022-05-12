@@ -97,7 +97,7 @@ class SuppliersController extends Controller
         $this->validate($request, [
 
             'name' => 'required|max:255|unique:suppliers,name,'.$id,
-            'company_name' => 'required|max:255|suppliers,company_name,'.$id,
+            'company_name' => 'required'.$id,
             'phone' => 'required',
         ],[
 

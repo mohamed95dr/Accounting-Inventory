@@ -15,13 +15,12 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('invoice_number');
-            $table->string('Invoice type',30);
+            $table->string('Invoice_type',30);
             $table->date('invoice_date');
             $table->string('products');
-            $table->date('due_date');
-            $table->string('discount');
-            $table->decimal('total',8,2);
+             $table->decimal('total_amount',8,2);
+            $table->decimal('amount_received',8,2);
+            $table->decimal('remainder_amount',8,2);
             $table->string('status',50);
             $table->integer('value_status');
             $table->softDeletes();

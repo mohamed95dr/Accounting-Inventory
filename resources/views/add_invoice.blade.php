@@ -28,7 +28,7 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
-//
+
     @if (session()->has('Add'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('Add') }}</strong>
@@ -44,29 +44,30 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('invoices.store') }}" method="post" enctype="multipart/form-data"
+                    <form action="#0000000" method="post" enctype="multipart/form-data"
                         autocomplete="off">
                         {{ csrf_field() }}
                         {{-- 1 --}}
 
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">رقم الفاتورة</label>
-                                <input type="text" class="form-control" id="inputName" name="invoice_number"
-                                    title="يرجي ادخال رقم الفاتورة" required>
+                                <label for="inputName" class="control-label">اسم المورد </label>
+                                <select name="supplier_name" class="form-control SlectBox" onclick="console.log($(this).val())"
+                                    onchange="console.log('change is firing')">
+                                    <!--placeholder-->
+                                    <option value="" selected disabled>اختر مورد</option>
+                                    @foreach ($suppliers as $supplier)
+                                        <option value="{{ $supplier->name }}">{{ $supplier->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="col">
                                 <label>تاريخ الفاتورة</label>
-                                <input class="form-control fc-datepicker" name="invoice_Date" placeholder="YYYY-MM-DD"
-                                    type="text" value="{{ date('Y-m-d') }}" required>
+                                <input class="form-control fc-datepicker" name="invoice_date" 
+                                    type="datetime-local" value="{{ date('Y-m-d') }}" required>
                             </div>
 
-                            <div class="col">
-                                <label>تاريخ الاستحقاق</label>
-                                <input class="form-control fc-datepicker" name="Due_date" placeholder="YYYY-MM-DD"
-                                    type="text" required>
-                            </div>
 
                         </div>
 
@@ -77,10 +78,10 @@
                                 <select name="Section" class="form-control SlectBox" onclick="console.log($(this).val())"
                                     onchange="console.log('change is firing')">
                                     <!--placeholder-->
-                                    <option value="" selected disabled>حدد الصنف</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}"> {{ $category->cateory_name }}</option>
-                                    @endforeach
+                                    <option value="" selected disabled>حدد القسم</option>
+                                    {{-- @foreach ($sections as $section)
+                                        <option value="{{ $section->id }}"> {{ $section->section_name }}</option>
+                                    @endforeach --}}
                                 </select>
                             </div>
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ReceiptInvoice_Details;
 use Illuminate\Http\Request;
 
-class InvoiceController extends Controller
+class ReceiptInvoiceDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,10 +41,10 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\ReceiptInvoice_Details  $receiptInvoice_Details
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ReceiptInvoice_Details $receiptInvoice_Details)
     {
         //
     }
@@ -51,10 +52,10 @@ class InvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\ReceiptInvoice_Details  $receiptInvoice_Details
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ReceiptInvoice_Details $receiptInvoice_Details)
     {
         //
     }
@@ -63,10 +64,10 @@ class InvoiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\ReceiptInvoice_Details  $receiptInvoice_Details
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ReceiptInvoice_Details $receiptInvoice_Details)
     {
         //
     }
@@ -74,10 +75,10 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\ReceiptInvoice_Details  $receiptInvoice_Details
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ReceiptInvoice_Details $receiptInvoice_Details)
     {
         //
     }
