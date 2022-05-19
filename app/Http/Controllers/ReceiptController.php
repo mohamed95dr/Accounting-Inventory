@@ -27,6 +27,7 @@ class ReceiptController extends Controller
      */
     public function create()
     {
+        
         $suppliers=Suppliers::select('name')->get();
         return view('add_invoice',compact('suppliers'));
     }

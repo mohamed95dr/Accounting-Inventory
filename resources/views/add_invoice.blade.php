@@ -10,6 +10,165 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/plugins/sumoselect/sumoselect-rtl.css') }}">
     <!--Internal  TelephoneInput css-->
     <link rel="stylesheet" href="{{ URL::asset('assets/plugins/telephoneinput/telephoneinput-rtl.css') }}">
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap Table with Add and Delete Row Feature</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            color: #404E67;
+            background: #F5F7FA;
+            font-family: 'Open Sans', sans-serif;
+            /* direction: rtl */
+        }
+
+        .table-wrapper {
+            width: 700px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+
+        .table-title {
+            padding-bottom: 10px;
+            margin: 0 0 10px;
+        }
+
+        .table-title h2 {
+            margin: 6px 0 0;
+            font-size: 22px;
+        }
+
+        .table-title .add-new {
+            float: right;
+            height: 30px;
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: none;
+            min-width: 100px;
+            border-radius: 50px;
+            line-height: 13px;
+        }
+
+        .table-title .add-new i {
+            margin-right: 4px;
+        }
+
+        table.table {
+            table-layout: fixed;
+        }
+
+        table.table tr th,
+        table.table tr td {
+            border-color: #e9e9e9;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table th:last-child {
+            width: 100px;
+        }
+
+        table.table td a {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            min-width: 24px;
+        }
+
+        table.table td a.add {
+            color: #27C46B;
+        }
+
+        table.table td a.edit {
+            color: #FFC107;
+        }
+
+        table.table td a.delete {
+            color: #E34724;
+        }
+
+        table.table td i {
+            font-size: 19px;
+        }
+
+        table.table td a.add i {
+            font-size: 24px;
+            margin-right: -1px;
+            position: relative;
+            top: 3px;
+        }
+
+        table.table .form-control {
+            height: 32px;
+            line-height: 32px;
+            box-shadow: none;
+            border-radius: 2px;
+        }
+
+        table.table .form-control.error {
+            border-color: #f50000;
+        }
+
+        table.table td .add {
+            display: none;
+        }
+
+    </style>
+
+    {{-- scrol --}}
+    <style>
+        .custom-scrollbar-js,
+        .custom-scrollbar-css {
+            height: 200px;
+        }
+
+
+        /* Custom Scrollbar using CSS */
+        .custom-scrollbar-css {
+            overflow-y: scroll;
+        }
+
+        /* scrollbar width */
+        .custom-scrollbar-css::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        /* scrollbar track */
+        .custom-scrollbar-css::-webkit-scrollbar-track {
+            background: #eee;
+        }
+
+        /* scrollbar handle */
+        .custom-scrollbar-css::-webkit-scrollbar-thumb {
+            border-radius: 1rem;
+            background-color: #00d2ff;
+            background-image: linear-gradient(to top, #00d2ff 0%, #3a7bd5 100%);
+        }
+
+        body {
+            min-height: 150vh;
+            background-color: #00d2ff;
+            /* background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 100%); */
+        }
+
+    </style>
+
+    {{-- end scrol --}}
+
 @endsection
 @section('title')
     اضافة فاتورة
@@ -20,7 +179,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                <h4 class="content-title mb-0 my-auto">فواتير الشراء</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
                     اضافة فاتورة</span>
             </div>
         </div>
@@ -44,137 +203,151 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="#0000000" method="post" enctype="multipart/form-data"
-                        autocomplete="off">
+
+                    <form action="#0000000" method="post" enctype="multipart/form-data" autocomplete="off">
                         {{ csrf_field() }}
                         {{-- 1 --}}
 
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">اسم المورد </label>
-                                <select name="supplier_name" class="form-control SlectBox" onclick="console.log($(this).val())"
-                                    onchange="console.log('change is firing')">
+                                <label for="inputName" class="control-label">السيد المحترم : اسم المورد </label>
+                                {{-- add supplier --}}
+
+                                <a href="{{ url('view_invoice/') }}" class="btn btn-sm btn-info pull-right">اضافة مورد
+                                </a>
+
+
+                                <select name="supplier_name" class="form-control SlectBox"
+                                    onclick="console.log($(this).val())" onchange="console.log('change is firing')">
                                     <!--placeholder-->
                                     <option value="" selected disabled>اختر مورد</option>
                                     @foreach ($suppliers as $supplier)
                                         <option value="{{ $supplier->name }}">{{ $supplier->name }}</option>
                                     @endforeach
                                 </select>
+
                             </div>
 
                             <div class="col">
                                 <label>تاريخ الفاتورة</label>
-                                <input class="form-control fc-datepicker" name="invoice_date" 
-                                    type="datetime-local" value="{{ date('Y-m-d') }}" required>
+                                <input class="form-control fc-datepicker" name="invoice_date" type="datetime-local"
+                                    value="{{ date('Y-m-d') }}" required>
                             </div>
 
 
                         </div>
-
-                        {{-- 2 --}}
-                        <div class="row">
-                            <div class="col">
-                                <label for="inputName" class="control-label">القسم</label>
-                                <select name="Section" class="form-control SlectBox" onclick="console.log($(this).val())"
-                                    onchange="console.log('change is firing')">
-                                    <!--placeholder-->
-                                    <option value="" selected disabled>حدد القسم</option>
-                                    {{-- @foreach ($sections as $section)
-                                        <option value="{{ $section->id }}"> {{ $section->section_name }}</option>
-                                    @endforeach --}}
-                                </select>
-                            </div>
-
-                            <div class="col">
-                                <label for="inputName" class="control-label">المنتج</label>
-                                <select id="product" name="product" class="form-control">
-                                </select>
-                            </div>
-
-                            <div class="col">
-                                <label for="inputName" class="control-label">مبلغ التحصيل</label>
-                                <input type="text" class="form-control" id="inputName" name="Amount_collection"
-                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                            </div>
-                        </div>
-
 
                         {{-- 3 --}}
 
-                        <div class="row">
 
-                            <div class="col">
-                                <label for="inputName" class="control-label">مبلغ العمولة</label>
-                                <input type="text" class="form-control form-control-lg" id="Amount_Commission"
-                                    name="Amount_Commission" title="يرجي ادخال مبلغ العمولة "
-                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    required>
+
+                        {{-- custom scrole --}}
+
+                        <div class="container py-5">
+
+
+                            <div class="table-responsive">
+                                <div class="">
+                                    <div class="table-title">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <h2> أدخل المنتجات : </h2>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <button type="button" class="btn btn-info add-new"><i
+                                                        class="fa fa-plus"></i> منتج جديد</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-bottom-0"> رقم المنتج</th>
+                                                <th class="border-bottom-0"> اسم المنتج</th>
+                                                <th class="border-bottom-0">اسم الصنف</th>
+                                                <th class="border-bottom-0"> سعر الشراء</th>
+                                                <th class="border-bottom-0"> سعر الجملة</th>
+                                                <th class="border-bottom-0"> سعر المفرق</th>
+                                                <th class="border-bottom-0"> الكمية</th>
+                                                <th class="border-bottom-0"> تاريخ التوريد </th>
+                                                <th class="border-bottom-0"> تاريخ الانتهاء </th>
+                                                <th class="border-bottom-0"> العمليات </th>
+                                                {{-- <th class="border-bottom-0"> العمليات </th> --}}
+
+
+                                                {{-- <th class="border-bottom-0"> الوصف</th> --}}
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+
+                                <div class="col">
+                                    <label for="inputName" class="control-label">مبلغ الفاتورة </label>
+                                    <input type="text" class="form-control form-control-lg" id="Amount_Commission"
+                                        name="Amount_Commission" title="يرجي ادخال مبلغ العمولة "
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                        required>
+                                </div>
+
+                                <div class="col">
+                                    <label for="inputName" class="control-label">الدين</label>
+                                    <input type="text" class="form-control form-control-lg" id="Discount" name="Discount"
+                                        title="يرجي ادخال مبلغ الخصم "
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                        value=0 required>
+                                </div>
+
+                                <div class="col">
+                                    <label for="inputName" class="control-label"> القيمة المدفوعة</label>
+                                    <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
+                                        <!--placeholder-->
+                                        <option value="" selected disabled>حدد نسبة الضريبة</option>
+                                        <option value=" 5%">5%</option>
+                                        <option value="10%">10%</option>
+                                    </select>
+                                </div>
+
                             </div>
 
-                            <div class="col">
-                                <label for="inputName" class="control-label">الخصم</label>
-                                <input type="text" class="form-control form-control-lg" id="Discount" name="Discount"
-                                    title="يرجي ادخال مبلغ الخصم "
-                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    value=0 required>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="inputName" class="control-label">المبلغ الإجمالي :(مبلغ الفاتورة + مبلغ
+                                        الدين) </label>
+                                    <input type="text" class="form-control form-control-lg" id="Amount_Commission"
+                                        name="Amount_Commission" title="يرجي ادخال مبلغ العمولة "
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                        required>
+                                </div>
+
                             </div>
 
-                            <div class="col">
-                                <label for="inputName" class="control-label">نسبة ضريبة القيمة المضافة</label>
-                                <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
-                                    <!--placeholder-->
-                                    <option value="" selected disabled>حدد نسبة الضريبة</option>
-                                    <option value=" 5%">5%</option>
-                                    <option value="10%">10%</option>
-                                </select>
+                            <div class="row m-3">
+                                <button type="submit" class="btn btn-success m-auto ">تاكيد</button>
                             </div>
 
-                        </div>
 
-                        {{-- 4 --}}
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="inputName" class="control-label">قيمة ضريبة القيمة المضافة</label>
-                                <input type="text" class="form-control" id="Value_VAT" name="Value_VAT" readonly>
-                            </div>
-
-                            <div class="col">
-                                <label for="inputName" class="control-label">الاجمالي شامل الضريبة</label>
-                                <input type="text" class="form-control" id="Total" name="Total" readonly>
-                            </div>
-                        </div>
-
-                        {{-- 5 --}}
-                        <div class="row">
-                            <div class="col">
-                                <label for="exampleTextarea">ملاحظات</label>
-                                <textarea class="form-control" id="exampleTextarea" name="note" rows="3"></textarea>
-                            </div>
-                        </div><br>
-
-                        <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
-                        <h5 class="card-title">المرفقات</h5>
-
-                        <div class="col-sm-12 col-md-12">
-                            <input type="file" name="pic" class="dropify" accept=".pdf,.jpg, .png, image/jpeg, image/png"
-                                data-height="70" />
-                        </div><br>
-
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">حفظ البيانات</button>
                         </div>
 
 
                     </form>
+                    {{-- end scrole --}}
+
+
                 </div>
             </div>
+
         </div>
-    </div>
 
-    </div>
-
-    <!-- row closed -->
+        <!-- row closed -->
     </div>
     <!-- Container closed -->
     </div>
@@ -236,6 +409,36 @@
         });
     </script>
 
+    {{-- scrol --}}
+    <script>
+        $(function() {
+            /* Rounded Dots Dark */
+            $("#content-1").mCustomScrollbar({
+                theme: "rounded-dots-dark"
+            });
+
+            /* Rounded Dark */
+            $("#content-2").mCustomScrollbar({
+                theme: "rounded-dark"
+            });
+
+            /* Inset Dark */
+            $("#content-3").mCustomScrollbar({
+                theme: "inset-3-dark"
+            });
+
+            /* 3d Dark */
+            $("#content-4").mCustomScrollbar({
+                theme: "3d-dark"
+            });
+
+            /* Dark Thin */
+            $("#content-5").mCustomScrollbar({
+                theme: "dark-thin"
+            });
+        });
+    </script>
+    {{-- end scrol --}}
 
     <script>
         function myFunction() {
@@ -255,6 +458,79 @@
                 document.getElementById("Total").value = sumt;
             }
         }
+    </script>
+
+
+    <script>
+        
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+            var actions = $("table td:last-child").html();
+            // Append table with add row form on add new button click
+            $(".add-new").click(function() {
+                $(this).attr("disabled", "disabled");
+                var index = $("table tbody tr:last-child").index();
+                var row = '<tr>' +
+                    '<td><input type="text" class="form-control" name="pid" id="pid"></td>' +
+                    '<td><input type="text" class="form-control" name="pname" id="pname"></td>' +
+                    '<td><input type="text" class="form-control" name="category" id="category"></td>' +
+                    '<td><input type="text" class="form-control" name="Purchasing_price" id="Purchasing_price"></td>' +
+                    '<td><input type="text" class="form-control" name="Wholesale_price" id="Wholesale_price"></td>' +
+                    '<td><input type="text" class="form-control" name="retail_price" id="retail_price"></td>' +
+                    '<td><input type="text" class="form-control" name="quentity" id="quentity"></td>' +
+                    '<td><input type="text" class="form-control" name="Purchasing_date" id="Purchasing_date"></td>' +
+                    '<td><input type="text" class="form-control" name="Expiry_date" id="Expiry_date"></td>' +
+                    '<td>' +
+                    '    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
+                    '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
+                    '<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>' +
+                    '</td>' +
+
+                    '</tr>';
+                $("table").append(row);
+                $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+
+
+            // Add row on add button click
+            $(document).on("click", ".add", function() {
+                var empty = false;
+                var input = $(this).parents("tr").find('input[type="text"]');
+                input.each(function() {
+                    if (!$(this).val()) {
+                        $(this).addClass("error");
+                        empty = true;
+                    } else {
+                        $(this).removeClass("error");
+                    }
+                });
+                $(this).parents("tr").find(".error").first().focus();
+                if (!empty) {
+                    input.each(function() {
+                        //td instaid p 
+                        $(this).parent("P").html($(this).val());
+                    });
+                    $(this).parents("tr").find(".add, .edit").toggle();
+                    $(".add-new").removeAttr("disabled");
+                }
+            });
+            // Edit row on edit button click
+            $(document).on("click", ".edit", function() {
+                $(this).parents("tr").find("td:not(:last-child)").each(function() {
+                    $(this).html('<input type="text" class="form-control" value="' + $(this)
+                    .text() + '">');
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                $(".add-new").attr("disabled", "disabled");
+            });
+            // Delete row on delete button click
+            $(document).on("click", ".delete", function() {
+                $(this).parents("tr").remove();
+                $(".add-new").removeAttr("disabled");
+            });
+        });
     </script>
 
 
