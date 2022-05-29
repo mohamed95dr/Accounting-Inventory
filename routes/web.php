@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\stocktaking;
 use App\Http\Controllers\SaleInvoiceController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
 
-// use App\Http\Controllers\UserController;
+use App\Http\Controllers\receipt_debt;
+use App\Http\Controllers\sale_debt;
+
+
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SuppliersController;
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Redirect;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -83,10 +85,20 @@ Route::middleware(['auth:web'])->group(function () {
     // // /customers
 
     Route::resource('costomers', 'App\Http\Controllers\CostomersController');
+
+    //stocktaking
+
+    Route::resource('stocktaking',stocktaking::class);
+    
+    //receipt_debt
+    Route::resource('receipt_debt',receipt_debt::class);
+
+    //sale_debt
+    Route::resource('sale_debt',sale_debt::class);
 });
 
 
 
 
 // Route::get('/{page}',[AdminController::class,'index']);
-//test omran 2
+

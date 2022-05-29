@@ -21,9 +21,13 @@ class ReceiptProducts extends Migration
         $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
         $table->date('date_of_supply');
         $table->date('Expiry_date');
+        
         $table->unsignedBigInteger('receiptDebt_id');
         $table->foreign('receiptDebt_id')->references('id')->on('receipt_debts')->onDelete('cascade');
-    
+
+        $table->unsignedBigInteger('receipts_id');
+        $table->foreign('receipts_id')->references('id')->on('receipts')->onDelete('cascade');
+
         $table->date('invoice_date');
         $table->decimal('total_price',8,2);
         $table->decimal('amount_paid',8,2);

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\receipt;
-use App\Models\Suppliers;
+use App\Models\Categories;
+use App\Models\products;
 use Illuminate\Http\Request;
-use Receipts;
 
-class ReceiptController extends Controller
+class stocktaking extends Controller
 {
+    //
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +17,10 @@ class ReceiptController extends Controller
     public function index()
     {
         //
-        $invoices = receipt::select('id','invoice_date','supplier_id')->get();
-        return view('receipt',compact('invoices'));
+        $categories=Categories::select('cateory_name')->get();
+        $products = products::select('id','product_name','category_id','Quantity')->get();
+        return view('stocktaking',compact('products','categories'));
+
     }
 
     /**
@@ -28,9 +30,7 @@ class ReceiptController extends Controller
      */
     public function create()
     {
-        
-        $suppliers=Suppliers::select('name')->get();
-        return view('add_invoice',compact('suppliers'));
+        //
     }
 
     /**
@@ -42,13 +42,7 @@ class ReceiptController extends Controller
     public function store(Request $request)
     {
         //
-        Receipt::create([
-                'supplier_id' => Suppliers::select('id')->where('name',$request->supplier_name)->first()->id ,
-                'invoice_date' =>$request->invoice_date,
-                'remainder_debt' => $request->Discount,
-                'amount_paid' => $request->paid_value,
-                'total_price' => $request->Amount_Commission
-        ]);
+        return $request;
     
     }
 
@@ -58,7 +52,7 @@ class ReceiptController extends Controller
      * @param  \App\Models\receipt  $receipt
      * @return \Illuminate\Http\Response
      */
-    public function show(receipt $receipt)
+    public function show()
     {
         //
     }
@@ -69,7 +63,7 @@ class ReceiptController extends Controller
      * @param  \App\Models\receipt  $receipt
      * @return \Illuminate\Http\Response
      */
-    public function edit(receipt $receipt)
+    public function edit()
     {
         //
     }
@@ -81,7 +75,7 @@ class ReceiptController extends Controller
      * @param  \App\Models\receipt  $receipt
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, receipt $receipt)
+    public function update(Request $request)
     {
         //
     }
@@ -92,7 +86,7 @@ class ReceiptController extends Controller
      * @param  \App\Models\receipt  $receipt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(receipt $receipt)
+    public function destroy()
     {
         //
     }

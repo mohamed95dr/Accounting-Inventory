@@ -165,6 +165,10 @@
             /* background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 100%); */
         }
 
+        span {
+            float: left;
+        }
+
     </style>
 
     {{-- end scrol --}}
@@ -203,8 +207,9 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-
-                    <form action="#0000000" method="post" enctype="multipart/form-data" autocomplete="off">
+<!--  -->
+                    <form action="{{ route('receipt.store') }}" method="post" enctype="multipart/form-data"
+                        autocomplete="off">
                         {{ csrf_field() }}
                         {{-- 1 --}}
 
@@ -212,13 +217,12 @@
                             <div class="col">
                                 <label for="inputName" class="control-label">السيد المحترم : اسم المورد </label>
                                 {{-- add supplier --}}
+                                <span>
+                                    <a href="{{ url('view_invoice/') }}" class="btn btn-sm btn-info pull-right">اضافة مورد
+                                    </a>
+                                </span>
 
-                                <a href="{{ url('view_invoice/') }}" class="btn btn-sm btn-info pull-right">اضافة مورد
-                                </a>
-
-
-                                <select name="supplier_name" class="form-control SlectBox"
-                                    onclick="console.log($(this).val())" onchange="console.log('change is firing')">
+                                <select name="supplier_name" class="form-control SlectBox">
                                     <!--placeholder-->
                                     <option value="" selected disabled>اختر مورد</option>
                                     @foreach ($suppliers as $supplier)
@@ -269,25 +273,21 @@
                                                 <th class="border-bottom-0"> سعر الجملة</th>
                                                 <th class="border-bottom-0"> سعر المفرق</th>
                                                 <th class="border-bottom-0"> الكمية</th>
+                                                <th class="border-bottom-0"> الواحدة</th>
                                                 <th class="border-bottom-0"> تاريخ التوريد </th>
                                                 <th class="border-bottom-0"> تاريخ الانتهاء </th>
                                                 <th class="border-bottom-0"> العمليات </th>
-                                                {{-- <th class="border-bottom-0"> العمليات </th> --}}
-
-
-                                                {{-- <th class="border-bottom-0"> الوصف</th> --}}
-
 
                                             </tr>
                                         </thead>
                                         <tbody>
 
 
-                                        
+
                                     </table>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
 
                                 <div class="col">
@@ -308,11 +308,15 @@
 
                                 <div class="col">
                                     <label for="inputName" class="control-label"> القيمة المدفوعة</label>
-                                    <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
+                                    <input type="text" class="form-control form-control-lg" id="paid-value"
+                                        name="paid_value" title="يرجي ادخال مبلغ العمولة "
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                        required>
+                                    {{-- <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
                                         <!--placeholder-->
                                         <option value="" selected disabled>حدد نسبة الضريبة</option>
                                         <option value=" 5%">5%</option>
-                                        <option value="10%">10%</option>
+                                        <option value="10%">10%</option> --}}
                                     </select>
                                 </div>
 
@@ -350,7 +354,7 @@
         <!-- row closed -->
     </div>
     <!-- Container closed -->
-    </div>
+    
     <!-- main-content closed -->
 @endsection
 @section('js')
@@ -387,11 +391,11 @@
 
     <script>
         $(document).ready(function() {
-            $('select[name="Section"]').on('change', function() {
-                var SectionId = $(this).val();
-                if (SectionId) {
+            $('select[name="categories"]').on('change', function() {
+                var category_id = $(this).val();
+                if (category_id) {
                     $.ajax({
-                        url: "{{ URL::to('section') }}/" + SectionId,
+                        url: "{{ URL::to('categories') }}/" + category_id,
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
@@ -462,24 +466,26 @@
 
 
     <script>
-        
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
-            var actions = $("table td:last-child").html();
+            var actions = $("table td:first-child").html();
             // Append table with add row form on add new button click
+            var i= 1;
             $(".add-new").click(function() {
                 $(this).attr("disabled", "disabled");
                 var index = $("table tbody tr:last-child").index();
+                
                 var row = '<tr>' +
-                    '<td><input type="text" class="form-control" name="pid" id="pid"></td>' +
-                    '<td><input type="text" class="form-control" name="pname" id="pname"></td>' +
-                    '<td><input type="text" class="form-control" name="category" id="category"></td>' +
-                    '<td><input type="text" class="form-control" name="Purchasing_price" id="Purchasing_price"></td>' +
-                    '<td><input type="text" class="form-control" name="Wholesale_price" id="Wholesale_price"></td>' +
-                    '<td><input type="text" class="form-control" name="retail_price" id="retail_price"></td>' +
-                    '<td><input type="text" class="form-control" name="quentity" id="quentity"></td>' +
-                    '<td><input type="text" class="form-control" name="Purchasing_date" id="Purchasing_date"></td>' +
-                    '<td><input type="text" class="form-control" name="Expiry_date" id="Expiry_date"></td>' +
+                    '<td><input type="text" class="form-control" name="pid'+i  +'" id="pid"></td>' +
+                    '<td><input type="text" class="form-control" name="pname'+i +'" id="pname"></td>' +
+                    '<td><input type="text" class="form-control" name="category'+i +'" id="category"></td>' +
+                    '<td><input type="text" class="form-control" name="Purchasing_price'+i +'" id="Purchasing_price"></td>' +
+                    '<td><input type="text" class="form-control" name="Wholesale_price'+i  +'" id="Wholesale_price"></td>' +
+                    '<td><input type="text" class="form-control" name="retail_price'+i  +'" id="retail_price"></td>' +
+                    '<td><input type="text" class="form-control" name="quentity'+i  +'" id="quentity"></td>' +
+                    '<td><input type="text" class="form-control" name="unit'+i +'" id="unit"></td>' +
+                    '<td><input type="text" class="form-control" name="Purchasing_date'+i +'" id="Purchasing_date"></td>' +
+                    '<td><input type="text" class="form-control" name="Expiry_date'+i +'" id="Expiry_date"></td>' +
                     '<td>' +
                     '    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
                     '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
@@ -487,9 +493,11 @@
                     '</td>' +
 
                     '</tr>';
+                    
                 $("table").append(row);
                 $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
                 $('[data-toggle="tooltip"]').tooltip();
+                i++;
             });
 
 
@@ -510,7 +518,7 @@
                 if (!empty) {
                     input.each(function() {
                         //td instaid p 
-                        $(this).parent("P").html($(this).val());
+                        $(this).parent('input[type="text"]').html($(this).val());
                     });
                     $(this).parents("tr").find(".add, .edit").toggle();
                     $(".add-new").removeAttr("disabled");
@@ -520,7 +528,7 @@
             $(document).on("click", ".edit", function() {
                 $(this).parents("tr").find("td:not(:last-child)").each(function() {
                     $(this).html('<input type="text" class="form-control" value="' + $(this)
-                    .text() + '">');
+                        .text() + '">');
                 });
                 $(this).parents("tr").find(".add, .edit").toggle();
                 $(".add-new").attr("disabled", "disabled");

@@ -54,10 +54,6 @@ class ProductsController extends Controller
         
 
             products::create([
-                // 'product_name' => $request->product_name,
-                // 'cateory_name' =>$request->cateory_name,
-                // 'description' => $request->description,
-                // 'Created_by' => (Auth::user()->name),
 
                 'product_name' => $request->product_name,
                 'category_id' => $request->category_id ,
