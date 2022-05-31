@@ -18,6 +18,42 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session()->has('Add'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Add') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session()->has('delete'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('delete') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session()->has('edit'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('edit') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <!-- row -->
     <div class="row">
         <div class="col-xl-12">
@@ -45,24 +81,24 @@
                             <tbody>
 
                                 <?php $i = 0; ?>
-                                @foreach ($receipt_debt as $x)
+                                @foreach ($ReceiptDebt as $x)
                                     <?php $i++; ?>
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td> {{ $x->name }}</td>
-                                        <td>{{ $x->date }}</td>
+                                        <td>{{ $x->invoice_date }}</td>
                                         <td>{{ $x->price }}</td>
 
                                         <td>
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
                                                 data-id="{{ $x->id }}" data-name="{{ $x->name }}"
-                                                data-date="{{ $x->date }}" data-price="{{ $x->price }}"
+                                                data-invoice_date="{{ $x->invoice_date }}" data-price="{{ $x->price }}"
                                                 data-toggle="modal" href="#exampleModal2" title="تعديل"><i
                                                     class="las la-pen"></i></a>
 
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                 data-id="{{ $x->id }}" data-name="{{ $x->name }}"
-                                                data-date="{{ $x->date }}" data-price="{{ $x->price }}"
+                                                data-invoice_date="{{ $x->invoice_date }}" data-price="{{ $x->price }}"
                                                 data-toggle="modal" href="#modaldemo9" title="حذف"><i
                                                     class="las la-trash"></i></a>
 
@@ -85,7 +121,7 @@
                                     aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('receipt_debt.store') }}" method="post">
+                            <form action="{{ route('ReceiptDebt.store') }}" method="post">
                                 {{ csrf_field() }}
 
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">اسم المورد</label>
@@ -135,7 +171,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="receipt_debt/update" method="post" autocomplete="off">
+                        <form action="ReceiptDebt/update" method="post" autocomplete="off">
                             {{ method_field('patch') }}
                             {{ csrf_field() }}
                             <div class="form-group">
@@ -179,7 +215,7 @@
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
                                 aria-hidden="true">&times;</span></button>
                     </div>
-                    <form action="receipt_debt/destroy" method="post">
+                    <form action="ReceiptDebt/destroy" method="post">
                         {{ method_field('delete') }}
                         {{ csrf_field() }}
                         <div class="modal-body">

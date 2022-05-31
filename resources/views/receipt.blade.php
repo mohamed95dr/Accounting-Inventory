@@ -25,6 +25,42 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session()->has('Add'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Add') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session()->has('delete'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('delete') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session()->has('edit'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('edit') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <!-- row -->
 
     <div class="row">
@@ -38,14 +74,14 @@
                         {{-- <a href="Invoices.create" class="modal-effect btn btn-sm btn-primary"
 						 style="color:rgb(90, 63, 63)"><i
                                 class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a> --}}
-								<a href="{{ url('add_invoice') }}" class="btn btn-xs btn-info pull-right">اضافة فاتورة</a>
+                        <a href="{{ url('add_invoice') }}" class="btn btn-xs btn-info pull-right">اضافة فاتورة</a>
 
                     </div>
                 </div>
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example" class="table key-buttons text-md-nowrap">
+                        <table id="example" class="table key-buttons text-md-nowrap" data-page-length='50'>
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">رقم الفاتورة</th>
@@ -56,19 +92,25 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $i = 0; ?>
+                                @foreach ($invoices as $x)
+                                    <?php $i++; ?>
+                                    {{--  --}}
+                                    <tr>
 
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>2011/04/25</td>
-									<td>
-										<div class="d-flex justify-content-button">
+                                        <td>{{ $i }}</td>
+                                        <td> {{ $x->invoice_date }}</td>
+                                        <td>{{ $x->suppliers->name }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-button">
 
-													<a href="{{ url('view_invoice/') }}" class="btn btn-sm btn-info pull-right">عرض </a>
-					
-										</div>
-									</td>
-                                </tr>
+                                                <a href="{{ url('view_invoice/') }}"
+                                                    class="btn btn-sm btn-info pull-right">عرض </a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>

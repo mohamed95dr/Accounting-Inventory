@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\receiptDebt;
+use App\Models\ReceiptDebt;
+use App\Models\Suppliers;
 use Illuminate\Http\Request;
 
 class ReceiptDebtController extends Controller
 {
-    /**
+    //
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        //        
+        $suppliers=Suppliers::all();
+        
+        $ReceiptDebt=ReceiptDebt::all();
+        return view('receipt_debt',compact('ReceiptDebt','suppliers'));
     }
+    //
 
     /**
      * Show the form for creating a new resource.
@@ -36,15 +43,35 @@ class ReceiptDebtController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData = $request->validate([
+            'supplier_id' => 'required|unique:ReceiptDebt|max:255',
+        ],
+        [
+            'supplier_id.required' =>'يرجي ادخال اسم المورد',
+            'supplier_id.unique' =>'اسم المورد مسجل مسبقا',
+            'price.required' =>'يرجي ادخال مبلغ الدين ',
+        ]);
+        
+
+            ReceiptDebt::create([
+
+                'supplier_id' => $request->supplier_id,
+
+
+                // 'Created_by' => (Auth::user()->name),
+
+            ]);
+            session()->flash('Add', 'تم اضافة الدين بنجاح ');
+            return redirect('/receipt_debt');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\receiptDebt  $receiptDebt
+     * @param  \App\Models\ReceiptDebt  $receiptDebt
      * @return \Illuminate\Http\Response
      */
-    public function show(receiptDebt $receiptDebt)
+    public function show(ReceiptDebt $receiptDebt)
     {
         //
     }
@@ -52,10 +79,10 @@ class ReceiptDebtController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\receiptDebt  $receiptDebt
+     * @param  \App\Models\ReceiptDebt  $receiptDebt
      * @return \Illuminate\Http\Response
      */
-    public function edit(receiptDebt $receiptDebt)
+    public function edit(ReceiptDebt $receiptDebt)
     {
         //
     }
@@ -64,22 +91,50 @@ class ReceiptDebtController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\receiptDebt  $receiptDebt
+     * @param  \App\Models\ReceiptDebt  $receiptDebt
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, receiptDebt $receiptDebt)
+    public function update(Request $request, ReceiptDebt $receiptDebt)
     {
         //
+        $id = $request->id;
+
+        $this->validate($request, [
+
+            'supplier_id' => 'required|max:255|unique:ReceiptDebt,supplier_id,'.$id,
+
+            'price' => 'required',
+        ],[
+
+            'supplier_id.required' =>'يرجي ادخال اسم المورد المنتج',
+            'invoice_date.required' =>' يرجى ادخال تاريخ الدين  ',
+            'price.required' =>'يرجي ادخال مبلغ الدين',
+
+        ]);
+
+        $receiptDebt = ReceiptDebt::find($id);
+        $receiptDebt->update([
+            'supplier_id' => $request->supplier_id,
+            'invoice_date' => $request->invoice_date,
+            'price' => $request->price,
+        ]);
+
+        session()->flash('edit','تم تعديل الدين بنجاج');
+        return redirect('/receipt_debt');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\receiptDebt  $receiptDebt
+     * @param  \App\Models\ReceiptDebt  $receiptDebt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(receiptDebt $receiptDebt)
+    public function destroy(Request $request )
     {
         //
+        $id = $request->id;
+        ReceiptDebt::find($id)->delete();
+        session()->flash('delete','تم حذف الدين بنجاح');
+        return redirect('/receipt_debt');
     }
 }

@@ -13,4 +13,9 @@ class Suppliers extends Model
     {
         return $this->belongsTo(companies::class,'company_id');
     }
+
+    public function receipts()
+    {
+        return $this->hasMany(receipt::class);
+    }
 }

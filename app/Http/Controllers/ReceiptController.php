@@ -17,8 +17,9 @@ class ReceiptController extends Controller
     public function index()
     {
         //
+        $suppliers=Suppliers::select('id','name')->get();
         $invoices = receipt::select('id','invoice_date','supplier_id')->get();
-        return view('receipt',compact('invoices'));
+        return view('receipt',compact('invoices','suppliers'));
     }
 
     /**
@@ -42,6 +43,7 @@ class ReceiptController extends Controller
     public function store(Request $request)
     {
         //
+        // return $request;
         Receipt::create([
                 'supplier_id' => Suppliers::select('id')->where('name',$request->supplier_name)->first()->id ,
                 'invoice_date' =>$request->invoice_date,
@@ -49,6 +51,9 @@ class ReceiptController extends Controller
                 'amount_paid' => $request->paid_value,
                 'total_price' => $request->Amount_Commission
         ]);
+
+        session()->flash('Add', 'تم اضافة فاتورة شراء بنجاح ');
+        return redirect('/receipt');
     
     }
 

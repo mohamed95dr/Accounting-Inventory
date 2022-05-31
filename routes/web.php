@@ -10,14 +10,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
 
-use App\Http\Controllers\receipt_debt;
+use App\Http\Controllers\ReceiptDebtController;
 use App\Http\Controllers\sale_debt;
 
 
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SuppliersController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +78,7 @@ Route::middleware(['auth:web'])->group(function () {
     Route::resource('receipt', ReceiptController::class);
     Route::get('add_invoice', [ReceiptController::class, 'create']);
 
-    Route::view('example','example');
+    Route::view('example', 'example');
 
 
     // // /customers
@@ -88,17 +87,17 @@ Route::middleware(['auth:web'])->group(function () {
 
     //stocktaking
 
-    Route::resource('stocktaking',stocktaking::class);
-    
+    Route::resource('stocktaking', stocktaking::class);
+
     //receipt_debt
-    Route::resource('receipt_debt',receipt_debt::class);
+
+    Route::resource('receipt_debt', ReceiptDebtController::class);
 
     //sale_debt
-    Route::resource('sale_debt',sale_debt::class);
+    Route::resource('sale_debt', sale_debt::class);
 });
 
 
 
 
 // Route::get('/{page}',[AdminController::class,'index']);
-
