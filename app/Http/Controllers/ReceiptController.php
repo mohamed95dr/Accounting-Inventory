@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\products;
 use App\Models\receipt;
 use App\Models\ReceiptDebt;
@@ -44,9 +45,9 @@ class ReceiptController extends Controller
      */
     public function store(Request $request)
     {
-        $countt=count($request->all());
+        // $countt=count($request->all());
 
-         return  $request;
+        //  return  $request;
         // Receipt::create([
         //     'supplier_id' => Suppliers::select('id')->where('name', $request->supplier_name)->first()->id,
         //     'invoice_date' => $request->invoice_date,
@@ -64,26 +65,39 @@ class ReceiptController extends Controller
         //         'price' => $request->Discount,
         //     ]);
         // }
+
+        //  return $request->has($pname);
         $i=1;
-        while($countt > 0){
-            
-            // return $request->pname;
-          products::create([
-           
-            'product_name' => $request->pname.$i,
-            'category_id' => $request->category.$i,
-            'Purchasing_price' => $request->Purchasing_price.$i,
-            'Wholesale_price' => $request->Wholesale_price.$i,
-            'retail_price'  => $request->retail_price.$i,
-            'Quantity' => $request->quentity.$i,
-            'date_of_supply' => $request->Purchasing_date.$i,
-            'Expiry_date' => $request->Expiry_date.$i
+        while (true) {
 
-          ]);
-          $i++;
-          $countt--;
+            $pname = 'pname' . (string)$i;
+            $category = 'category' . (string)$i;
+            $Purchasing_price = 'Purchasing_price' . (string)$i;
+            $Wholesale_price = 'Wholesale_price' . (string)$i;
+            $retail_price = 'retail_price' . (string)$i;
+            $quentity = 'quentity' . (string)$i;
+            $Purchasing_date = 'Purchasing_date' . (string)$i;
+            $Expiry_date = 'Expiry_date' . (string)$i;
+
+            if ($request->has($pname)) {
+                products::create([
+
+                    'product_name' => $request->$pname,
+                    'category_id' => Categories::select('id')->where('cateory_name', $request->$category)->first()->id,
+                    'Purchasing_price' => $request->$Purchasing_price,
+                    'Wholesale_price' => $request->$Wholesale_price,
+                    'retail_price'  => $request->$retail_price,
+                    'Quantity' => $request->$quentity,
+                    'date_of_supply' => $request->$Purchasing_date,
+                    'Expiry_date' => $request->$Expiry_date
+
+                ]);
+            }
+            else{
+                break;
+            }
+            $i++;
         }
-
         session()->flash('Add', 'تم اضافة فاتورة شراء بنجاح ');
         return redirect('/receipt');
     }
