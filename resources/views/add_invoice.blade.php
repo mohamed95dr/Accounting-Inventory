@@ -218,7 +218,7 @@
                                 <label for="inputName" class="control-label">السيد المحترم : اسم المورد </label>
                                 {{-- add supplier --}}
                                 <span>
-                                    <a href="{{ url('view_invoice/') }}" class="btn btn-sm btn-info pull-right">اضافة مورد
+                                    <a href="{{ url('suppliers/') }}" class="btn btn-sm btn-info pull-right">اضافة مورد
                                     </a>
                                 </span>
 
@@ -273,7 +273,6 @@
                                                 <th class="border-bottom-0"> سعر الجملة</th>
                                                 <th class="border-bottom-0"> سعر المفرق</th>
                                                 <th class="border-bottom-0"> الكمية</th>
-                                                <th class="border-bottom-0"> الواحدة</th>
                                                 <th class="border-bottom-0"> تاريخ التوريد </th>
                                                 <th class="border-bottom-0"> تاريخ الانتهاء </th>
                                                 <th class="border-bottom-0"> العمليات </th>
@@ -483,7 +482,6 @@
                     '<td><input type="text" class="form-control" name="Wholesale_price'+i  +'" id="Wholesale_price"></td>' +
                     '<td><input type="text" class="form-control" name="retail_price'+i  +'" id="retail_price"></td>' +
                     '<td><input type="text" class="form-control" name="quentity'+i  +'" id="quentity"></td>' +
-                    '<td><input type="text" class="form-control" name="unit'+i +'" id="unit"></td>' +
                     '<td><input type="date" class="form-control" name="Purchasing_date'+i +'" id="Purchasing_date"></td>' +
                     '<td><input type="date" class="form-control" name="Expiry_date'+i +'" id="Expiry_date"></td>' +
                     '<td>' +
