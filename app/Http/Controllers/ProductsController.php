@@ -54,7 +54,7 @@ class ProductsController extends Controller
         
 
             products::create([
-
+                'id'=>$request->product_id,
                 'product_name' => $request->product_name,
                 'category_id' => $request->category_id ,
                 'Purchasing_price'=> $request->Purchasing_price,
@@ -122,6 +122,8 @@ class ProductsController extends Controller
 
         $products = products::find($id);
         $products->update([
+            'id'=>$request->product_id,
+
             'product_name' => $request->product_name,
             'category_id' => $request->category_id,
             'description' => $request->description,

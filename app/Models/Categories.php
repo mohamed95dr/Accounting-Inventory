@@ -9,13 +9,14 @@ use App\Models\products;
 class Categories extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'cateory_name',
-        'company_name',
-        'description'
-    ];
+    protected $guarded=[];
     public function products()
     {
         return $this->hasMany(products::class);
+    }
+
+    public function companies()
+    {
+        return $this->belongsTo(companies::class,'company_id');
     }
 }

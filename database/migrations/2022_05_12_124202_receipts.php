@@ -19,10 +19,13 @@ class Receipts extends Migration
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
 
-            $table->unsignedBigInteger('receiptDebt_id');
+            $table->unsignedBigInteger('receiptDebt_id')->nullable();
             $table->foreign('receiptDebt_id')->references('id')->on('receipt_debts')->onDelete('cascade');
 
-            $table->date('invoice_date');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->date('invoice_date');//date
             $table->decimal('total_price',8,2);
             $table->decimal('amount_paid',8,2);
             $table->decimal('remainder_debt',8,2);

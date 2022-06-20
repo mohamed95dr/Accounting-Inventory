@@ -17,8 +17,8 @@ class CreateReceiptDebtsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
-            $table->date('invoice_date');
-            $table->decimal('price',8,2);
+            $table->date('invoice_date');//date
+            $table->decimal('price',8,2);//debt_value
             $table->timestamps();
         });
     }

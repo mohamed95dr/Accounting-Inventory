@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    قائمة الفواتير
+    قائمة الفواتير البيع
 @endsection
 @section('css')
     <!-- Internal Data table css -->
@@ -48,7 +48,7 @@
                                 <tr>
                                     <th class="border-bottom-0">رقم الفاتورة</th>
                                     <th class="border-bottom-0">تاريخ الفاتورة</th>
-                                    <th class="border-bottom-0">اسم المورد </th>
+                                    <th class="border-bottom-0">اسم الزبون </th>
 
 
                                 </tr>

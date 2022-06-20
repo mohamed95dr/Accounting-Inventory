@@ -1,212 +1,200 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap Table with Add and Delete Row Feature</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<style>
-body {
-    color: #404E67;
-    background: #F5F7FA;
-    font-family: 'Open Sans', sans-serif;
-    direction: rtl
-    
-}
-.table-wrapper {
-    width: 700px;
-    margin: 30px auto;
-    background: #fff;
-    padding: 20px;	
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
-}
-.table-title {
-    padding-bottom: 10px;
-    margin: 0 0 10px;
-}
-.table-title h2 {
-    margin: 6px 0 0;
-    font-size: 22px;
-}
-.table-title .add-new {
-    float: right;
-    height: 30px;
-    font-weight: bold;
-    font-size: 12px;
-    text-shadow: none;
-    min-width: 100px;
-    border-radius: 50px;
-    line-height: 13px;
-}
-.table-title .add-new i {
-    margin-right: 4px;
-}
-table.table {
-    table-layout: fixed;
-}
-table.table tr th, table.table tr td {
-    border-color: #e9e9e9;
-}
-table.table th i {
-    font-size: 13px;
-    margin: 0 5px;
-    cursor: pointer;
-}
-table.table th:last-child {
-    width: 100px;
-}
-table.table td a {
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 5px;
-    min-width: 24px;
-}    
-table.table td a.add {
-    color: #27C46B;
-}
-table.table td a.edit {
-    color: #FFC107;
-}
-table.table td a.delete {
-    color: #E34724;
-}
-table.table td i {
-    font-size: 19px;
-}
-table.table td a.add i {
-    font-size: 24px;
-    margin-right: -1px;
-    position: relative;
-    top: 3px;
-}    
-table.table .form-control {
-    height: 32px;
-    line-height: 32px;
-    box-shadow: none;
-    border-radius: 2px;
-}
-table.table .form-control.error {
-    border-color: #f50000;
-}
-table.table td .add {
-    display: none;
-}
-</style>
-<script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-	var actions = $("table td:last-child").html();
-	// Append table with add row form on add new button click
-    $(".add-new").click(function(){
-		$(this).attr("disabled", "disabled");
-		var index = $("table tbody tr:last-child").index();
-        var row = '<tr>' +
-            '<td><input type="text" class="form-control" name="pid" id="pid"></td>' +
-            '<td><input type="text" class="form-control" name="pname" id="pname"></td>' +
-            '<td><input type="text" class="form-control" name="category" id="category"></td>' +
-            '<td><input type="text" class="form-control" name="Purchasing_price" id="Purchasing_price"></td>' +
-            '<td><input type="text" class="form-control" name="Wholesale_price" id="Wholesale_price"></td>' +
-            '<td><input type="text" class="form-control" name="retail_price" id="retail_price"></td>' +
-            '<td><input type="text" class="form-control" name="quentity" id="quentity"></td>' +
-            '<td><input type="text" class="form-control" name="Purchasing_date" id="Purchasing_date"></td>' +
-            '<td><input type="text" class="form-control" name="Expiry_date" id="Expiry_date"></td>' +
-			'<td>' + '    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>'+
-                '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>'+
-                            '<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>'
-                + '</td>' +
-            
-        '</tr>';
-    	$("table").append(row);		
-		$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    
-                    
-                        
-	// Add row on add button click
-	$(document).on("click", ".add", function(){
-		var empty = false;
-		var input = $(this).parents("tr").find('input[type="text"]');
-        input.each(function(){
-			if(!$(this).val()){
-				$(this).addClass("error");
-				empty = true;
-			} else{
-                $(this).removeClass("error");
-            }
-		});
-		$(this).parents("tr").find(".error").first().focus();
-		if(!empty){
-			input.each(function(){
-                //td instaid p 
-				$(this).parent("P").html($(this).val());
-			});			
-			$(this).parents("tr").find(".add, .edit").toggle();
-			$(".add-new").removeAttr("disabled");
-		}		
-    });
-	// Edit row on edit button click
-	$(document).on("click", ".edit", function(){		
-        $(this).parents("tr").find("td:not(:last-child)").each(function(){
-			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-		});		
-		$(this).parents("tr").find(".add, .edit").toggle();
-		$(".add-new").attr("disabled", "disabled");
-    });
-	// Delete row on delete button click
-	$(document).on("click", ".delete", function(){
-        $(this).parents("tr").remove();
-		$(".add-new").removeAttr("disabled");
-    });
-});
-</script>
-</head>
-<body>
-<div class="container" >
-    <div class="table-responsive">
-        <div class="">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-2" ><h2 > أدخل المنتجات : </h2></div>
-                    <div class="col-sm-8">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> منتج جديد</button>
+@extends('layouts.master')
+@section('title')
+    المستخدمين
+@endsection
+@section('css')
+    <!-- Internal Data table css -->
+    <link href="{{ URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+@endsection
+@section('page-header')
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="my-auto">
+            <div class="d-flex">
+                <h4 class="content-title mb-0 my-auto">المستخدمين</h4>
+            </div>
+        </div>
+
+    </div>
+    <!-- breadcrumb -->
+@endsection
+@section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session()->has('Add'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Add') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session()->has('delete'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('delete') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session()->has('edit'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('edit') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    <!-- row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mg-b-20">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
+                            data-toggle="modal" href="#modaldemo8">إضافة مستخدم</a>
+
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example" class="table key-buttons text-md-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-bottom-0"> رقم المستخدم</th>
+                                    <th class="border-bottom-0"> اسم المستخدم</th>
+                                    <th class="border-bottom-0"> الإيميل</th>
+                                    <th class="border-bottom-0"> رقم الهاتف</th>
+                                    <th class="border-bottom-0"> العنوان </th>
+
+                                    <th class="border-bottom-0"> الراتب </th>
+                                    <th class="border-bottom-0"> المنصب </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 0; ?>
+                                @foreach ($users as $x)
+                                    <?php $i++; ?>
+                                    <tr>
+                                        <td>{{ $i }}</td>
+                                        <td> {{ $x->name }}</td>
+                                        <td>{{ $x->email }}</td>
+                                        <td>{{ $x->phone }}</td>
+                                        <td>{{ $x->address }}</td>
+
+                                        <td>{{ $x->salary }}</td>
+                                        <td>{{ $x->Role }}</td>
+
+                                        <td>
+                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                                data-id="{{ $x->id }}" data-name="{{ $x->name }}"
+                                                data-email="{{ $x->email }}"
+                                                data-address="{{ $x->address }}"
+                                                data-salary="{{ $x->salary }}" data-Role="{{ $x->Role }}"
+                                                data-phone="{{ $x->phone }}" data-toggle="modal"
+                                                href="#exampleModal2" title="تعديل"><i
+                                                    class="las la-pen"></i></a>
+
+                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                data-id="{{ $x->id }}" data-name="{{ $x->name }}"
+                                                data-email="{{ $x->email }}"
+                                                data-address="{{ $x->address }}"
+                                                data-salary="{{ $x->salary }}" data-Role="{{ $x->Role }}"
+                                                data-phone="{{ $x->phone }}" data-toggle="modal"
+                                                href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="border-bottom-0" > رقم المنتج</th>
-                        <th class="border-bottom-0"> اسم المنتج</th>
-                        <th class="border-bottom-0">اسم الصنف</th>
-                        <th class="border-bottom-0"> سعر الشراء</th>
-                        <th class="border-bottom-0"> سعر الجملة</th>
-                        <th class="border-bottom-0"> سعر المفرق</th>
-                        <th class="border-bottom-0" > الكمية</th>
-                        <th class="border-bottom-0"> تاريخ التوريد </th>
-                        <th class="border-bottom-0"> تاريخ الانتهاء </th>
-                        <th class="border-bottom-0"> العمليات </th>
-                        {{-- <th class="border-bottom-0"> العمليات </th> --}}
+            <!-- Basic modal -->
 
+            <div class="modal" id="modaldemo8">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content modal-content-demo">
+                        <div class="modal-header">
+                            <h6 class="modal-title">اضافة مستخدم</h6><button aria-label="Close"
+                                class="close" data-dismiss="modal" type="button"><span
+                                    aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('users.store') }}" method="post">
+                                {{ csrf_field() }}
 
-                        {{-- <th class="border-bottom-0"> الوصف</th> --}}
+                                <div class="form-group">
+                                    <label for="name">اسم المستخدم</label>
+                                    <input type="text" class="form-control" id="name" name="name">
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> الايميل </label>
+                                    <input type="text" class="form-control" id="email" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> كلمة السر </label>
+                                    <input type="text" class="form-control" id="password" name="password">
+                                </div>
 
-                    </tr>
-                </thead>
-                <tbody>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">رقم الهاتف</label>
+                                    <input class="form-control" id="phone" name="phone" rows="3" />
+                                </div>
 
-                          
-                </tbody>
-            </table>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">العنوان </label>
+                                    <input class="form-control" id="address" name="address" rows="3" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">الراتب </label>
+                                    <input class="form-control" id="salary" name="salary" rows="3" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">المنصب </label>
+                                    <input class="form-control" id="Role" name="Role" rows="3" />
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">تاكيد</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">اغلاق</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Basic modal -->
+            </div>
         </div>
+
     </div>
-</div>     
-</body>
-</html>
+    <!-- row closed -->
+    </div>
+    <!-- Container closed -->
+    </div>
+    <!-- main-content closed -->
+@endsection
+@section('js')
+@endsection

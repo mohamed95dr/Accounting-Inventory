@@ -20,7 +20,7 @@ class ReceiptController extends Controller
     public function index()
     {
         //
-        $suppliers = Suppliers::select('id', 'name')->get();
+        $suppliers = Suppliers::all();
         $invoices = receipt::select('id', 'invoice_date', 'supplier_id')->get();
         return view('receipt', compact('invoices', 'suppliers'));
     }
@@ -33,7 +33,7 @@ class ReceiptController extends Controller
     public function create()
     {
 
-        $suppliers = Suppliers::select('name')->get();
+        $suppliers = Suppliers::select('id','name')->get();
         return view('add_invoice', compact('suppliers'));
     }
 
@@ -48,23 +48,23 @@ class ReceiptController extends Controller
         // $countt=count($request->all());
 
         //  return  $request;
-        // Receipt::create([
-        //     'supplier_id' => Suppliers::select('id')->where('name', $request->supplier_name)->first()->id,
-        //     'invoice_date' => $request->invoice_date,
-        //     'remainder_debt' => $request->Discount,
-        //     'amount_paid' => $request->paid_value,
-        //     'total_price' => $request->Amount_Commission
-        // ]);
+        Receipt::create([
+            'supplier_id' => Suppliers::select('id')->where('name', $request->supplier_name)->first()->id,
+            'invoice_date' => $request->invoice_date,
+            'remainder_debt' => $request->Discount,
+            'amount_paid' => $request->paid_value,
+            'total_price' => $request->Total_Amount
+        ]);
 
-        // if ($request->Discount > 0) {
+        if ($request->Discount > 0) {
 
-        //     ReceiptDebt::create([
+            ReceiptDebt::create([
 
-        //         'supplier_id' => Suppliers::select('id')->where('name', $request->supplier_name)->first()->id,
-        //         'invoice_date' => $request->invoice_date,
-        //         'price' => $request->Discount,
-        //     ]);
-        // }
+                'supplier_id' => Suppliers::select('id')->where('name', $request->supplier_name)->first()->id,
+                'invoice_date' => $request->invoice_date,
+                'price' => $request->Discount,
+            ]);
+        }
 
         //  return $request->has($pname);
         $i=1;
@@ -80,6 +80,7 @@ class ReceiptController extends Controller
             $Expiry_date = 'Expiry_date' . (string)$i;
 
             if ($request->has($pname)) {
+
                 products::create([
 
                     'product_name' => $request->$pname,
@@ -111,6 +112,8 @@ class ReceiptController extends Controller
     public function show(receipt $receipt)
     {
         //
+        return view('view_invoice');
+
     }
 
     /**

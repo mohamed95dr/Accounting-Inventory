@@ -13,4 +13,9 @@ class companies extends Model
     {
         return $this->hasMany(Suppliers::class);
     }
+
+    public function categories()
+    {
+        return $this->hasMany(Categories::class);
+    }
 }

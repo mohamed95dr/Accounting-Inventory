@@ -19,12 +19,12 @@ class CreateSaleInvoicesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('costomers')->onDelete('cascade');
-            $table->unsignedBigInteger('saleDebt_id');
+            $table->unsignedBigInteger('saleDebt_id')->nullable();
             $table->foreign('saleDebt_id')->references('id')->on('sale_debts')->onDelete('cascade');
-            $table->date('invoice_date');
-            $table->decimal('total_amount',8,2);
-            $table->decimal('amount_received',8,2);
-            $table->decimal('remainder_amount',8,2);
+            $table->date('invoice_date');//date
+            $table->decimal('total_amount',8,2);//total_price
+            $table->decimal('amount_received',8,2);//amount_paid
+            $table->decimal('remainder_amount',8,2);//remander_debt
             $table->timestamps();
         });
     }

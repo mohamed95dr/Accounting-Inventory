@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale_Invoice;
+use App\Models\Diary;
 use Illuminate\Http\Request;
 
-class SaleInvoiceController extends Controller
+class DiaryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,6 @@ class SaleInvoiceController extends Controller
     public function index()
     {
         //
-        return view('Sale_Invoice');
     }
 
     /**
@@ -26,7 +25,6 @@ class SaleInvoiceController extends Controller
     public function create()
     {
         //
-        return view('add_invoiceSale');
     }
 
     /**
@@ -38,16 +36,15 @@ class SaleInvoiceController extends Controller
     public function store(Request $request)
     {
         //
-        return $request;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sale_Invoice  $sale_Invoice
+     * @param  \App\Models\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale_Invoice $sale_Invoice)
+    public function show(Diary $diary)
     {
         //
     }
@@ -55,10 +52,10 @@ class SaleInvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sale_Invoice  $sale_Invoice
+     * @param  \App\Models\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sale_Invoice $sale_Invoice)
+    public function edit(Diary $diary)
     {
         //
     }
@@ -67,10 +64,10 @@ class SaleInvoiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sale_Invoice  $sale_Invoice
+     * @param  \App\Models\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale_Invoice $sale_Invoice)
+    public function update(Request $request, Diary $diary)
     {
         //
     }
@@ -78,10 +75,10 @@ class SaleInvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Sale_Invoice  $sale_Invoice
+     * @param  \App\Models\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale_Invoice $sale_Invoice)
+    public function destroy(Diary $diary)
     {
         //
     }

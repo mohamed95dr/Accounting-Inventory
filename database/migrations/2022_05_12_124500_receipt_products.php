@@ -14,24 +14,25 @@ class ReceiptProducts extends Migration
     public function up()
     {
         //
-        Schema::create('receipt_products', function (Blueprint $table) {
+        Schema::create('receipt_products', function (Blueprint $table) {//receipt_invoice_details
 
         $table->id();
-        $table->unsignedBigInteger('supplier_id');
-        $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
-        $table->date('date_of_supply');
-        $table->date('Expiry_date');
+       
+        $table->string('product_id');
+        $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         
         $table->unsignedBigInteger('receiptDebt_id');
         $table->foreign('receiptDebt_id')->references('id')->on('receipt_debts')->onDelete('cascade');
 
-        $table->unsignedBigInteger('receipts_id');
+        $table->unsignedBigInteger('receipts_id');//receipts_invoices-id
         $table->foreign('receipts_id')->references('id')->on('receipts')->onDelete('cascade');
+        
+        $table->decimal('quantity');//date
 
-        $table->date('invoice_date');
-        $table->decimal('total_price',8,2);
-        $table->decimal('amount_paid',8,2);
-        $table->decimal('remainder_debt',8,2);
+        $table->date('invoice_date');//date
+        $table->decimal('Pruchasing_price',8,2);
+        $table->decimal('wholesale_price',8,2);
+        $table->decimal('retail_price',8,2);
         $table->timestamps();
     });
     }

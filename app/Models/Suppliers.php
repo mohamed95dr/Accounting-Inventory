@@ -9,6 +9,9 @@ class Suppliers extends Model
 {
     use HasFactory;
     protected $guarded=[];
+
+
+    
     public function companies()
     {
         return $this->belongsTo(companies::class,'company_id');

@@ -15,6 +15,7 @@ class CompaniesController extends Controller
     public function index()
     {
         //
+
         $companies=companies::all();
         return view('companies',compact('companies'));
 
@@ -39,6 +40,7 @@ class CompaniesController extends Controller
     public function store(Request $request)
     {
         //
+        return $request;
         $validatedData = $request->validate([
             'name' => 'required|unique:companies|max:255',
             'description' => 'required|max:255',
@@ -53,6 +55,7 @@ class CompaniesController extends Controller
             'name' => $request->name,
             'description' => $request->description,
         ]);
+
         session()->flash('Add', 'تم اضافة الشركة بنجاح ');
         return redirect('/companies');
     }

@@ -84,6 +84,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                
 
                                 <?php $i = 0; ?>
                                 @foreach ($companies as $x)
@@ -137,7 +138,7 @@
 
 
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">تاكيد</button>
+                                    <button type="submit" class="btn btn-primary">تاكيد</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق
                                     </button>
                                 </div>

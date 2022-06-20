@@ -121,7 +121,7 @@
                                     aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('ReceiptDebt.store') }}" method="post">
+                            <form action="{{ url('/receipt_debt') }}" method="post">
                                 {{ csrf_field() }}
 
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">اسم المورد</label>

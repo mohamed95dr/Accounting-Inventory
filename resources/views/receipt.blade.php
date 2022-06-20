@@ -71,9 +71,7 @@
                 <div class="card-header pb-0">
 
                     <div class="d-flex justify-content-button">
-                        {{-- <a href="Invoices.create" class="modal-effect btn btn-sm btn-primary"
-						 style="color:rgb(90, 63, 63)"><i
-                                class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a> --}}
+
                         <a href="{{ url('add_invoice') }}" class="btn btn-xs btn-info pull-right">اضافة فاتورة</a>
 
                     </div>
@@ -104,7 +102,7 @@
                                         <td>
                                             <div class="d-flex justify-content-button">
 
-                                                <a href="{{ url('view_invoice/') }}"
+                                                <a href=""
                                                     class="btn btn-sm btn-info pull-right">عرض </a>
 
                                             </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\sale_debt;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SuppliersController;
+use App\Models\ReceiptDebt;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,9 +75,14 @@ Route::middleware(['auth:web'])->group(function () {
     Route::resource('products', ProductsController::class);
 
     //invoices
+    
     Route::resource('Sale_Invoice', SaleInvoiceController::class);
+    
+
     Route::resource('receipt', ReceiptController::class);
+
     Route::get('add_invoice', [ReceiptController::class, 'create']);
+    Route::get('add_invoiceSale', [SaleInvoiceController::class, 'create']);
 
     Route::view('example', 'example');
 
@@ -95,6 +101,13 @@ Route::middleware(['auth:web'])->group(function () {
 
     //sale_debt
     Route::resource('sale_debt', sale_debt::class);
+
+
+    Route::get('debt/{supplier_id}', function($supplier_id){
+
+        return $debt_amount = ReceiptDebt::select('price')->where('id',$supplier_id)->first()->price;
+
+    });
 });
 
 

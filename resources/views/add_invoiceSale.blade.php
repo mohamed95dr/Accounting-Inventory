@@ -184,7 +184,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">فواتير الشراء</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    اضافة فاتورة</span>
+                    اضافة فاتورة بيع</span>
             </div>
         </div>
     </div>
@@ -208,25 +208,25 @@
             <div class="card">
                 <div class="card-body">
 <!--  -->
-                    <form action="{{ route('receipt.store') }}" method="post" enctype="multipart/form-data"
+                    <form action="SaleInvoice.store" method="post" enctype="multipart/form-data"
                         autocomplete="off">
                         {{ csrf_field() }}
                         {{-- 1 --}}
 
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">السيد المحترم : اسم المورد </label>
-                                {{-- add supplier --}}
+                                <label for="inputName" class="control-label">السيد المحترم : اسم الزبون </label>
+                                {{-- add customer --}}
                                 <span>
-                                    <a href="{{ url('view_invoice/') }}" class="btn btn-sm btn-info pull-right">اضافة مورد
+                                    <a href="{{ url('costomers/') }}" class="btn btn-sm btn-info pull-right">اضافة زبون 
                                     </a>
                                 </span>
 
                                 <select name="supplier_name" class="form-control SlectBox">
                                     <!--placeholder-->
-                                    <option value="" selected disabled>اختر مورد</option>
-                                    @foreach ($suppliers as $supplier)
-                                        <option value="{{ $supplier->name }}">{{ $supplier->name }}</option>
+                                    <option value="" selected disabled>اختر زبون</option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -269,13 +269,9 @@
                                                 <th class="border-bottom-0"> رقم المنتج</th>
                                                 <th class="border-bottom-0"> اسم المنتج</th>
                                                 <th class="border-bottom-0">اسم الصنف</th>
-                                                <th class="border-bottom-0"> سعر الشراء</th>
                                                 <th class="border-bottom-0"> سعر الجملة</th>
                                                 <th class="border-bottom-0"> سعر المفرق</th>
                                                 <th class="border-bottom-0"> الكمية</th>
-                                                <th class="border-bottom-0"> الواحدة</th>
-                                                <th class="border-bottom-0"> تاريخ التوريد </th>
-                                                <th class="border-bottom-0"> تاريخ الانتهاء </th>
                                                 <th class="border-bottom-0"> العمليات </th>
 
                                             </tr>
@@ -479,13 +475,9 @@
                     '<td><input type="text" class="form-control" name="pid'+i  +'" id="pid"></td>' +
                     '<td><input type="text" class="form-control" name="pname'+i +'" id="pname"></td>' +
                     '<td><input type="text" class="form-control" name="category'+i +'" id="category"></td>' +
-                    '<td><input type="text" class="form-control" name="Purchasing_price'+i +'" id="Purchasing_price"></td>' +
                     '<td><input type="text" class="form-control" name="Wholesale_price'+i  +'" id="Wholesale_price"></td>' +
                     '<td><input type="text" class="form-control" name="retail_price'+i  +'" id="retail_price"></td>' +
                     '<td><input type="text" class="form-control" name="quentity'+i  +'" id="quentity"></td>' +
-                    '<td><input type="text" class="form-control" name="unit'+i +'" id="unit"></td>' +
-                    '<td><input type="date" class="form-control" name="Purchasing_date'+i +'" id="Purchasing_date"></td>' +
-                    '<td><input type="date" class="form-control" name="Expiry_date'+i +'" id="Expiry_date"></td>' +
                     '<td>' +
                     '    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
                     '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\companies;
+use App\Models\Suppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +18,10 @@ class CategoriesController extends Controller
     public function index()
     {
         //
+        $suppliers=Suppliers::all();
+        $companies=companies::all();
         $categories=Categories::all();
-        return view('categories',compact('categories'));
+        return view('categories',compact('categories','companies','suppliers'));
     }
 
     /**
@@ -39,20 +43,22 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         //
+        // return $request;
         $validatedData = $request->validate([
             'cateory_name' => 'required|unique:categories|max:255',
         ],
         [
             'cateory_name.required' =>'يرجي ادخال اسم القسم',
             'cateory_name.unique' =>'اسم القسم مسجل مسبقا',
-            'company_name.required' =>'يرجي ادخال اسم الشركة المصنعة',
+            'company_id.required' =>'يرجي ادخال اسم الشركة المصنعة',
         ]);
 
             Categories::create([
                 'cateory_name' => $request->cateory_name,
-                'company_name' =>$request->company_name,
+                'company_id' =>$request->company_id,
+                'supplier_id' =>$request->supplier_id,
                 'description' => $request->description,
-                'Created_by' => (Auth::user()->name),
+                // 'Created_by' => (Auth::user()->name),
 
             ]);
             session()->flash('Add', 'تم اضافة القسم بنجاح ');

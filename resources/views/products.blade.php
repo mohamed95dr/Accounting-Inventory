@@ -78,14 +78,15 @@
                         <table id="example" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
+                                    <th class="border-bottom-0">  عداد</th>
                                     <th class="border-bottom-0"> رقم المنتج</th>
+
                                     <th class="border-bottom-0"> اسم المنتج</th>
                                     <th class="border-bottom-0">اسم الصنف</th>
                                     <th class="border-bottom-0"> سعر الشراء</th>
                                     <th class="border-bottom-0"> سعر الجملة</th>
                                     <th class="border-bottom-0"> سعر المفرق</th>
                                     <th class="border-bottom-0"> الكمية</th>
-                                    <th class="border-bottom-0">  الواحدة </th>
                                     <th class="border-bottom-0"> تاريخ التوريد </th>
                                     <th class="border-bottom-0"> تاريخ الانتهاء </th>
                                     <th class="border-bottom-0"> الوصف </th>
@@ -105,13 +106,14 @@
                                     <tr>
 
                                         <td>{{ $i }}</td>
+                                        <td> {{ $x->id }}</td>
+
                                         <td> {{ $x->product_name }}</td>
                                         <td>{{ $x->categories->cateory_name }}</td>
                                         <td>{{ $x->Purchasing_price }}</td>
                                         <td>{{ $x->Wholesale_price }}</td>
                                         <td>{{ $x->retail_price }}</td>
                                         <td>{{ $x->Quantity }}</td>
-                                        <td>{{ $x->unit }}</td>
                                         <td>{{ $x->date_of_supply }}</td>
                                         <td>{{ $x->Expiry_date }}</td>
                                         <td>{{ $x->description }}</td>
@@ -123,7 +125,6 @@
                                                 data-Wholesale_price="{{ $x->Wholesale_price }}"
                                                 data-retail_price="{{ $x->retail_price }}"
                                                 data-Quantity="{{ $x->Quantity }}"
-                                                data-unit="{{ $x->unit }}"
                                                 data-date_of_supply="{{ $x->date_of_supply }}"
                                                 data-Expiry_date="{{ $x->Expiry_date }}"
                                                 data-description="{{ $x->description }}" data-toggle="modal"
@@ -136,7 +137,6 @@
                                                 data-Wholesale_price="{{ $x->Wholesale_price }}"
                                                 data-retail_price="{{ $x->retail_price }}"
                                                 data-Quantity="{{ $x->Quantity }}"
-                                                data-unit="{{ $x->unit }}"
                                                 data-date_of_supply="{{ $x->date_of_supply }}"
                                                 data-Expiry_date="{{ $x->Expiry_date }}" data-toggle="modal"
                                                 href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
@@ -162,6 +162,11 @@
                         <div class="modal-body">
                             <form action="{{ route('products.store') }}" method="post">
                                 {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">رقم المنتج</label>
+                                    <input type="text" class="form-control" id="product_id" name="product_id">
+                                </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">اسم المنتج</label>
@@ -196,25 +201,15 @@
                                     <input type="text" class="form-control" id="Quantity" name="Quantity">
                                 </div>
                                 
-                                <?php
-                                $units=['كيلو','عبوة','طرد'];
-                                ?>
-                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">الواحدة</label>
-                                <select name="unit" id="unit" class="form-control" required>
-                                    <option value="" selected disabled> --حدد الواحدة--</option>
-                                    @foreach ($units as $unit)
-                                        <option value="{{ $unit }}">{{ $unit }}</option>
-                                    @endforeach
-                                </select>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> تاريخ التوريد </label>
-                                    <input type="text" class="form-control" id="date_of_supply" name="date_of_supply">
+                                    <input type="date" class="form-control" id="date_of_supply" name="date_of_supply">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> تاريخ الانتهاء </label>
-                                    <input type="text" class="form-control" id="Expiry_date" name="Expiry_date">
+                                    <input type="date" class="form-control" id="Expiry_date" name="Expiry_date">
                                 </div>
 
                                 <div class="form-group">
@@ -248,6 +243,13 @@
                             <form action="products/update" method="post" autocomplete="off">
                                 {{ method_field('patch') }}
                                 {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <label for="recipient-name" class="col-form-label">رقم المنتج:</label>
+                                    <input class="form-control" name="product_id" id="product_id" type="text">
+                                </div>
+
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label">اسم المنتج:</label>
@@ -281,11 +283,11 @@
                                     <input class="form-control" name="Quantity" id="Quantity" type="text">
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label"> الواحدة :</label>
                                     <input class="form-control" name="unit" id="unit" type="text">
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
@@ -327,7 +329,7 @@
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <p>هل انت متاكد من عملية الحذف ؟</p><br>
-                                <input type="hidden" name="id" id="id" value="">
+                                <input class="form-control" type="text" name="id" id="id" value="">
                                 <input class="form-control" name="product_name" id="product_name" type="text" readonly>
                                 <input class="form-control" name="category_name" id="category_name" type="text" readonly>
                                 <input class="form-control" name="Purchasing_price" id="Purchasing_price" type="text"
@@ -379,7 +381,6 @@
             var Wholesale_price = button.data('Wholesale_price')
             var retail_price = button.data('retail_price')
             var Quantity = button.data('Quantity')
-            var unit = button.data('unit')
             var date_of_supply = button.data('date_of_supply')
             var Expiry_date = button.data('Expiry_date')
             var description = button.data('description')
@@ -391,7 +392,6 @@
             modal.find('.modal-body #Wholesale_price').val(Wholesale_price);
             modal.find('.modal-body #retail_price').val(retail_price);
             modal.find('.modal-body #Quantity').val(Quantity);
-            modal.find('.modal-body #unit').val(unit);
             modal.find('.modal-body #date_of_supply').val(date_of_supply);
             modal.find('.modal-body #Expiry_date').val(Expiry_date);
             modal.find('.modal-body #description').val(description);
