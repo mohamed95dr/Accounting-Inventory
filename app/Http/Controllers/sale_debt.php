@@ -44,7 +44,7 @@ class sale_debt extends Controller
         //
         $validatedData = $request->validate(
             [
-                'customer_id' => 'required|unique:SaleDebt|max:255',
+                'customer_id' => 'required|unique:sale_debts|max:255',
             ],
             [
                 'customer_id.required' => 'يرجي ادخال اسم الزبون',
@@ -56,7 +56,7 @@ class sale_debt extends Controller
 
             ]
         );
-        return $request;
+        // return $request;
 
         SaleDebt::create([
             'customer_id' => $request->customer_id,

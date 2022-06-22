@@ -78,10 +78,11 @@
                         <table id="example" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th class="border-bottom-0"> رقم الصنف</th>
-                                    <th class="border-bottom-0"> اسم الصنف</th>
+                                    <th class="border-bottom-0"> عداد </th>
+                                    <th class="border-bottom-0"> اسم القسم</th>
                                     <th class="border-bottom-0">اسم الشركة</th>
                                     <th class="border-bottom-0">اسم مورد الشركة</th>
+                                    <th class="border-bottom-0"> ملاحظات </th>
 
 
 
@@ -95,6 +96,7 @@
                                         <td>{{ $i }}</td>
                                         <td> {{ $x->cateory_name }}</td>
                                         <td>{{ $x->companies->name }}</td>
+                                        <td>{{ $x->suppliers->name }}</td>
                                         <td>{{ $x->description }}</td>
                                         <td>
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
@@ -173,7 +175,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">تعديل الصنف</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">تعديل القسم</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -185,20 +187,25 @@
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
-                                    <label for="recipient-name" class="col-form-label">اسم الصنف:</label>
+                                    <label for="recipient-name" class="col-form-label">اسم القسم:</label>
                                     <input class="form-control" name="cateory_name" id="cateory_name" type="text">
                                 </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
-                                    <label for="recipient-name" class="col-form-label">اسم الشركة المصنعة:</label>
-                                    <input class="form-control" name="company_name" id="company_name" type="text">
-                                </div>
 
-                                <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
-                                    <label for="recipient-name" class="col-form-label">اسم المورد الشركة :</label>
-                                    <input class="form-control" name="supplier_name" id="supplier_name" type="text">
-                                </div>
+                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">الشركة المصنعة</label>
+                                <select name="company_id" id="company_id" class="form-control" required>
+                                    <option value="" selected disabled> --حدد الشركة--</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">--حدد مورد</label>
+                                <select name="supplier_id" id="supplier_id" class="form-control" required>
+                                    <option value="" selected disabled> --حدد المورد--</option>
+                                    @foreach ($suppliers as $supplier)
+                                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                    @endforeach
+                                </select>
 
                                 <div class="form-group">
                                     <label for="message-text" class="col-form-label">ملاحظات:</label>

@@ -76,7 +76,8 @@
                 xhttp.open("GET", 'http://127.0.0.1:8000/debt/'+ supplier_id, true);
                 xhttp.send();
                
-               var Discount= document.getElementById("Discount").value= this.responseText + Amount_Commission - paid_value ;
+
+                // document.getElementById("Discount").value= this.responseText + Amount_Commission - paid_value ;
             }
 
             function fetch_total_amount(){

@@ -123,7 +123,7 @@
                                     aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('companies.store') }}" method="post">
+                            <form action="{{ url('companies') }}" method="post">
                                 {{ csrf_field() }}
 
                                 <div class="form-group">

@@ -82,7 +82,7 @@
                                     <th class="border-bottom-0"> رقم المنتج</th>
 
                                     <th class="border-bottom-0"> اسم المنتج</th>
-                                    <th class="border-bottom-0">اسم الصنف</th>
+                                    <th class="border-bottom-0">اسم القسم</th>
                                     <th class="border-bottom-0"> سعر الشراء</th>
                                     <th class="border-bottom-0"> سعر الجملة</th>
                                     <th class="border-bottom-0"> سعر المفرق</th>
@@ -160,7 +160,7 @@
                                 data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('products.store') }}" method="post">
+                            <form action="{{ url('/products') }}" method="post">
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
@@ -173,9 +173,9 @@
                                     <input type="text" class="form-control" id="product_name" name="product_name">
                                 </div>
 
-                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">الصنف</label>
+                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">القسم</label>
                                 <select name="category_id" id="category_id" class="form-control" required>
-                                    <option value="" selected disabled> --حدد الصنف--</option>
+                                    <option value="" selected disabled> --حدد القسم--</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->cateory_name }}</option>
                                     @endforeach
@@ -240,7 +240,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <form action="products/update" method="post" autocomplete="off">
+                            <form action='products/update' method="post" autocomplete="off">
                                 {{ method_field('patch') }}
                                 {{ csrf_field() }}
 
@@ -255,11 +255,15 @@
                                     <label for="recipient-name" class="col-form-label">اسم المنتج:</label>
                                     <input class="form-control" name="product_name" id="product_name" type="text">
                                 </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
-                                    <label for="recipient-name" class="col-form-label">اسم الصنف:</label>
-                                    <input class="form-control" name="category_name" id="category_name" type="text">
-                                </div>
+
+                                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">القسم</label>
+                                <select name="category_id" id="category_id" class="form-control" required>
+                                    <option value="" selected disabled> --حدد القسم--</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->cateory_name }}</option>
+                                    @endforeach
+                                </select>
+
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label">سعر الشراء :</label>
@@ -283,22 +287,18 @@
                                     <input class="form-control" name="Quantity" id="Quantity" type="text">
                                 </div>
 
-                                {{-- <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
-                                    <label for="recipient-name" class="col-form-label"> الواحدة :</label>
-                                    <input class="form-control" name="unit" id="unit" type="text">
-                                </div> --}}
+
 
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label"> تاريخ التوريد :</label>
-                                    <input class="form-control" name="date_of_supply" id="date_of_supply" type="text">
+                                    <input class="form-control" name="date_of_supply" id="date_of_supply" type="date">
                                 </div>
 
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label"> تاريخ الانتهاء :</label>
-                                    <input class="form-control" name="Expiry_date" id="Expiry_date" type="text">
+                                    <input class="form-control" name="Expiry_date" id="Expiry_date" type="date">
                                 </div>
 
                                 <div class="form-group">
@@ -374,7 +374,7 @@
     <script>
         $('#exampleModal2').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
-            var id = button.data('id')
+            var product_id = button.data('product_id')
             var product_name = button.data('product_name')
             var cateory_name = button.data('category_id')
             var Purchasing_price = button.data('Purchasing_price')
@@ -385,7 +385,7 @@
             var Expiry_date = button.data('Expiry_date')
             var description = button.data('description')
             var modal = $(this)
-            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #product_id').val(product_id);
             modal.find('.modal-body #product_name').val(product_name);
             modal.find('.modal-body #cateory_name').val(cateory_name);
             modal.find('.modal-body #Purchasing_price').val(Purchasing_price);
@@ -401,7 +401,7 @@
     <script>
         $('#modaldemo9').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
-            var id = button.data('id')
+            var product_id = button.data('product_id')
             var product_name = button.data('product_name')
             var category_name = button.data('category_name')
             var Purchasing_price = button.data('Purchasing_price')
@@ -411,7 +411,7 @@
             var date_of_supply = button.data('date_of_supply')
             var Expiry_date = button.data('Expiry_date')
             var modal = $(this)
-            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #product_id').val(product_id);
             modal.find('.modal-body #cateory_name').val(product_name);
             modal.find('.modal-body #company_name').val(category_name);
             modal.find('.modal-body #Purchasing_price').val(Purchasing_price);

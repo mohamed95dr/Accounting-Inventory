@@ -19,4 +19,9 @@ class Categories extends Model
     {
         return $this->belongsTo(companies::class,'company_id');
     }
+
+    public function suppliers()
+    {
+        return $this->belongsTo(Suppliers::class,'supplier_id');
+    }
 }

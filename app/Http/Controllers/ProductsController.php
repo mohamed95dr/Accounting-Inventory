@@ -104,28 +104,34 @@ class ProductsController extends Controller
     public function update(Request $request, products $products)
     {
         //
-        $id = $request->id;
+        // return $request;
+        $id = $request->product_id;
 
         $this->validate($request, [
 
             'product_name' => 'required|max:255|unique:products,product_name,'.$id,
-            'cateory_name' => 'required|max:255|unique:products,cateory_name,'.$id,
+            'cateory_id' => 'required|max:255|products,cateory_id,'.$id,
 
-            'description' => 'required',
         ],[
 
             'product_name.required' =>'يرجي ادخال اسم المنتج',
-            'cateory_name.unique' =>'اسم الصنف مسجل مسبقا',
-            'description.required' =>'يرجي ادخال الوصف',
+            'cateory_id.required' =>'اسم القسم مسجل مسبقا',
 
         ]);
 
         $products = products::find($id);
-        $products->update([
-            'id'=>$request->product_id,
 
+        $products->update([
+
+            'id'=>$request->product_id,
             'product_name' => $request->product_name,
             'category_id' => $request->category_id,
+            'Purchasing_price'=> $request->Purchasing_price,
+            'Wholesale_price'=> $request->Wholesale_price,
+            'retail_price'=>$request->retail_price,
+            'Quantity'=>$request->Quantity,
+            'date_of_supply'=>$request->date_of_supply,
+            'Expiry_date'=>$request->Expiry_date,
             'description' => $request->description,
         ]);
 

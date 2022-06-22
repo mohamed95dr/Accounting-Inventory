@@ -98,24 +98,23 @@ class CategoriesController extends Controller
     public function update(Request $request, Categories $categories)
     {
         //
+        
         $id = $request->id;
 
         $this->validate($request, [
 
             'cateory_name' => 'required|max:255|unique:categories,cateory_name,'.$id,
-            'description' => 'required',
         ],[
 
-            'cateory_name.required' =>'يرجي ادخال اسم الصنف',
-            'cateory_name.unique' =>'اسم الصنف مسجل مسبقا',
-            'description.required' =>'يرجي ادخال البيان',
+            'cateory_name.required' =>'يرجي ادخال اسم القسم',
+            'cateory_name.unique' =>'اسم القسم مسجل مسبقا',
 
         ]);
 
         $categories = Categories::find($id);
         $categories->update([
             'cateory_name' => $request->cateory_name,
-            'company_name' => $request->company_name,
+            'company_id' => $request->company_id,
             'description' => $request->description,
         ]);
 

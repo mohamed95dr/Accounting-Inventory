@@ -19,7 +19,7 @@ class UsersController extends Controller
     {
         //
         $users=User::all();
-        return view('users',['users'=>$users]);
+        return view('users',compact('users'));
     }
 
     /**
@@ -121,13 +121,9 @@ class UsersController extends Controller
                 ],[
         
                     'name.required' =>'يرجي ادخال اسم المستخدم',
-                    'name.unique' =>'اسم المستخدم مسجل مسبقا',
-
                     'email.required' =>'يرجي ادخال الإيميل ',
-                    'email.unique' =>' الإيميل مسجل مسبقا',
                 
                     'phone.required' =>'يرجي ادخال  رقم الهاتف',
-                    'phone.unique' =>' رقم الهاتف مسجل مسبقا',
                 ]);
         
                 $users = User::find($id);

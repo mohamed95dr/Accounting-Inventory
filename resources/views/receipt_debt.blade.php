@@ -85,7 +85,7 @@
                                     <?php $i++; ?>
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td> {{ $x->name }}</td>
+                                        <td> {{ $x->suppliers->name }}</td>
                                         <td>{{ $x->invoice_date }}</td>
                                         <td>{{ $x->price }}</td>
 

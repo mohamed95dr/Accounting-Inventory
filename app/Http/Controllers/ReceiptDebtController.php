@@ -44,7 +44,7 @@ class ReceiptDebtController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'supplier_id' => 'required|unique:ReceiptDebt|max:255',
+            'supplier_id' => 'required|unique:receipt_debts|max:255',
         ],
         [
             'supplier_id.required' =>'يرجي ادخال اسم المورد',
@@ -56,7 +56,8 @@ class ReceiptDebtController extends Controller
             ReceiptDebt::create([
 
                 'supplier_id' => $request->supplier_id,
-
+                'invoice_date' =>$request->debt_date,
+                'price' => $request->price
 
                 // 'Created_by' => (Auth::user()->name),
 
