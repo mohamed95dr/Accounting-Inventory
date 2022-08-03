@@ -14,4 +14,9 @@ class costomers extends Model
     {
         return $this->hasMany(SaleDebt::class);
     }
+
+    public function sale_invoice()
+    {
+        return $this->hasMany(Sale_Invoice::class);
+    }
 }

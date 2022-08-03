@@ -93,7 +93,7 @@
                                 <?php $i = 0; ?>
                                 @foreach ($invoices as $x)
                                     <?php $i++; ?>
-                                    {{--  --}}
+                                    
                                     <tr>
 
                                         <td>{{ $i }}</td>

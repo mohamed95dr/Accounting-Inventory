@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\products;
 use App\Models\receipt;
+use App\Models\receipt_invoice_details;
 use App\Models\ReceiptDebt;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use Receipts;
 
 class ReceiptController extends Controller
@@ -33,7 +36,7 @@ class ReceiptController extends Controller
     public function create()
     {
 
-        $suppliers = Suppliers::select('id','name')->get();
+        $suppliers = Suppliers::select('id', 'name')->get();
         return view('add_invoice', compact('suppliers'));
     }
 
@@ -48,28 +51,31 @@ class ReceiptController extends Controller
         // $countt=count($request->all());
 
         //  return  $request;
-        Receipt::create([
-            'supplier_id' => Suppliers::select('id')->where('name', $request->supplier_name)->first()->id,
+        $ReceptInvoice_id = Receipt::create([
+            'supplier_id' => $request->supplier_name,
+            'user_id' => (Auth::user()->id),
             'invoice_date' => $request->invoice_date,
             'remainder_debt' => $request->Discount,
             'amount_paid' => $request->paid_value,
             'total_price' => $request->Total_Amount
-        ]);
+        ])->id;
 
         if ($request->Discount > 0) {
 
-            ReceiptDebt::create([
+            $receipt_dept_id = ReceiptDebt::create([
 
-                'supplier_id' => Suppliers::select('id')->where('name', $request->supplier_name)->first()->id,
+                'supplier_id' => $request->supplier_name,
                 'invoice_date' => $request->invoice_date,
-                'price' => $request->Discount,
-            ]);
+                'cost' => $request->Discount,
+            ])->id;
         }
 
-        //  return $request->has($pname);
-        $i=1;
+
+
+        $i = 1;
         while (true) {
 
+            $pid = 'pid' . (string)$i;
             $pname = 'pname' . (string)$i;
             $category = 'category' . (string)$i;
             $Purchasing_price = 'Purchasing_price' . (string)$i;
@@ -79,10 +85,41 @@ class ReceiptController extends Controller
             $Purchasing_date = 'Purchasing_date' . (string)$i;
             $Expiry_date = 'Expiry_date' . (string)$i;
 
-            if ($request->has($pname)) {
+            // if ($request->has($pname)) {
 
+            $id = $request->$pid;
+
+        //    return  $details= receipt_invoice_details::create([
+
+        //         'product_id' => $request->$pid,
+        //         'receiptDebt_id' => $receipt_dept_id,
+        //         'receipts_id' => $ReceptInvoice_id,
+        //         'quantity' => $request->$quentity,
+        //         'invoice_date' => $request->invoice_date,
+        //         'Pruchasing_price' => $request->$Purchasing_price,
+        //         'Wholesale_price' => $request->$Wholesale_price,
+        //         'retail_price' => $request->$retail_price,
+
+        //     ]);
+
+            if ($product_id = products::find($id)) {
+                
+                $quentity_DB = products::select('Quantity')->where('id', $request->$pid)->first();
+                $quentity_p = $request->$quentity;
+                $quentity_new = $quentity_DB->Quantity + $quentity_p;
+
+                $product_id->update([
+                    'Purchasing_price' => $request->$Purchasing_price,
+                    'Wholesale_price' => $request->$Wholesale_price,
+                    'retail_price' => $request->$retail_price,
+                    'Quantity' => $quentity_new,
+                    'date_of_supply' => $request->$Purchasing_date,
+                    'Expiry_date' => $request->$Expiry_date
+
+                ]);
+            } else {
                 products::create([
-
+                    'id' => $request->$pid,
                     'product_name' => $request->$pname,
                     'category_id' => Categories::select('id')->where('cateory_name', $request->$category)->first()->id,
                     'Purchasing_price' => $request->$Purchasing_price,
@@ -94,9 +131,9 @@ class ReceiptController extends Controller
 
                 ]);
             }
-            else{
-                break;
-            }
+            // } else {
+            //     break;
+            // }
             $i++;
         }
         session()->flash('Add', 'تم اضافة فاتورة شراء بنجاح ');
@@ -113,7 +150,6 @@ class ReceiptController extends Controller
     {
         //
         return view('view_invoice');
-
     }
 
     /**

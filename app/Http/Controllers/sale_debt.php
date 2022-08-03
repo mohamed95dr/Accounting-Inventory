@@ -51,7 +51,7 @@ class sale_debt extends Controller
 
                 'invoice_date.required' => 'يرجي ادخال التاريخ ',
 
-                'price.required' => 'يرجي ادخال  مبلغ دين الزبون',
+                'cost.required' => 'يرجي ادخال  مبلغ دين الزبون',
 
 
             ]
@@ -61,7 +61,7 @@ class sale_debt extends Controller
         SaleDebt::create([
             'customer_id' => $request->customer_id,
             'invoice_date' => $request->invoice_date,
-            'price' => $request->price,
+            'cost' => $request->price,
 
         ]);
         session()->flash('Add', 'تم اضافة الدين بنجاح ');
@@ -112,14 +112,14 @@ class sale_debt extends Controller
             'name.unique' => 'اسم الزبون مسجل مسبقا',
 
             'invoice_date.required' => 'يرجي ادخال رقم الزبون',
-            'price.required' => 'يرجى ادخال مبلغ دين الزبون  ',
+            'cost.required' => 'يرجى ادخال مبلغ دين الزبون  ',
         ]);
 
         $sale_dabt = SaleDebt::find($id);
         $sale_dabt->update([
             'name' => $request->name,
             'invoice_date' => $request->invoice_date,
-            'price' => $request->price,
+            'cost' => $request->price,
 
         ]);
         session()->flash('Add', 'تم تعديل دين الزبون بنجاح ');

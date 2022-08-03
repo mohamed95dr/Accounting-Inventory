@@ -16,8 +16,9 @@ class ReceiptProducts extends Migration
         //
         Schema::create('receipt_products', function (Blueprint $table) {//receipt_invoice_details
 
+        // $table->id()->primary();
         $table->id();
-       
+
         $table->string('product_id');
         $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         
@@ -27,9 +28,9 @@ class ReceiptProducts extends Migration
         $table->unsignedBigInteger('receipts_id');//receipts_invoices-id
         $table->foreign('receipts_id')->references('id')->on('receipts')->onDelete('cascade');
         
-        $table->decimal('quantity');//date
+        $table->decimal('quantity');
 
-        $table->date('invoice_date');//date
+        $table->date('invoice_date');
         $table->decimal('Pruchasing_price',8,2);
         $table->decimal('wholesale_price',8,2);
         $table->decimal('retail_price',8,2);

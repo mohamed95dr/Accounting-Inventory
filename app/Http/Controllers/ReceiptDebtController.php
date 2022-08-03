@@ -43,13 +43,14 @@ class ReceiptDebtController extends Controller
     public function store(Request $request)
     {
         //
+        // return $request;
         $validatedData = $request->validate([
             'supplier_id' => 'required|unique:receipt_debts|max:255',
         ],
         [
             'supplier_id.required' =>'يرجي ادخال اسم المورد',
             'supplier_id.unique' =>'اسم المورد مسجل مسبقا',
-            'price.required' =>'يرجي ادخال مبلغ الدين ',
+            'cost.required' =>'يرجي ادخال مبلغ الدين ',
         ]);
         
 
@@ -57,7 +58,7 @@ class ReceiptDebtController extends Controller
 
                 'supplier_id' => $request->supplier_id,
                 'invoice_date' =>$request->debt_date,
-                'price' => $request->price
+                'cost' => $request->cost
 
                 // 'Created_by' => (Auth::user()->name),
 
@@ -98,18 +99,18 @@ class ReceiptDebtController extends Controller
     public function update(Request $request, ReceiptDebt $receiptDebt)
     {
         //
-        $id = $request->id;
+        return $id = $request->id;
 
         $this->validate($request, [
 
             'supplier_id' => 'required|max:255|unique:ReceiptDebt,supplier_id,'.$id,
 
-            'price' => 'required',
+            'cost' => 'required',
         ],[
 
             'supplier_id.required' =>'يرجي ادخال اسم المورد المنتج',
             'invoice_date.required' =>' يرجى ادخال تاريخ الدين  ',
-            'price.required' =>'يرجي ادخال مبلغ الدين',
+            'cost.required' =>'يرجي ادخال مبلغ الدين',
 
         ]);
 
@@ -117,7 +118,7 @@ class ReceiptDebtController extends Controller
         $receiptDebt->update([
             'supplier_id' => $request->supplier_id,
             'invoice_date' => $request->invoice_date,
-            'price' => $request->price,
+            'cost' => $request->cost,
         ]);
 
         session()->flash('edit','تم تعديل الدين بنجاج');

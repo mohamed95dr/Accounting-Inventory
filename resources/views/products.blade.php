@@ -90,10 +90,7 @@
                                     <th class="border-bottom-0"> تاريخ التوريد </th>
                                     <th class="border-bottom-0"> تاريخ الانتهاء </th>
                                     <th class="border-bottom-0"> الوصف </th>
-                                    {{-- <th class="border-bottom-0"> العمليات </th> --}}
 
-
-                                    {{-- <th class="border-bottom-0"> الوصف</th> --}}
 
 
                                 </tr>
@@ -245,16 +242,13 @@
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
-                                    <label for="recipient-name" class="col-form-label">رقم المنتج:</label>
-                                    <input class="form-control" name="product_id" id="product_id" type="text">
-                                </div>
+                                    <input type="hidden" name="product_id" id="product_id" value="">
 
-                                <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label">اسم المنتج:</label>
                                     <input class="form-control" name="product_name" id="product_name" type="text">
                                 </div>
+
+ 
 
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">القسم</label>
                                 <select name="category_id" id="category_id" class="form-control" required>
@@ -265,24 +259,20 @@
                                 </select>
 
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label">سعر الشراء :</label>
                                     <input class="form-control" name="Purchasing_price" id="Purchasing_price" type="text">
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label">سعر مبيع الجملة :</label>
                                     <input class="form-control" name="Wholesale_price" id="Wholesale_price" type="text">
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label">سعر مبيع المفرق :</label>
                                     <input class="form-control" name="retail_price" id="retail_price" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label"> الكمية :</label>
                                     <input class="form-control" name="Quantity" id="Quantity" type="text">
                                 </div>
@@ -290,13 +280,11 @@
 
 
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label"> تاريخ التوريد :</label>
                                     <input class="form-control" name="date_of_supply" id="date_of_supply" type="date">
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="id" value="">
                                     <label for="recipient-name" class="col-form-label"> تاريخ الانتهاء :</label>
                                     <input class="form-control" name="Expiry_date" id="Expiry_date" type="date">
                                 </div>
@@ -329,7 +317,7 @@
                             {{ csrf_field() }}
                             <div class="modal-body">
                                 <p>هل انت متاكد من عملية الحذف ؟</p><br>
-                                <input class="form-control" type="text" name="id" id="id" value="">
+                                <input type="hidden" name="id" id="id" value="">
                                 <input class="form-control" name="product_name" id="product_name" type="text" readonly>
                                 <input class="form-control" name="category_name" id="category_name" type="text" readonly>
                                 <input class="form-control" name="Purchasing_price" id="Purchasing_price" type="text"
@@ -396,6 +384,8 @@
             modal.find('.modal-body #Expiry_date').val(Expiry_date);
             modal.find('.modal-body #description').val(description);
         })
+
+        
     </script>
     {{-- delete button --}}
     <script>
@@ -412,8 +402,8 @@
             var Expiry_date = button.data('Expiry_date')
             var modal = $(this)
             modal.find('.modal-body #product_id').val(product_id);
-            modal.find('.modal-body #cateory_name').val(product_name);
-            modal.find('.modal-body #company_name').val(category_name);
+            modal.find('.modal-body #product_name').val(product_name);
+            modal.find('.modal-body #category_name').val(category_name);
             modal.find('.modal-body #Purchasing_price').val(Purchasing_price);
             modal.find('.modal-body #Wholesale_price').val(Wholesale_price);
             modal.find('.modal-body #retail_price').val(retail_price);

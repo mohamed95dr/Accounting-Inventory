@@ -175,7 +175,7 @@
 
 @endsection
 @section('title')
-    اضافة فاتورة
+      اضافة فاتورة بيع
 @stop
 
 @section('page-header')
@@ -183,7 +183,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">فواتير الشراء</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                <h4 class="content-title mb-0 my-auto">فواتير البيع</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
                     اضافة فاتورة بيع</span>
             </div>
         </div>
@@ -207,8 +207,8 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-<!--  -->
-                    <form action="SaleInvoice.store" method="post" enctype="multipart/form-data"
+
+                    <form action="{{ url('/Sale_Invoice') }}" method="post" enctype="multipart/form-data"
                         autocomplete="off">
                         {{ csrf_field() }}
                         {{-- 1 --}}
@@ -222,9 +222,9 @@
                                     </a>
                                 </span>
 
-                                <select name="supplier_name" class="form-control SlectBox">
+                                <select name="customer_name" id="customer_id" class="form-control SlectBox" onchange="fetch_customer_debt(this.value)">
                                     <!--placeholder-->
-                                    <option value="" selected disabled>اختر زبون</option>
+                                    {{-- <option value="" selected disabled>اختر زبون</option> --}}
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
@@ -268,10 +268,12 @@
                                             <tr>
                                                 <th class="border-bottom-0"> رقم المنتج</th>
                                                 <th class="border-bottom-0"> اسم المنتج</th>
-                                                <th class="border-bottom-0">اسم الصنف</th>
+                                                <th class="border-bottom-0">اسم القسم</th>
                                                 <th class="border-bottom-0"> سعر الجملة</th>
                                                 <th class="border-bottom-0"> سعر المفرق</th>
                                                 <th class="border-bottom-0"> الكمية</th>
+                                                <th class="border-bottom-0"> تاريخ التوريد </th>
+                                                <th class="border-bottom-0"> تاريخ الانتهاء </th>
                                                 <th class="border-bottom-0"> العمليات </th>
 
                                             </tr>
@@ -291,7 +293,7 @@
                                     <input type="text" class="form-control form-control-lg" id="Amount_Commission"
                                         name="Amount_Commission" title="يرجي ادخال مبلغ العمولة "
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                        required>
+                                        value=0  required>
                                 </div>
 
                                 <div class="col">
@@ -305,7 +307,7 @@
                                 <div class="col">
                                     <label for="inputName" class="control-label"> القيمة المدفوعة</label>
                                     <input type="text" class="form-control form-control-lg" id="paid-value"
-                                        name="paid_value" title="يرجي ادخال مبلغ العمولة "
+                                        name="paid_value" title="يرجي ادخال مبلغ العمولة " 
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                         required>
                                     {{-- <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
@@ -322,8 +324,8 @@
                                 <div class="col">
                                     <label for="inputName" class="control-label">المبلغ الإجمالي :(مبلغ الفاتورة + مبلغ
                                         الدين) </label>
-                                    <input type="text" class="form-control form-control-lg" id="Amount_Commission"
-                                        name="Amount_Commission" title="يرجي ادخال مبلغ العمولة "
+                                    <input type="text" class="form-control form-control-lg" id="Total_Amount"
+                                        name="total_amount" title="يرجي ادخال مبلغ العمولة "
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                         required>
                                 </div>
@@ -440,7 +442,7 @@
     </script>
     {{-- end scrol --}}
 
-    <script>
+    {{-- <script>
         function myFunction() {
             var Amount_Commission = parseFloat(document.getElementById("Amount_Commission").value);
             var Discount = parseFloat(document.getElementById("Discount").value);
@@ -458,11 +460,11 @@
                 document.getElementById("Total").value = sumt;
             }
         }
-    </script>
+    </script> --}}
 
 
     <script>
-        $(document).ready(function() {
+          $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
             var actions = $("table td:first-child").html();
             // Append table with add row form on add new button click
@@ -472,14 +474,16 @@
                 var index = $("table tbody tr:last-child").index();
                 
                 var row = '<tr>' +
-                    '<td><input type="text" class="form-control" name="pid'+i  +'" id="pid"></td>' +
+                    '<td><input type="text" class="form-control" name="pid'+i  +'" id="pid'+i+'" onchange="checkCustomerType('+i+')"></td>' +
                     '<td><input type="text" class="form-control" name="pname'+i +'" id="pname"></td>' +
                     '<td><input type="text" class="form-control" name="category'+i +'" id="category"></td>' +
-                    '<td><input type="text" class="form-control" name="Wholesale_price'+i  +'" id="Wholesale_price"></td>' +
-                    '<td><input type="text" class="form-control" name="retail_price'+i  +'" id="retail_price"></td>' +
-                    '<td><input type="text" class="form-control" name="quentity'+i  +'" id="quentity"></td>' +
+                    '<td><input type="text" class="form-control" name="Wholesale_price'+i  +'" id="Wholesale_price'+i  +'" disabled ></td>' +
+                    '<td><input type="text" class="form-control" name="retail_price'+i  +'" id="retail_price'+i  +'" disabled></td>' +
+                    '<td><input type="text" class="form-control" name="quentity'+i  +'" id="quentity'+i +'" onchange="check_quentity(this.value , '+i +')" ></td>' +
+                    '<td><input type="date" class="form-control" name="Purchasing_date'+i +'" id="Purchasing_date"></td>' +
+                    '<td><input type="date" class="form-control" name="Expiry_date'+i +'" id="Expiry_date"></td>' +
                     '<td>' +
-                    '    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
+                    '    <a class="add" title="Add" onclick="saleInv('+i+')" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
                     '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
                     '<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>' +
                     '</td>' +
@@ -498,14 +502,14 @@
             $(document).on("click", ".add", function() {
                 var empty = false;
                 var input = $(this).parents("tr").find('input[type="text"]');
-                input.each(function() {
-                    if (!$(this).val()) {
-                        $(this).addClass("error");
-                        empty = true;
-                    } else {
-                        $(this).removeClass("error");
-                    }
-                });
+                // input.each(function() {
+                //     if (!$(this).val()) {
+                //         $(this).addClass("error");
+                //         empty = true;
+                //     } else {
+                //         $(this).removeClass("error");
+                //     }
+                // });
                 $(this).parents("tr").find(".error").first().focus();
                 if (!empty) {
                     input.each(function() {

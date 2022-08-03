@@ -13,5 +13,10 @@ class products extends Model
     {
         return $this->belongsTo(Categories::class,'category_id');
     }
-    //
+    
+    public function receipt_invoice_details(){
+
+        return $this->belongsTo(receipt_invoice_details::class,'receipt_invoice_details_id');
+
+    }
 }

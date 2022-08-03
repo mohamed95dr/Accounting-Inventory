@@ -18,7 +18,7 @@ class CreateSaleDebtsTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('costomers')->onDelete('cascade');
             $table->date('invoice_date');// date
-            $table->decimal('price',8,2);//debt_value
+            $table->decimal('cost',8,2);//debt_value
             $table->timestamps();
         });
     }

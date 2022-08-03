@@ -80,6 +80,7 @@
                                     <th class="border-bottom-0"> رقم المستخدم</th>
                                     <th class="border-bottom-0"> اسم المستخدم</th>
                                     <th class="border-bottom-0"> الإيميل</th>
+
                                     <th class="border-bottom-0"> رقم الهاتف</th>
                                     <th class="border-bottom-0"> العنوان </th>
 
@@ -97,6 +98,7 @@
                                         <td>{{ $i }}</td>
                                         <td> {{ $x->name }}</td>
                                         <td>{{ $x->email }}</td>
+
                                         <td>{{ $x->phone }}</td>
                                         <td>{{ $x->address }}</td>
 
@@ -209,6 +211,13 @@
                                     <label for="recipient-name" class="col-form-label"> الايميل :</label>
                                     <input class="form-control" name="email" id="email" type="text">
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> كلمة السر </label>
+                                    <input type="text" class="form-control" id="password" name="password">
+                                </div>
+
+
                                 <div class="form-group">
                                     <label for="message-text" class="col-form-label">الرقم:</label>
                                     <input class="form-control" id="phone" name="phone" />
@@ -297,7 +306,7 @@
    <script>
        $('#exampleModal2').on('show.bs.modal', function(event) {
            var button = $(event.relatedTarget)
-           // var id = button.data('id')
+           var id = button.data('id')
            var name = button.data('name')
            var email = button.data('email')
            var phone = button.data('phone')
@@ -306,7 +315,7 @@
            var Role = button.data('Role')
 
            var modal = $(this)
-           // modal.find('.modal-body #id').val(id);
+           modal.find('.modal-body #id').val(id);
            modal.find('.modal-body #name').val(name);
            modal.find('.modal-body #email').val(email);
            modal.find('.modal-body #phone').val(phone);
@@ -321,7 +330,7 @@
    <script>
        $('#modaldemo9').on('show.bs.modal', function(event) {
            var button = $(event.relatedTarget)
-           // var id = button.data('id')
+           var id = button.data('id')
            var name = button.data('name')
            var email = button.data('email')
            var phone = button.data('phone')
@@ -330,7 +339,7 @@
            var Role = button.data('Role')
 
            var modal = $(this)
-           // modal.find('.modal-body #id').val(id);
+           modal.find('.modal-body #id').val(id);
            modal.find('.modal-body #name').val(name);
            modal.find('.modal-body #email').val(email);
            modal.find('.modal-body #phone').val(phone);

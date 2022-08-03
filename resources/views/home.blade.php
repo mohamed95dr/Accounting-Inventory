@@ -147,7 +147,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 col-lg-12 col-xl-6">
+        {{-- <div class="col-md-12 col-lg-12 col-xl-6">
             <div class="card">
                 <div class="card-header pb-1">
                     <h3 class="card-title mb-2">Sales Activity</h3>
@@ -192,6 +192,62 @@
                     </ul>
                 </div>
             </div>
+        </div> --}}
+
+        
+        <div class="col-xl-6 col-md-12 col-lg-6">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <h3 class="card-title mb-2">Recent Orders</h3>
+                    <p class="tx-12 mb-0 text-muted">An order is an investor's instructions to a broker or brokerage firm
+                        to purchase or sell</p>
+                </div>
+                <div class="card-body sales-info ot-0 pt-0 pb-0">
+                    <div id="chart" class="ht-150"></div>
+                    <div class="row sales-infomation pb-0 mb-0 mx-auto wd-100p">
+                        <div class="col-md-6 col">
+                            <p class="mb-0 d-flex"><span class="legend bg-primary brround"></span>Delivered</p>
+                            <h3 class="mb-1">5238</h3>
+                            <div class="d-flex">
+                                <p class="text-muted ">Last 6 months</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col">
+                            <p class="mb-0 d-flex"><span class="legend bg-info brround"></span>Cancelled</p>
+                            <h3 class="mb-1">3467</h3>
+                            <div class="d-flex">
+                                <p class="text-muted">Last 6 months</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center pb-2">
+                                <p class="mb-0">Total Sales</p>
+                            </div>
+                            <h4 class="font-weight-bold mb-2">$7,590</h4>
+                            <div class="progress progress-style progress-sm">
+                                <div class="progress-bar bg-primary-gradient wd-80p" role="progressbar" aria-valuenow="78"
+                                    aria-valuemin="0" aria-valuemax="78"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-4 mt-md-0">
+                            <div class="d-flex align-items-center pb-2">
+                                <p class="mb-0">Active Users</p>
+                            </div>
+                            <h4 class="font-weight-bold mb-2">$5,460</h4>
+                            <div class="progress progress-style progress-sm">
+                                <div class="progress-bar bg-danger-gradient wd-75" role="progressbar" aria-valuenow="45"
+                                    aria-valuemin="0" aria-valuemax="45"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -200,7 +256,7 @@
 
 
     <!-- row opened -->
-    <div class="row row-sm row-deck">
+    {{-- <div class="row row-sm row-deck">
 
         <div class="col-xl-6 col-md-12 col-lg-6">
             <div class="card">
@@ -255,9 +311,9 @@
                     </div>
                 </div>
             </div> --}}
-        </div>
+    
 
-        <div class="col-md-12 col-lg-6 col-xl-6">
+        {{-- <div class="col-md-12 col-lg-6 col-xl-6">
             <div class="card card-table-two">
                 <div class="d-flex justify-content-between">
                     <h4 class="card-title mb-1">Your Most Recent Earnings</h4>
@@ -338,7 +394,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- /row -->
     </div>

@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class SaleDebt extends Model
 {
+
+    protected $table = "sale_debts";
     use HasFactory;
-    protected $guarded=[];
+    protected $guarded = [];
     public function customers()
     {
-        return $this->belongsTo(costomers::class,'customer_id');
+        return $this->belongsTo(costomers::class, 'customer_id');
     }
 }

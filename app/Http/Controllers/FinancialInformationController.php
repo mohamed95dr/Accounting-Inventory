@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\payments;
+use App\Models\financial_information;
 use Illuminate\Http\Request;
 
-class PaymentsController extends Controller
+class FinancialInformationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PaymentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\payments  $payments
+     * @param  \App\Models\financial_information  $financial_information
      * @return \Illuminate\Http\Response
      */
-    public function show(payments $payments)
+    public function show(financial_information $financial_information)
     {
         //
     }
@@ -52,10 +52,10 @@ class PaymentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\payments  $payments
+     * @param  \App\Models\financial_information  $financial_information
      * @return \Illuminate\Http\Response
      */
-    public function edit(payments $payments)
+    public function edit(financial_information $financial_information)
     {
         //
     }
@@ -64,10 +64,10 @@ class PaymentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\payments  $payments
+     * @param  \App\Models\financial_information  $financial_information
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, payments $payments)
+    public function update(Request $request, financial_information $financial_information)
     {
         //
     }
@@ -75,10 +75,10 @@ class PaymentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\payments  $payments
+     * @param  \App\Models\financial_information  $financial_information
      * @return \Illuminate\Http\Response
      */
-    public function destroy(payments $payments)
+    public function destroy(financial_information $financial_information)
     {
         //
     }

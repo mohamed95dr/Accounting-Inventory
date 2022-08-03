@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReceiptDebtsTable extends Migration
+class CreateFinancialInformationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateReceiptDebtsTable extends Migration
      */
     public function up()
     {
-        Schema::create('receipt_debts', function (Blueprint $table) {
+        Schema::create('financial_informations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('supplier_id');
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
-            $table->date('invoice_date');
-            $table->decimal('cost',8,2);
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateReceiptDebtsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('receipt_debts');
+        Schema::dropIfExists('financial_informations');
     }
 }

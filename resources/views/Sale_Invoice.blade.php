@@ -55,18 +55,25 @@
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>2011/04/25</td>
-									<td>
-										<div class="d-flex justify-content-button">
+                                <?php $i = 0; ?>
+                                @foreach ($sale_invoices as $x)
+                                    <?php $i++; ?>
+                                    
+                                    <tr>
 
-													<a href="{{ url('view_invoice/') }}" class="btn btn-sm btn-info pull-right">عرض </a>
-					
-										</div>
-									</td>
-                                </tr>
+                                        <td>{{ $i }}</td>
+                                        <td> {{ $x->invoice_date }}</td>
+                                        <td>{{ $x->customers->name }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-button">
+
+                                                <a href="{{ url('view_invoiceSale') }}"
+                                                    class="btn btn-sm btn-info pull-right"> عرض </a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>

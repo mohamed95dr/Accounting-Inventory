@@ -87,20 +87,20 @@
                                         <td>{{ $i }}</td>
                                         <td> {{ $x->suppliers->name }}</td>
                                         <td>{{ $x->invoice_date }}</td>
-                                        <td>{{ $x->price }}</td>
+                                        <td>{{ $x->cost }}</td>
 
                                         <td>
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                                data-id="{{ $x->id }}" data-name="{{ $x->name }}"
-                                                data-invoice_date="{{ $x->invoice_date }}" data-price="{{ $x->price }}"
-                                                data-toggle="modal" href="#exampleModal2" title="تعديل"><i
-                                                    class="las la-pen"></i></a>
+                                                data-id="{{ $x->id }}" data-name="{{ $x->suppliers->name }}"
+                                                data-invoice_date="{{ $x->invoice_date }}"
+                                                data-cost="{{ $x->cost }}" data-toggle="modal" href="#exampleModal2"
+                                                title="تعديل"><i class="las la-pen"></i></a>
 
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $x->id }}" data-name="{{ $x->name }}"
-                                                data-invoice_date="{{ $x->invoice_date }}" data-price="{{ $x->price }}"
-                                                data-toggle="modal" href="#modaldemo9" title="حذف"><i
-                                                    class="las la-trash"></i></a>
+                                                data-id="{{ $x->id }}" data-name="{{ $x->suppliers->name }}"
+                                                data-invoice_date="{{ $x->invoice_date }}"
+                                                data-cost="{{ $x->cost }}" data-toggle="modal" href="#modaldemo9"
+                                                title="حذف"><i class="las la-trash"></i></a>
 
                                         </td>
 
@@ -142,7 +142,7 @@
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> مبلغ الدين </label>
-                                    <input type="text" class="form-control" id="price" name="price">
+                                    <input type="text" class="form-control" id="cost" name="cost">
                                 </div>
 
                                 <div class="modal-footer">
@@ -171,7 +171,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="ReceiptDebt/update" method="post" autocomplete="off">
+                        <form action="receipt_debt/update" method="post" autocomplete="off">
                             {{ method_field('patch') }}
                             {{ csrf_field() }}
                             <div class="form-group">
@@ -181,17 +181,15 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="hidden" name="id" id="id" value="">
                                 <label for="recipient-name" class="col-form-label">التاريخ
                                     :</label>
                                 <input class="form-control" name="date" id="date" type="date">
                             </div>
 
                             <div class="form-group">
-                                <input type="hidden" name="id" id="id" value="">
                                 <label for="recipient-name" class="col-form-label">مبلغ الدين
                                     :</label>
-                                <input class="form-control" name="price" id="price" type="date">
+                                <input class="form-control" name="cost" id="cost" type="text">
                             </div>
 
                     </div>
@@ -211,18 +209,18 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">حذف الدين</h6>
+                        <h6 class="modal-title">حذف الدين المورد </h6>
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
                                 aria-hidden="true">&times;</span></button>
                     </div>
-                    <form action="ReceiptDebt/destroy" method="post">
+                    <form action="receipt_debt/destroy" method="post">
                         {{ method_field('delete') }}
                         {{ csrf_field() }}
                         <div class="modal-body">
                             <p>هل انت متاكد من عملية الحذف ؟</p><br>
                             <input type="hidden" name="id" id="id" value="">
                             <input class="form-control" name="name" id="name" type="text" readonly>
-                            <input class="form-control" name="price" id="price" type="text" readonly>
+                            <input class="form-control" name="cost" id="cost" type="text" readonly>
 
                         </div>
                         <div class="modal-footer">
@@ -286,12 +284,12 @@
             var id = button.data('id')
             var name = button.data('name')
             var date = button.data('date')
-            var price = button.data('price')
+            var cost = button.data('cost')
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
             modal.find('.modal-body #name').val(name);
             modal.find('.modal-body #date').val(date);
-            modal.find('.modal-body #price').val(price);
+            modal.find('.modal-body #cost').val(cost);
         })
     </script>
 @endsection

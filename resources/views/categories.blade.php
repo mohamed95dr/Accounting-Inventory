@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    الأصناف
+    الأقسام
 @endsection
 @section('css')
     <!-- Internal Data table css -->
@@ -16,7 +16,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الأصناف</h4>
+                <h4 class="content-title mb-0 my-auto">الأقسام</h4>
                 {{-- <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span> --}}
             </div>
         </div>
@@ -68,7 +68,7 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-                            data-toggle="modal" href="#modaldemo8">إضافة صنف</a>
+                            data-toggle="modal" href="#modaldemo8">إضافة قسم</a>
 
                     </div>
 
@@ -125,7 +125,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content modal-content-demo">
                         <div class="modal-header">
-                            <h6 class="modal-title">اضافة صنف</h6><button aria-label="Close" class="close"
+                            <h6 class="modal-title">اضافة قسم</h6><button aria-label="Close" class="close"
                                 data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
@@ -134,7 +134,7 @@
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">اسم الصنف</label>
+                                    <label for="exampleInputEmail1">اسم القسم</label>
                                     <input type="text" class="form-control" id="cateory_name" name="cateory_name">
                                 </div>
 
@@ -227,7 +227,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content modal-content-demo">
                         <div class="modal-header">
-                            <h6 class="modal-title">حذف الصنف</h6><button aria-label="Close" class="close"
+                            <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close"
                                 data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <form action="categories/destroy" method="post">

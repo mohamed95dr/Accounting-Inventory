@@ -15,7 +15,9 @@ class SaleInvoiceDetails extends Migration
     {
         //
         Schema::create('sale_invoice_details', function (Blueprint $table) {
+        // $table->id()->primary();
         $table->id();
+
         $table->date('invoice_date');//date
         $table->unsignedBigInteger('sale_invoices_id');
         $table->foreign('sale_invoices_id')->references('id')->on('sale__invoices')->onDelete('cascade');

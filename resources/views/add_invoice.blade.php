@@ -268,7 +268,7 @@
                                             <tr>
                                                 <th class="border-bottom-0"> رقم المنتج</th>
                                                 <th class="border-bottom-0"> اسم المنتج</th>
-                                                <th class="border-bottom-0">اسم الصنف</th>
+                                                <th class="border-bottom-0">اسم القسم</th>
                                                 <th class="border-bottom-0"> سعر الشراء</th>
                                                 <th class="border-bottom-0"> سعر الجملة</th>
                                                 <th class="border-bottom-0"> سعر المفرق</th>

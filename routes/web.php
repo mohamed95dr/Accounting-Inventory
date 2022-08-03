@@ -17,7 +17,11 @@ use App\Http\Controllers\sale_debt;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Resources\Customers;
+use App\Models\costomers;
+use App\Models\products;
 use App\Models\ReceiptDebt;
+use App\Models\SaleDebt;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,14 +79,17 @@ Route::middleware(['auth:web'])->group(function () {
     Route::resource('products', ProductsController::class);
 
     //invoices
-    
+
     Route::resource('Sale_Invoice', SaleInvoiceController::class);
-    
+
+    Route::get('add_invoiceSale', [SaleInvoiceController::class, 'create']);
+
+    Route::get('view_invoiceSale', [SaleInvoiceController::class, 'show']);
+
 
     Route::resource('receipt', ReceiptController::class);
 
     Route::get('add_invoice', [ReceiptController::class, 'create']);
-    Route::get('add_invoiceSale', [SaleInvoiceController::class, 'create']);
 
     Route::view('example', 'example');
 
@@ -103,14 +110,30 @@ Route::middleware(['auth:web'])->group(function () {
     Route::resource('sale_debt', sale_debt::class);
 
 
-    Route::get('debt/{supplier_id}', function($supplier_id){
+    Route::get('debt/{supplier_id}', function ($supplier_id) {
 
-        return $debt_amount = ReceiptDebt::select('price')->where('id',$supplier_id)->first()->price;
+        return $debt_amount = ReceiptDebt::select('cost')->where('id', $supplier_id)->first()->cost;
+    });
 
+    Route::get('saleDebt/{customer_id}', function ($customer_id) {
+
+        //  return $sale_debt = SaleDebt::select('cost')->where('id',$customer_id)->first()->cost;
+        $sale_debt = SaleDebt::select('cost')->where('id', $customer_id)->first();
+
+        if ($sale_debt != null) {
+            return $sale_debt->cost;
+        } else {
+            return 0;
+        }
+    });
+
+    Route::get('getProductQuantity/{pid}', function ($pid) {
+
+        return $quantity = products::select('Quantity')->where('id', $pid)->first()->Quantity;
+    });
+
+    Route::get('getCustomerType/{cId}', function ($cId) {
+
+        return $type = costomers::select('type')->where('id', $cId)->first()->type;
     });
 });
-
-
-
-
-// Route::get('/{page}',[AdminController::class,'index']);

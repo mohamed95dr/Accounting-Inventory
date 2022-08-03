@@ -15,7 +15,9 @@ class Receipts extends Migration
     {
         //
         Schema::create('receipts', function (Blueprint $table) {
+            // $table->id()->primary();
             $table->id();
+
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
 
@@ -25,7 +27,7 @@ class Receipts extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->date('invoice_date');//date
+            $table->date('invoice_date');
             $table->decimal('total_price',8,2);
             $table->decimal('amount_paid',8,2);
             $table->decimal('remainder_debt',8,2);

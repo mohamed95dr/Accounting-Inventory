@@ -121,6 +121,8 @@ class UsersController extends Controller
                 ],[
         
                     'name.required' =>'يرجي ادخال اسم المستخدم',
+                    'name.unique' =>'اسم المستخدم مسجل مسبقا',
+
                     'email.required' =>'يرجي ادخال الإيميل ',
                 
                     'phone.required' =>'يرجي ادخال  رقم الهاتف',
@@ -130,6 +132,7 @@ class UsersController extends Controller
                 $users->update([
                     'name' => $request->name,
                     'email' => $request->email,
+                    'password' => Hash::make($request->password),
                     'phone' => $request->phone,
                     'address' => $request->address,
                     'salary' => $request->salary,

@@ -50,11 +50,11 @@
                 console.log('product number :', p);
 
                 var Discount = parseInt(document.getElementById('Discount').value);
-               
-               var Amount_Commission = parseInt(document.getElementById('Amount_Commission').value);
-                
 
-                document.getElementById("Total_Amount").value = Amount_Commission + Discount ;
+                var Amount_Commission = parseInt(document.getElementById('Amount_Commission').value);
+
+
+                document.getElementById("Total_Amount").value = Amount_Commission + Discount;
 
                 // var Discount = parseFloat(document.getElementById("Discount").value);
                 // var Rate_VAT = parseFloat(document.getElementById("Rate_VAT").value);
@@ -70,21 +70,112 @@
 
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function() {
-					console.log(this.responseText);
+                    console.log(this.responseText);
+                    parseFloat(document.getElementById("Discount").value = this.responseText);
+                }
+                xhttp.open("GET", 'http://127.0.0.1:8000/debt/' + supplier_id, true);
+                xhttp.send();
+
+            }
+
+            function fetch_customer_debt(customer_id) {
+
+                console.log(customer_id);
+
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    console.log(this.responseText);
                     document.getElementById("Discount").value = this.responseText;
                 }
-                xhttp.open("GET", 'http://127.0.0.1:8000/debt/'+ supplier_id, true);
+                xhttp.open("GET", 'http://127.0.0.1:8000/saleDebt/' + customer_id, true);
                 xhttp.send();
-               
-
-                // document.getElementById("Discount").value= this.responseText + Amount_Commission - paid_value ;
-            }
-
-            function fetch_total_amount(){
-
-
 
             }
+
+            function check_quentity(q, i) {
+                console.log(q);
+                console.log(i);
+                var pid = document.getElementById("pid" + i).value;
+                console.log("pid :::::::::::", pid);
+
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    console.log("get route :", this.responseText);
+                    let quantity = this.responseText;
+                    if (q > quantity) {
+                        document.getElementById("quentity" + i).value = this.responseText;
+                    }
+
+                }
+                xhttp.open("GET", 'http://127.0.0.1:8000/getProductQuantity/' + pid, true);
+                xhttp.send();
+
+
+            }
+
+            function checkCustomerType(i) {
+                let customerId = document.getElementById("customer_id").value;
+                console.log("customerId::::::::::::::", customerId);
+
+
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    console.log("get route :", this.responseText);
+                    let customerType = this.responseText;
+                    if (customerType == "جملة") {
+                        document.getElementById("Wholesale_price" + i).removeAttribute("disabled");
+                    } else if (customerType == "مفرق"){
+                        console.log("مفرقققق");
+                        document.getElementById("retail_price" + i).removeAttribute("disabled");
+                    }
+
+                }
+                xhttp.open("GET", 'http://127.0.0.1:8000/getCustomerType/' + customerId, true);
+                xhttp.send();
+
+            }
+
+            var Wholesale_price;
+            var retail_price;
+            
+            function saleInv(p) {
+
+                Wholesale_price = document.getElementById('Wholesale_price' + p);
+                console.log('Wholesale_price :', Wholesale_price);
+
+                retail_price = document.getElementById('retail_price' + p);
+                console.log('retail_price :', retail_price);
+
+                let price ;
+                if(Wholesale_price.hasAttribute('disabled')){
+                    price = retail_price.value;
+                }
+                else if(retail_price.hasAttribute('disabled')){
+                    price = Wholesale_price.value;
+                }
+
+                quentity = document.getElementById('quentity' + p).value;
+                var Amount_Commission = parseFloat(document.getElementById("Amount_Commission").value);
+
+                document.getElementById("Amount_Commission").value = Amount_Commission + price * quentity;
+
+
+                console.log('Amount_Commission :', Amount_Commission);
+                console.log('price :', price);
+                console.log('quentity :', quentity);
+                console.log('product number :', p);
+
+                var Discount = parseInt(document.getElementById('Discount').value);
+
+                var Amount_Commission = parseInt(document.getElementById('Amount_Commission').value);
+
+
+                document.getElementById("Total_Amount").value = Amount_Commission + Discount;
+
+
+            }
+
+
         </script>
 </body>
 

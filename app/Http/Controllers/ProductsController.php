@@ -104,13 +104,13 @@ class ProductsController extends Controller
     public function update(Request $request, products $products)
     {
         //
-        // return $request;
+        return $request;
         $id = $request->product_id;
 
         $this->validate($request, [
 
             'product_name' => 'required|max:255|unique:products,product_name,'.$id,
-            'cateory_id' => 'required|max:255|products,cateory_id,'.$id,
+            // 'cateory_id' => 'required|max:255|products,cateory_id,'.$id,
 
         ],[
 
@@ -123,7 +123,7 @@ class ProductsController extends Controller
 
         $products->update([
 
-            'id'=>$request->product_id,
+            'id'=> $request->product_id,
             'product_name' => $request->product_name,
             'category_id' => $request->category_id,
             'Purchasing_price'=> $request->Purchasing_price,
