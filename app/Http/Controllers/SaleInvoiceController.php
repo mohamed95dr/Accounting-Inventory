@@ -50,9 +50,29 @@ class SaleInvoiceController extends Controller
     {
         //
         // return $request;
+
+        $Discount = $request->total_amount - $request->paid_value ;
+
+        
+        if ($Discount < 0) {
+
+            session()->flash('Add', 'تم ادخال مبلغ من الزبون اكبر  من قيمة الفاتورة يرجى اعادة الادخال ');
+
+            return redirect()->back();
+        }
+
+           $saleDebt_id= SaleDebt::create([
+
+                'customer_id' => $request->customer_name,
+                'invoice_date' => $request->invoice_date,
+                'cost' => $Discount,
+            ])->id;
+        
+
         $invoiceSale_id = Sale_Invoice::create([
             'user_id' => (Auth::user()->id),
             'customer_id' => $request->customer_name,
+            'saleDebt_id' =>$saleDebt_id,
             'invoice_date' => $request->invoice_date,
             'remainder_amount' => $request->Discount,
             'amount_received' => $request->paid_value,
@@ -60,17 +80,7 @@ class SaleInvoiceController extends Controller
         ])->id;
         
         
-        $Discount = $request->total_amount - $request->paid_value ;
 
-        if ($Discount > 0) {
-
-            SaleDebt::create([
-
-                'customer_id' => $request->customer_name,
-                'invoice_date' => $request->invoice_date,
-                'cost' => $Discount,
-            ]);
-        }
 
 
         $i = 1;
@@ -132,11 +142,11 @@ class SaleInvoiceController extends Controller
      * @param  \App\Models\Sale_Invoice  $sale_Invoice
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale_Invoice $sale_Invoice)
+    public function show($id)
     {
         $sale_invoices = Sale_Invoice::all();
         $customers = costomers::all();
-        return view('view_invoiceSale', compact('customers', 'sale_invoices'));
+        return view('invoiceSale_view', compact('customers', 'sale_invoices'));
     }
 
     /**

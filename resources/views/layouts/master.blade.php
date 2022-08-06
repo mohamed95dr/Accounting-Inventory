@@ -56,11 +56,6 @@
 
                 document.getElementById("Total_Amount").value = Amount_Commission + Discount;
 
-                // var Discount = parseFloat(document.getElementById("Discount").value);
-                // var Rate_VAT = parseFloat(document.getElementById("Rate_VAT").value);
-                // var Value_VAT = parseFloat(document.getElementById("Value_VAT").value);
-                // var Amount_Commission2 = Amount_Commission - Discount;
-
 
             }
 
@@ -76,6 +71,29 @@
                 xhttp.open("GET", 'http://127.0.0.1:8000/debt/' + supplier_id, true);
                 xhttp.send();
 
+            }
+
+            function checkCategoryIfExis(category_field){
+                console.log(category_field.value);
+                
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    console.log("get route :", this.responseText);
+                    if (this.responseText == false) {
+                        // category_field.value="not found please enter again";
+                        category_field.value="";
+                    }
+                    
+
+                }
+                xhttp.open("GET", 'http://127.0.0.1:8000/category/' + category_field.value, true);
+                xhttp.send();
+
+            }
+
+            function changetoDate(i){
+                console.log(i);
+                document.getElementById("")
             }
 
             function fetch_customer_debt(customer_id) {

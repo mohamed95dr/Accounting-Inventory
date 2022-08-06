@@ -215,7 +215,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">السيد المحترم : اسم الزبون </label>
+                                <label for="inputName" class="control-label" style="font-weight: bold">السيد المحترم : اسم الزبون </label>
                                 {{-- add customer --}}
                                 <span>
                                     <a href="{{ url('costomers/') }}" class="btn btn-sm btn-info pull-right">اضافة زبون 
@@ -224,7 +224,7 @@
 
                                 <select name="customer_name" id="customer_id" class="form-control SlectBox" onchange="fetch_customer_debt(this.value)">
                                     <!--placeholder-->
-                                    {{-- <option value="" selected disabled>اختر زبون</option> --}}
+                                    <option value="" selected disabled>اختر زبون</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach
@@ -233,7 +233,7 @@
                             </div>
 
                             <div class="col">
-                                <label>تاريخ الفاتورة</label>
+                                <label style="font-weight: bold">تاريخ الفاتورة</label>
                                 <input class="form-control fc-datepicker" name="invoice_date" type="datetime-local"
                                     value="{{ date('Y-m-d') }}" required>
                             </div>
@@ -248,7 +248,6 @@
                         {{-- custom scrole --}}
 
                         <div class="container py-5">
-
 
                             <div class="table-responsive">
                                 <div class="">
@@ -289,7 +288,7 @@
                             <div class="row">
 
                                 <div class="col">
-                                    <label for="inputName" class="control-label">مبلغ الفاتورة </label>
+                                    <label for="inputName" class="control-label" style="font-weight: bold">مبلغ الفاتورة </label>
                                     <input type="text" class="form-control form-control-lg" id="Amount_Commission"
                                         name="Amount_Commission" title="يرجي ادخال مبلغ العمولة "
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
@@ -297,37 +296,35 @@
                                 </div>
 
                                 <div class="col">
-                                    <label for="inputName" class="control-label">الدين</label>
+                                    <label for="inputName" class="control-label" style="font-weight: bold">الدين</label>
                                     <input type="text" class="form-control form-control-lg" id="Discount" name="Discount"
                                         title="يرجي ادخال مبلغ الخصم "
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                         value=0 required>
                                 </div>
 
-                                <div class="col">
-                                    <label for="inputName" class="control-label"> القيمة المدفوعة</label>
-                                    <input type="text" class="form-control form-control-lg" id="paid-value"
-                                        name="paid_value" title="يرجي ادخال مبلغ العمولة " 
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                        required>
-                                    {{-- <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
-                                        <!--placeholder-->
-                                        <option value="" selected disabled>حدد نسبة الضريبة</option>
-                                        <option value=" 5%">5%</option>
-                                        <option value="10%">10%</option> --}}
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label for="inputName" class="control-label">المبلغ الإجمالي :(مبلغ الفاتورة + مبلغ
+                                                                <div class="col">
+                                    <label for="inputName" class="control-label" style="font-weight: bold">المبلغ الإجمالي :(مبلغ الفاتورة + مبلغ
                                         الدين) </label>
                                     <input type="text" class="form-control form-control-lg" id="Total_Amount"
                                         name="total_amount" title="يرجي ادخال مبلغ العمولة "
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                         required>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="inputName" class="control-label" style="font-weight: bold"> القيمة المدفوعة</label>
+                                    <input type="text" class="form-control form-control-lg" id="paid-value"
+                                        name="paid_value" title="يرجي ادخال مبلغ العمولة " 
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                        required>
+
+                                    </select>
                                 </div>
 
                             </div>
@@ -442,25 +439,7 @@
     </script>
     {{-- end scrol --}}
 
-    {{-- <script>
-        function myFunction() {
-            var Amount_Commission = parseFloat(document.getElementById("Amount_Commission").value);
-            var Discount = parseFloat(document.getElementById("Discount").value);
-            var Rate_VAT = parseFloat(document.getElementById("Rate_VAT").value);
-            var Value_VAT = parseFloat(document.getElementById("Value_VAT").value);
-            var Amount_Commission2 = Amount_Commission - Discount;
-            if (typeof Amount_Commission === 'undefined' || !Amount_Commission) {
-                alert('يرجي ادخال مبلغ العمولة ');
-            } else {
-                var intResults = Amount_Commission2 * Rate_VAT / 100;
-                var intResults2 = parseFloat(intResults + Amount_Commission2);
-                sumq = parseFloat(intResults).toFixed(2);
-                sumt = parseFloat(intResults2).toFixed(2);
-                document.getElementById("Value_VAT").value = sumq;
-                document.getElementById("Total").value = sumt;
-            }
-        }
-    </script> --}}
+
 
 
     <script>

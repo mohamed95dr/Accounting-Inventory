@@ -82,6 +82,8 @@
                         <table id="example" class="table key-buttons text-md-nowrap" data-page-length='50'>
                             <thead>
                                 <tr>
+                                    <th class="border-bottom-0"> عداد</th>
+
                                     <th class="border-bottom-0">رقم الفاتورة</th>
                                     <th class="border-bottom-0">تاريخ الفاتورة</th>
                                     <th class="border-bottom-0">اسم المورد </th>
@@ -95,14 +97,14 @@
                                     <?php $i++; ?>
                                     
                                     <tr>
-
                                         <td>{{ $i }}</td>
+                                        <td>{{ $x->id }}</td>
                                         <td> {{ $x->invoice_date }}</td>
                                         <td>{{ $x->suppliers->name }}</td>
                                         <td>
                                             <div class="d-flex justify-content-button">
 
-                                                <a href=""
+                                                <a href="{{ url('/invoiceReceipt_view/'.$x->id) }}"
                                                     class="btn btn-sm btn-info pull-right">عرض </a>
 
                                             </div>

@@ -30,24 +30,27 @@
     <!-- row -->
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mg-b-20">
+            {{-- <div class="card mg-b-20">
                 <div class="card-header pb-0">
 
 
-                    <form action="{{ url('/stocktaking') }}" method="post" autocomplete="off">
+                    <form action="stocktaking/index" method="post" autocomplete="off">
                         {{ method_field('patch') }}
                         {{ csrf_field() }}
                         <div class="row row-sm">
                             <div class="col">
-                                <label for="recipient-name" class="col-form-label" style="font-weight: bold">اسم القسم :</label>
+                                <input type="hidden" name="id" id="id" value="">
+                                <label for="recipient-name" class="col-form-label">اسم القسم:</label>
                                 <input class="form-control" name="cateory_name" id="cateory_name" type="text">
                             </div>
 
                             <div class="col">
-                                <label for="recipient-name" class="col-form-label" style="font-weight: bold">الكمية : </label>
+                                <input type="hidden" name="id" id="id" value="">
+                                <label for="recipient-name" class="col-form-label">الكمية :</label>
                                 <input class="form-control" name="quantity" id="quantity" type="text">
                             </div>
                         </div>
+
 
                 </div>
                 <div class="modal-footer">
@@ -56,7 +59,7 @@
 
                 </form>
 
-            </div>
+            </div> --}}
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="example" class="table key-buttons text-md-nowrap">
@@ -64,8 +67,9 @@
                             <tr>
                                 <th class="border-bottom-0"> رقم المنتج</th>
                                 <th class="border-bottom-0"> اسم المنتج</th>
-                                <th class="border-bottom-0"> اسم القسم</th>
+                                <th class="border-bottom-0"> اسم الصنف</th>
                                 <th class="border-bottom-0"> الكمية </th>
+                                {{-- <th class="border-bottom-0"> العمليات </th> --}}
 
 
                             </tr>

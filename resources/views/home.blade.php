@@ -13,7 +13,11 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back! {{ auth()->user()->email }}</h2>
+                {{-- <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back! {{ auth()->user()->email }}</h2> --}}
+
+                 <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1 " >نظام إدارة ومحاسبة لمركز بيع منظفات</h2>
+
+
             </div>
         </div>
 
@@ -27,12 +31,12 @@
             <div class="card overflow-hidden sales-card bg-primary-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">TODAY ORDERS</h6>
+                        <h6 class="mb-3 tx-18 text-white" >الربح اليومي</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$5,74.12</h4>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{$gain}}</h4>
                                 <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
                             </div>
                             <span class="float-right my-auto mr-auto">
@@ -49,12 +53,12 @@
             <div class="card overflow-hidden sales-card bg-danger-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">TODAY EARNINGS</h6>
+                        <h6 class="mb-3 tx-18 text-white">عدد فواتير البيع اليومية</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$1,230.17</h4>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{$saleInvoice_count}}</h4>
                                 <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
                             </div>
                             <span class="float-right my-auto mr-auto">
@@ -71,12 +75,12 @@
             <div class="card overflow-hidden sales-card bg-success-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">TOTAL EARNINGS</h6>
+                        <h6 class="mb-3 tx-18 text-white">مبلغ الكلي لديون البيع</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$7,125.70</h4>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{$saleDebt_sum}}</h4>
                                 <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
                             </div>
                             <span class="float-right my-auto mr-auto">
@@ -94,12 +98,12 @@
             <div class="card overflow-hidden sales-card bg-warning-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">PRODUCT SOLD</h6>
+                        <h6 class="mb-3 tx-18 text-white">مبلغ الكلي لديون الشراء</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">$4,820.50</h4>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{$receiptDebt_sum}}</h4>
                                 <p class="mb-0 tx-12 text-white op-7">Compared to last week</p>
                             </div>
                             <span class="float-right my-auto mr-auto">
@@ -117,85 +121,15 @@
 
     <!-- row opened -->
     <div class="row row-sm">
-        <div class="col-md-12 col-lg-12 col-xl-6">
-            <div class="card">
-                <div class="card-header bg-transparent pd-b-0 pd-t-20 bd-b-0">
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title mb-0">Order status</h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
-                    </div>
-                    <p class="tx-12 text-muted mb-0">Order Status and Tracking. Track your order from ship date to arrival.
-                        To begin, enter your order number.</p>
-                </div>
-                <div class="card-body">
-                    <div class="total-revenue">
-                        <div>
-                            <h4>120,750</h4>
-                            <label><span class="bg-primary"></span>success</label>
-                        </div>
-                        <div>
-                            <h4>56,108</h4>
-                            <label><span class="bg-danger"></span>Pending</label>
-                        </div>
-                        <div>
-                            <h4>32,895</h4>
-                            <label><span class="bg-warning"></span>Failed</label>
-                        </div>
-                    </div>
-                    <div id="bar" class="sales-bar mt-4"></div>
-                </div>
-            </div>
-        </div>
-
-        {{-- <div class="col-md-12 col-lg-12 col-xl-6">
-            <div class="card">
-                <div class="card-header pb-1">
-                    <h3 class="card-title mb-2">Sales Activity</h3>
-                    <p class="tx-12 mb-0 text-muted">Sales activities are the tactics that salespeople use to achieve their
-                        goals and objective</p>
-                </div>
-                <div class="product-timeline card-body pt-2 mt-1">
-                    <ul class="timeline-1 mb-0">
-                        <li class="mt-0"> <i class="ti-pie-chart bg-primary-gradient text-white product-icon"></i>
-                            <span class="font-weight-semibold mb-4 tx-14 ">Total Products</span> <a href="#"
-                                class="float-left tx-11 text-muted">3 days ago</a>
-                            <p class="mb-0 text-muted tx-12">1.3k New Products</p>
-                        </li>
-                        <li class="mt-0"> <i
-                                class="mdi mdi-cart-outline bg-danger-gradient text-white product-icon"></i> <span
-                                class="font-weight-semibold mb-4 tx-14 ">Total Sales</span> <a href="#"
-                                class="float-left tx-11 text-muted">35 mins ago</a>
-                            <p class="mb-0 text-muted tx-12">1k New Sales</p>
-                        </li>
-                        <li class="mt-0"> <i
-                                class="ti-bar-chart-alt bg-success-gradient text-white product-icon"></i> <span
-                                class="font-weight-semibold mb-4 tx-14 ">Toatal Revenue</span> <a href="#"
-                                class="float-left tx-11 text-muted">50 mins ago</a>
-                            <p class="mb-0 text-muted tx-12">23.5K New Revenue</p>
-                        </li>
-                        <li class="mt-0"> <i class="ti-wallet bg-warning-gradient text-white product-icon"></i>
-                            <span class="font-weight-semibold mb-4 tx-14 ">Toatal Profit</span> <a href="#"
-                                class="float-left tx-11 text-muted">1 hour ago</a>
-                            <p class="mb-0 text-muted tx-12">3k New profit</p>
-                        </li>
-                        <li class="mt-0"> <i class="si si-eye bg-purple-gradient text-white product-icon"></i>
-                            <span class="font-weight-semibold mb-4 tx-14 ">Customer Visits</span> <a href="#"
-                                class="float-left tx-11 text-muted">1 day ago</a>
-                            <p class="mb-0 text-muted tx-12">15% increased</p>
-                        </li>
-                        <li class="mt-0 mb-0"> <i
-                                class="icon-note icons bg-primary-gradient text-white product-icon"></i> <span
-                                class="font-weight-semibold mb-4 tx-14 ">Customer Reviews</span> <a href="#"
-                                class="float-left tx-11 text-muted">1 day ago</a>
-                            <p class="mb-0 text-muted tx-12">1.5k reviews</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+ 
+        
+        {{-- <div style="width:75%;">
+            {!! $chartjs->render() !!}
         </div> --}}
 
+
         
-        <div class="col-xl-6 col-md-12 col-lg-6">
+        {{-- <div class="col-xl-6 col-md-12 col-lg-6">
             <div class="card">
                 <div class="card-header pb-0">
                     <h3 class="card-title mb-2">Recent Orders</h3>
@@ -227,9 +161,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex align-items-center pb-2">
-                                <p class="mb-0">Total Sales</p>
+                                <p class="mb-0">الربح اليومي</p>
                             </div>
-                            <h4 class="font-weight-bold mb-2">$7,590</h4>
+                            <h4 class="font-weight-bold mb-2">{{$gain}}</h4>
                             <div class="progress progress-style progress-sm">
                                 <div class="progress-bar bg-primary-gradient wd-80p" role="progressbar" aria-valuenow="78"
                                     aria-valuemin="0" aria-valuemax="78"></div>
@@ -248,7 +182,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
     <!-- row closed -->

@@ -215,7 +215,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <label for="inputName" class="control-label">السيد المحترم : اسم المورد </label>
+                                <label for="inputName" class="control-label" style="font-weight: bold">السيد المحترم : اسم المورد </label>
                                 {{-- add supplier --}}
                                 <span>
                                     <a href="{{ url('suppliers/') }}" class="btn btn-sm btn-info pull-right">اضافة مورد
@@ -224,7 +224,7 @@
 
                                 <select name="supplier_name" class="form-control SlectBox" onchange="fetch_supplier_debt(this.value)">
                                     <!--placeholder-->
-                                    {{-- <option value="" selected disabled>اختر مورد</option> --}}
+                                    <option value="" selected disabled>اختر مورد</option>
                                     @foreach ($suppliers as $supplier)
                                         <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                                     @endforeach
@@ -233,7 +233,7 @@
                             </div>
 
                             <div class="col">
-                                <label>تاريخ الفاتورة</label>
+                                <label style="font-weight: bold">تاريخ الفاتورة</label>
                                 <input class="form-control fc-datepicker" name="invoice_date" type="datetime-local"
                                     value="{{ date('Y-m-d') }}" required>
                             </div>
@@ -290,7 +290,7 @@
                             <div class="row">
 
                                 <div class="col">
-                                    <label for="inputName" class="control-label">مبلغ الفاتورة </label>
+                                    <label for="inputName" class="control-label" style="font-weight: bold">مبلغ الفاتورة </label>
                                     <input type="text" class="form-control form-control-lg" id="Amount_Commission"
                                         name="Amount_Commission" title="يرجي ادخال مبلغ العمولة " value=0
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
@@ -298,7 +298,7 @@
                                 </div>
 
                                 <div class="col">
-                                    <label for="inputName" class="control-label">الدين</label>
+                                    <label for="inputName" class="control-label" style="font-weight: bold">الدين</label>
                                     <input type="text" class="form-control form-control-lg" id="Discount" name="Discount"
                                         title="يرجي ادخال مبلغ الدين "
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
@@ -306,24 +306,7 @@
                                 </div>
 
                                 <div class="col">
-                                    <label for="inputName" class="control-label"> القيمة المدفوعة</label>
-                                    <input type="text" class="form-control form-control-lg" id="paid_value"
-                                        name="paid_value" title="يرجي ادخال مبلغ العمولة "
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                        required>
-                                    {{-- <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
-                                        <!--placeholder-->
-                                        <option value="" selected disabled>حدد نسبة الضريبة</option>
-                                        <option value=" 5%">5%</option>
-                                        <option value="10%">10%</option> --}}
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label for="inputName" class="control-label">المبلغ الإجمالي :(مبلغ الفاتورة + مبلغ
+                                    <label for="inputName" class="control-label" style="font-weight: bold">المبلغ الإجمالي :(مبلغ الفاتورة + مبلغ
                                         الدين) </label>
                                     <input type="text" class="form-control form-control-lg" id="Total_Amount"
                                         name="Total_Amount" title="يرجي ادخال مبلغ العمولة "
@@ -332,6 +315,22 @@
                                 </div>
 
                             </div>
+
+                            <div class="row">
+
+                                <div class="col">
+                                    <label for="inputName" class="control-label" style="font-weight: bold"> القيمة المدفوعة</label>
+                                    <input type="text" class="form-control form-control-lg" id="paid_value"
+                                        name="paid_value" title="يرجي ادخال مبلغ العمولة "
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                        required>
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+
 
                             <div class="row m-3">
                                 <button type="submit"  class="btn btn-success m-auto ">تاكيد</button>
@@ -460,13 +459,13 @@
                 var row = '<tr>' +
                     '<td><input type="text" class="form-control" name="pid'+i  +'" id="pid"></td>' +
                     '<td><input type="text" class="form-control" name="pname'+i +'" id="pname"></td>' +
-                    '<td><input type="text" class="form-control" name="category'+i +'" id="category"></td>' +
+                    '<td><input type="text" class="form-control" name="category'+i +'" id="category" onchange="checkCategoryIfExis(this)"></td>' +
                     '<td><input type="text" class="form-control" name="Purchasing_price'+i +'" id="Purchasing_price'+i +'"></td>' +
                     '<td><input type="text" class="form-control" name="Wholesale_price'+i  +'" id="Wholesale_price"></td>' +
                     '<td><input type="text" class="form-control" name="retail_price'+i  +'" id="retail_price"></td>' +
                     '<td><input type="text" class="form-control" name="quentity'+i  +'" id="quentity'+i +'"></td>' +
-                    '<td><input type="date" class="form-control" name="Purchasing_date'+i +'" id="Purchasing_date"></td>' +
-                    '<td><input type="date" class="form-control" name="Expiry_date'+i +'" id="Expiry_date"></td>' +
+                    '<td><input type="date" class="form-control" name="Purchasing_date'+i +'" id="Purchasing_date'+i +'"></td>' +
+                    '<td><input type="date" class="form-control" name="Expiry_date'+i +'" id="Expiry_date'+i +'"></td>' +
                     '<td>' +
                     '    <a class="add" title="Add" onclick="myFunction('+i+')" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
                     '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +

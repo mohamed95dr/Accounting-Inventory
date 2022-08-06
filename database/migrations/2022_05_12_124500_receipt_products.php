@@ -20,7 +20,7 @@ class ReceiptProducts extends Migration
         $table->id();
 
         $table->string('product_id');
-        $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        // $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         
         $table->unsignedBigInteger('receiptDebt_id');
         $table->foreign('receiptDebt_id')->references('id')->on('receipt_debts')->onDelete('cascade');

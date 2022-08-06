@@ -18,10 +18,14 @@ use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Resources\Customers;
+use App\Models\Categories;
 use App\Models\costomers;
 use App\Models\products;
+use App\Models\receipt;
+use App\Models\receipt_invoice_details;
 use App\Models\ReceiptDebt;
 use App\Models\SaleDebt;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +106,8 @@ Route::middleware(['auth:web'])->group(function () {
 
     Route::resource('stocktaking', stocktaking::class);
 
+    // Route::post('stocktaking_filter', stocktaking::class,'show');
+
     //receipt_debt
 
     Route::resource('receipt_debt', ReceiptDebtController::class);
@@ -112,7 +118,23 @@ Route::middleware(['auth:web'])->group(function () {
 
     Route::get('debt/{supplier_id}', function ($supplier_id) {
 
-        return $debt_amount = ReceiptDebt::select('cost')->where('id', $supplier_id)->first()->cost;
+        $debt_amount = ReceiptDebt::select('cost')->where('supplier_id', $supplier_id)->first();
+
+        if ($debt_amount != null) {
+            return $debt_amount->cost;
+        } else {
+            return 0;
+        }
+    });
+
+    Route::get('category/{name}', function ($name) {
+
+        $category_name = Categories::select('cateory_name')->where('cateory_name', $name)->first();
+        if ($category_name != null) {
+            return true;
+        } else {
+            return false;
+        }
     });
 
     Route::get('saleDebt/{customer_id}', function ($customer_id) {
@@ -136,4 +158,17 @@ Route::middleware(['auth:web'])->group(function () {
 
         return $type = costomers::select('type')->where('id', $cId)->first()->type;
     });
+
+    Route::get('invoiceReceipt_view/{id}', function ($id) {
+
+        $receipt_invoice = receipt::where('id', $id)->first();
+        $productsReceipt = receipt_invoice_details::where('receipts_id', $id)->first();
+        $supplier_id = $receipt_invoice->supplier_id;
+        $cost = ReceiptDebt:: select('cost')->where('supplier_id',$supplier_id)->first()->cost;
+        // return $cost;
+    });
+
+    Route::get('invoiceReceipt_view/{id}', [ReceiptController::class, 'show']);
+
+
 });

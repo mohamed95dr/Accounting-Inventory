@@ -14,13 +14,28 @@ class stocktaking extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $categories=Categories::select('cateory_name')->get();
-        $products = products::select('id','product_name','category_id','Quantity')->get();
-        return view('stocktaking',compact('products','categories'));
 
+        // // filter test
+        // $collection = collect([1, 2, 3, 4]);
+        // $filtered = $collection->filter(function ($value, $key) {
+        //     return $value > 2;
+        // });
+        // return $filtered;
+        // //
+
+        // return $request;
+        $categories = Categories::select('cateory_name')->get();
+
+        $products = products::select('id', 'product_name', 'category_id', 'Quantity')->get();
+        $products[0]->categories->cateory_name;
+
+        $filtered = $products->filter(function ($value, $key) {
+            $value->Quantity > 100;
+        });
+        // return $filtered;
+        return view('stocktaking', compact('products', 'categories'));
     }
 
     /**
@@ -42,8 +57,7 @@ class stocktaking extends Controller
     public function store(Request $request)
     {
         //
-        return $request;
-    
+        // return $request;
     }
 
     /**
@@ -52,9 +66,20 @@ class stocktaking extends Controller
      * @param  \App\Models\receipt  $receipt
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request)
     {
         //
+        // return $request;
+        $categories = Categories::select('cateory_name')->get();
+
+        $products = products::select('id', 'product_name', 'category_id', 'Quantity')->get();
+        $products[0]->categories->cateory_name;
+
+        $filtered = $products->filter(function ($value, $key) {
+            $value->Quantity > 100;
+        });
+        // return $filtered;
+        return view('stocktaking_filter', compact('filtered'));
     }
 
     /**
