@@ -17,23 +17,16 @@ class stocktaking extends Controller
     public function index(Request $request)
     {
 
-        // // filter test
-        // $collection = collect([1, 2, 3, 4]);
-        // $filtered = $collection->filter(function ($value, $key) {
-        //     return $value > 2;
-        // });
-        // return $filtered;
-        // //
 
         // return $request;
         $categories = Categories::select('cateory_name')->get();
 
         $products = products::select('id', 'product_name', 'category_id', 'Quantity')->get();
-        $products[0]->categories->cateory_name;
+        // $products[0]->categories->cateory_name;
 
-        $filtered = $products->filter(function ($value, $key) {
-            $value->Quantity > 100;
-        });
+        // $filtered = $products->filter(function ($value, $key) {
+        //     $value->Quantity > 100;
+        // });
         // return $filtered;
         return view('stocktaking', compact('products', 'categories'));
     }
@@ -69,18 +62,29 @@ class stocktaking extends Controller
     public function show(Request $request)
     {
         //
-        // return $request;
+        // return "run";
+        $category_id = Categories::select('id')->where('cateory_name',$request->cateory_name)->first()->id;
         $categories = Categories::select('cateory_name')->get();
 
-        $products = products::select('id', 'product_name', 'category_id', 'Quantity')->get();
-        $products[0]->categories->cateory_name;
+         $products = products::select('id', 'product_name', 'category_id', 'Quantity')->where('category_id',$category_id)->get();
+          
+         $total_quantity = 0;
+         foreach($products as $p){
+            $total_quantity += $p->Quantity;
+         }
+        //  return $total_quantity;
+          
 
-        $filtered = $products->filter(function ($value, $key) {
-            $value->Quantity > 100;
-        });
-        // return $filtered;
-        return view('stocktaking_filter', compact('filtered'));
+        return view('stocktaking_filter', compact('products','categories','total_quantity'));
     }
+
+    
+    public function validation(Request $request){
+        
+        return $request;
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.

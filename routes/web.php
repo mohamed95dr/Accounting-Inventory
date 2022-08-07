@@ -106,7 +106,6 @@ Route::middleware(['auth:web'])->group(function () {
 
     Route::resource('stocktaking', stocktaking::class);
 
-    // Route::post('stocktaking_filter', stocktaking::class,'show');
 
     //receipt_debt
 
@@ -169,6 +168,13 @@ Route::middleware(['auth:web'])->group(function () {
     });
 
     Route::get('invoiceReceipt_view/{id}', [ReceiptController::class, 'show']);
+
+    Route::get('stocktaking_filter', [stocktaking::class,'show']);
+
+    //
+
+    Route::get('stocktaking_filter_validation', [stocktaking::class,'validation']);
+
 
 
 });

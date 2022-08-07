@@ -34,28 +34,25 @@
                 <div class="card-header pb-0">
 
 
-                    <form action="{{ url('/stocktaking') }}" method="post" autocomplete="off">
-                        {{ method_field('patch') }}
+                    <form action="{{ url('stocktaking_filter') }}" method="get" autocomplete="off">
                         {{ csrf_field() }}
                         <div class="row row-sm">
                             <div class="col">
-                                <label for="recipient-name" class="col-form-label" style="font-weight: bold">اسم القسم :</label>
+                                <label for="recipient-name" class="col-form-label" style="font-weight: bold">اسم القسم
+                                    :</label>
                                 <input class="form-control" name="cateory_name" id="cateory_name" type="text">
                             </div>
 
-                            <div class="col">
-                                <label for="recipient-name" class="col-form-label" style="font-weight: bold">الكمية : </label>
-                                <input class="form-control" name="quantity" id="quantity" type="text">
-                            </div>
+
                         </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">تاكيد</button>
-                </div>
 
-                </form>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">تاكيد</button>
+                        </div>
 
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

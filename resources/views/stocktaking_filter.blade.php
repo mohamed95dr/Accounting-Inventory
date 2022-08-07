@@ -19,7 +19,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">جرد المخزون</h4>
+                <h4 class="content-title mb-0 my-auto">جرد المخزون</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                    جرد المخزون حسب القسم</span>
             </div>
         </div>
 
@@ -30,37 +31,42 @@
     <!-- row -->
     <div class="row">
         <div class="col-xl-12">
-            {{-- <div class="card mg-b-20">
+{{-- 
+            <div class="card mg-b-20">
                 <div class="card-header pb-0">
 
 
-                    <form action="stocktaking/index" method="post" autocomplete="off">
-                        {{ method_field('patch') }}
+                    <form action="{{ url('stocktaking_filter_validation') }}" method="get" autocomplete="off">
                         {{ csrf_field() }}
                         <div class="row row-sm">
                             <div class="col">
-                                <input type="hidden" name="id" id="id" value="">
-                                <label for="recipient-name" class="col-form-label">اسم القسم:</label>
-                                <input class="form-control" name="cateory_name" id="cateory_name" type="text">
-                            </div>
-
-                            <div class="col">
-                                <input type="hidden" name="id" id="id" value="">
-                                <label for="recipient-name" class="col-form-label">الكمية :</label>
+                                <label for="recipient-name" class="col-form-label" style="font-weight: bold">ادخال كمية المنتجات 
+                                 في قسم المجرود  (عملية التحقق من جرد المنتجات في قسم معين)  
+                                    :</label>
                                 <input class="form-control" name="quantity" id="quantity" type="text">
                             </div>
+
+
+
                         </div>
 
 
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">تاكيد</button>
-                </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">تاكيد</button>
+                        </div>
 
-                </form>
-
+                    </form>
+                </div>
             </div> --}}
+
+
             <div class="card-body">
+                <div class="col">
+                    <label for="inputName" class="control-label">كمية المنتجات الكلية في القسم المجرود</label>
+                    <input type="text" class="form-control" id="total_quantity" name="total_quantity"
+                        value="{{ $total_quantity }}" title="  كمية المنتجات الكلية " disabled>
+                </div>
+                <br>
                 <div class="table-responsive">
                     <table id="example" class="table key-buttons text-md-nowrap">
                         <thead>
@@ -69,7 +75,7 @@
                                 <th class="border-bottom-0"> اسم المنتج</th>
                                 <th class="border-bottom-0"> اسم الصنف</th>
                                 <th class="border-bottom-0"> الكمية </th>
-                                {{-- <th class="border-bottom-0"> العمليات </th> --}}
+
 
 
                             </tr>
@@ -90,6 +96,7 @@
                             @endforeach
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
