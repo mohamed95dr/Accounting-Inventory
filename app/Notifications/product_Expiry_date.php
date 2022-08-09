@@ -7,22 +7,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
-use \App\Models\receipt;
 
-class product_quantity extends Notification
+class product_Expiry_date extends Notification
 {
     use Queueable;
-    private $receiptInvoice;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(receipt $receiptInvoice )
+    public function __construct()
     {
         //
-        $this->receiptInvoice = $receiptInvoice;
     }
 
     /**
@@ -45,9 +42,9 @@ class product_quantity extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -58,21 +55,13 @@ class product_quantity extends Notification
      */
     public function toArray($notifiable)
     {
+
         return [
+ //    'data' => $this->details['body']
+        'id' => $this->receiptInvoice->id,
+        'title' => 'تنبيه: يوجد منتجات اقترب انتهاء صلاحيتها في المستودع',
+        'user' => Auth::user()->name
             //
         ];
     }
-
-    public function toDatabase($notifiable)
-    {
-        return [
-        //    'data' => $this->details['body']
-        'id' => $this->receiptInvoice->id,
-        'title' => 'تنبيه: تم شراء منتجات جديدة يوجد منها قطع قديمة في المستودع',
-        'user' => Auth::user()->name
-        ];
-    }
-    
 }
-
-?>

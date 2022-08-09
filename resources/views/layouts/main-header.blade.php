@@ -115,9 +115,10 @@
                                 @foreach (Auth::user()->unreadNotifications as $notification)
                                     <div class="mr-3">
                                         <h5 class="notification-label mb-1">
-                                         {{$notification->data['title']}}
+                                         {{$notification->data['title']}} : 
+                                         المستخدم {{$notification->data['user']}}
 										</h5>
-                                        <div class="notification-subtext">10 hour ago</div>
+                                        <div class="notification-subtext"> {{$notification->created_at}}</div>
                                     </div>
                                 @endforeach
 

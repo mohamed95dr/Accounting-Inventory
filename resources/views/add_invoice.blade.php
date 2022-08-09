@@ -238,18 +238,11 @@
                                     value="{{ date('Y-m-d') }}" required>
                             </div>
 
-
                         </div>
 
                         {{-- 3 --}}
-
-
-
                         {{-- custom scrole --}}
-
                         <div class="container py-5">
-
-
                             <div class="table-responsive">
                                 <div class="">
                                     <div class="table-title">
@@ -286,7 +279,7 @@
                                     </table>
                                 </div>
                             </div>
-
+                            <br>
                             <div class="row">
 
                                 <div class="col">

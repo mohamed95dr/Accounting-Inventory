@@ -8,10 +8,11 @@ use App\Models\receipt;
 use App\Models\receipt_invoice_details;
 use App\Models\ReceiptDebt;
 use App\Models\Suppliers;
+use App\Models\User;
+use App\Notifications\product_quantity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use Receipts;
+use Illuminate\Support\Facades\Notification;
 
 class ReceiptController extends Controller
 {
@@ -23,6 +24,7 @@ class ReceiptController extends Controller
     public function index()
     {
         //
+      
         $suppliers = Suppliers::all();
         $invoices = receipt::select('id', 'invoice_date', 'supplier_id')->get();
         return view('receipt', compact('invoices', 'suppliers'));
@@ -58,7 +60,7 @@ class ReceiptController extends Controller
 
         if ($Discount < 0) {
 
-            session()->flash('Add', 'تم ادخال مبلغ من الزبون اكبر  من قيمة الفاتورة يرجى اعادة الادخال ');
+            session()->flash('Add', 'تم ادخال مبلغ من المورد اكبر  من قيمة الفاتورة يرجى اعادة الادخال ');
 
             return redirect()->back();
         }
@@ -126,7 +128,9 @@ class ReceiptController extends Controller
                         'Expiry_date' => $request->$Expiry_date
 
                     ]);
-                } else {
+                }
+                 elseif ( $product == null) {
+
                     $id = products::create([
                         'id' => $request->$pid,
                         'product_name' => $request->$pname,
@@ -160,6 +164,13 @@ class ReceiptController extends Controller
             }
             $i++;
         }
+
+        $user = User::get();
+        $receiptInvoice =receipt::latest()->first();
+    
+        // $user->notify(new \App\Notifications\product_quantity($receiptInvoice));
+        Notification::send($user,new \App\Notifications\product_quantity($receiptInvoice));
+
         session()->flash('Add', 'تم اضافة فاتورة شراء بنجاح ');
         return redirect('/receipt');
     }
@@ -176,7 +187,6 @@ class ReceiptController extends Controller
         //
        $receipt_invoice = receipt::where('id', $id)->first();
         $productsReceipt = receipt_invoice_details::where('receipts_id', $id)->get();
-
 
         foreach ($productsReceipt as $p) {
             $product_id = $p->product_id;

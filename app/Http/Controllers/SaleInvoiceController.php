@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Customers;
+use App\Models\Categories;
 use App\Models\costomers;
 use App\Models\products;
 use App\Models\Sale_Invoice;
 use App\Models\sale_invoice_details;
 use App\Models\SaleDebt;
+use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+
 
 
 class SaleInvoiceController extends Controller
@@ -105,7 +110,6 @@ class SaleInvoiceController extends Controller
                 $quentity_p = $request->$quentity;
                 $quentity_new = $quentity_DB->Quantity - $quentity_p;
 
-
                 sale_invoice_details::create([
                     'invoice_date' => $request->invoice_date,
                     'sale_invoices_id' => $invoiceSale_id,
@@ -127,10 +131,19 @@ class SaleInvoiceController extends Controller
             $i++;
         }
 
+    //     $user = User::get();
+    //     $products =products::get();
+        
+    //   return  $c = new DateTime(date('Y-m-d'));
 
+    //     foreach($products as $p ){
+    //     $expiry = new DateTime($p->Expiry_date);
+    //      return $diff = $expiry->diff($c);
+    //     }
 
+    
 
-
+        // Notification::send($user,new \App\Notifications\product_quantity($receiptInvoice));
 
         session()->flash('Add', 'تم اضافة فاتورة شراء بنجاح ');
         return redirect('/Sale_Invoice');
@@ -144,9 +157,26 @@ class SaleInvoiceController extends Controller
      */
     public function show($id)
     {
-        $sale_invoices = Sale_Invoice::all();
-        $customers = costomers::all();
-        return view('invoiceSale_view', compact('customers', 'sale_invoices'));
+        // return $id;
+        $sale_invoices = Sale_Invoice::where('id', $id)->first();
+        // return $sale_invoices;
+        $saleInvoice_detils = sale_invoice_details::where('sale_invoices_id',$id)->get();
+        $customer_name = costomers::select('name')->where('id',$sale_invoices->customer_id)->first()->name;
+        $cost = SaleDebt::select('cost')->where('customer_id', $sale_invoices->customer_id)->first()->cost;
+
+        foreach($saleInvoice_detils as $s){
+            $product_id = $s->product_id;
+            $category_id = products::select('category_id')->where('id', $product_id)->first()->category_id;
+            $category_name = Categories::select('cateory_name')->where('id', $category_id)->first()->cateory_name;
+            $s->category_name = $category_name;
+
+            $Pruchasing_price = products::select('Purchasing_price')->where('id', $product_id)->first()->Purchasing_price;
+            $s->Pruchasing_price = $Pruchasing_price;
+            $Expiry_date = products::select('Expiry_date')->where('id', $product_id)->first()->Expiry_date;
+            $s->Expiry_date = $Expiry_date;
+        }
+
+        return view('invoiceSale_view', compact('saleInvoice_detils', 'sale_invoices','customer_name','cost'));
     }
 
     /**

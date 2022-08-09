@@ -45,21 +45,21 @@
                             <div class="col">
                                 <label for="inputName" class="control-label">رقم الفاتورة</label>
                                 <input type="text" class="form-control" id="receipt_id" name="receipt_id"
-                                    value="{{ $receipt_invoice->id }}" title="يرجي ادخال رقم الفاتورة" disabled>
+                                    value="{{ $sale_invoices->id }}" title="يرجي ادخال رقم الفاتورة" disabled>
 
                             </div>
 
                             <div class="col">
                                 <label>تاريخ الفاتورة</label>
                                 <input class="form-control fc-datepicker" name="invoice_date" id="invoice_date"
-                                    placeholder="YYYY-MM-DD" type="text" value="{{ $receipt_invoice->invoice_date }}"
+                                    placeholder="YYYY-MM-DD" type="text" value="{{ $sale_invoices->invoice_date }}"
                                     disabled>
                             </div>
 
                             <div class="col">
                                 <label>اسم المورد</label>
                                 <input class="form-control fc-datepicker" name="supplier_name" placeholder="YYYY-MM-DD"
-                                    value="{{ $supplier_name }}" type="text" disabled>
+                                    value="{{ $customer_name }}" type="text" disabled>
                             </div>
 
                         </div>
@@ -68,7 +68,7 @@
                         <br />
                         <h3>المنتجات :</h3>
                         
-                        @foreach ($productsReceipt as $product)
+                        @foreach ($saleInvoice_detils as $product)
                             <div class="row">
 
                                 <div class="col">
@@ -126,7 +126,7 @@
                                 <input type="text" class="form-control form-control-lg" id="paid_value"
                                     name="paid_value" title="يرجي ادخال مبلغ العمولة "
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    value="{{ $receipt_invoice->amount_paid }}" disabled>
+                                    value="{{ $sale_invoices->amount_received }}" disabled>
 
                             </div>
 
@@ -137,7 +137,7 @@
                                 <input type="text" class="form-control form-control-lg" id="Total_Amount"
                                     name="Total_Amount" title="يرجي ادخال مبلغ العمولة "
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    value="{{ $receipt_invoice->total_price }}" disabled>
+                                    value="{{ $sale_invoices->total_amount }}" disabled>
                             </div>
 
 

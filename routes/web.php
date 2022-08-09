@@ -17,6 +17,8 @@ use App\Http\Controllers\sale_debt;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\SaleQuantityController;
+
 use App\Http\Resources\Customers;
 use App\Models\Categories;
 use App\Models\costomers;
@@ -46,7 +48,6 @@ use Illuminate\Http\Request;
 Auth::routes();
 
 
-// // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['guest:web'])->group(function () {
     Route::get('/', function () {
@@ -88,7 +89,6 @@ Route::middleware(['auth:web'])->group(function () {
 
     Route::get('add_invoiceSale', [SaleInvoiceController::class, 'create']);
 
-    Route::get('view_invoiceSale', [SaleInvoiceController::class, 'show']);
 
 
     Route::resource('receipt', ReceiptController::class);
@@ -158,23 +158,17 @@ Route::middleware(['auth:web'])->group(function () {
         return $type = costomers::select('type')->where('id', $cId)->first()->type;
     });
 
-    Route::get('invoiceReceipt_view/{id}', function ($id) {
 
-        $receipt_invoice = receipt::where('id', $id)->first();
-        $productsReceipt = receipt_invoice_details::where('receipts_id', $id)->first();
-        $supplier_id = $receipt_invoice->supplier_id;
-        $cost = ReceiptDebt:: select('cost')->where('supplier_id',$supplier_id)->first()->cost;
-        // return $cost;
-    });
 
     Route::get('invoiceReceipt_view/{id}', [ReceiptController::class, 'show']);
 
     Route::get('stocktaking_filter', [stocktaking::class,'show']);
 
     //
+    
+    Route::get('view_invoiceSale/{id}', [SaleInvoiceController::class, 'show']);
 
-    Route::get('stocktaking_filter_validation', [stocktaking::class,'validation']);
-
+    Route::resource('sale_quantity', SaleQuantityController::class);
 
 
 });

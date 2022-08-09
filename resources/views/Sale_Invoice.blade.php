@@ -67,7 +67,7 @@
                                         <td>
                                             <div class="d-flex justify-content-button">
 
-                                                <a href="{{ url('view_invoiceSale') }}"
+                                                <a href="{{ url('view_invoiceSale/'.$x->id) }}"
                                                     class="btn btn-sm btn-info pull-right"> عرض </a>
 
                                             </div>
